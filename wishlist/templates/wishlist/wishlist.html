@@ -1,0 +1,105 @@
+{% extends 'base/main.html' %}
+{% load static %}
+
+{% block content %}
+<main class="page">
+    <section class="shopping-cart">
+        <div class="container">
+            <div class="cart-heading">
+                <h3>Your Wishlist</h3>
+            </div>
+            <div class="content-container">
+                <div class="wishlist-grid-row">
+                    <div class="cart-display">
+                        {% if messages %}
+                        <ul class="messages">
+                            {% for message in messages %}
+                            <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>
+                                {{ message }}
+                            </li>
+                            {% endfor %}
+                        </ul>
+                        {% endif %}
+
+                        <div class="display-items-count text-right text-muted">{{ wishlist_items.count }} Items</div>
+                        <table class="cart-items-table">
+                            <thead>
+                                <tr class="table-header-style">
+                                    <th>Item</th>
+                                    <th>Name</th>
+                                    <th>Price</th>
+                                    <th>Add to cart</th>
+                                    <th>Remove</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for wishlist_item in wishlist_items %}
+                                <tr class="border-top border-bottom">
+                                    <td class="table-header-style">
+                                        <a class="cart-item-image" href="{% url 'item-detail' wishlist_item.item.id %}">
+                                            <img class="img-fluid mx-auto d-block image" src="{{ wishlist_item.item.image.url }}">
+                                        </a>
+                                    </td>
+                                    <td class="table-header-style">
+                                        <a class="product-name" href="{% url 'item-detail' wishlist_item.item.id %}">{{ wishlist_item.item.title }}</a>
+                                    </td>
+                                    <td class="table-header-style">
+                                        <div class="price">&#36; {{ wishlist_item.item.price }}</div>
+                                    </td>
+
+                                    <td class="table-header-style">
+                                        <form action="{% url 'add-to-cart' item_id=wishlist_item.item.id %}" method="post">
+                                            {% csrf_token %}
+                                            <button type="submit">
+                                                <div class="wishlist-add">
+                                                    <img src="{% static 'img/add2.png' %}" alt="wishlist-add icon" class="wishlist-add-img">
+                                                </div>
+                                            </button>
+                                        </form>
+                                    </td>
+                                    <td class="table-header-style">
+                                        <form action="{% url 'remove-from-wishlist' wishlist_item.item.id %}" method="post">
+                                            {% csrf_token %}
+                                            <button type="submit">
+                                                <div class="cart-table-delete">
+                                                    <img src="{% static 'img/trash-can.svg' %}" alt="trash icon" class="cart-trash-img">
+                                                </div>
+                                            </button>
+                                        </form>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                        <a class="back-to-shop-link btn-tertiary" href="{% url 'home' %}">&leftarrow;<span class="btn-tertiary">Back to shop</span></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+<script>
+    $(document).ready(function(){
+        // Add wishlist
+        $(document).on('click',".add-to-wishlist",function(){
+            var _item_id=$(this).attr('data-item');
+            var _vm=$(this);
+            // Ajax
+            $.ajax({
+                url:"/add-to-wishlist",
+                data:{
+                    item:_item_id
+                },
+                dataType:'json',
+                success:function(res){
+                    if(res.bool==true){
+                        _vm.addClass('disabled').removeClass('add-to-wishlist');
+                    }
+                }
+            });
+           
+        });
+
+    })
+</script>
+{% endblock %}

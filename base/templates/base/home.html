@@ -1,0 +1,86 @@
+{% extends 'base/main.html' %}
+
+{% block content %}
+
+<main>
+    <div class="card-container">
+        {% for card in card_items %}
+        <div class="card">
+           
+                <div id="carousel{{ card.id }}" class="carousel carousel-light slide data-bs-ride="carousel">                      
+                <div class="carousel-inner">
+                    {% for item in card.items.all %}
+                    <div class="carousel-item{% if forloop.first %} active{% endif %}">
+                        <a href="{% url 'item-detail' item.id %}">
+                            <img src="{{ item.image.url }}" alt="{{ item.title }}">
+                        </a>                   
+                        <div class="card-item-details">
+                            <p class="item-title">{{ item.title }}</p>
+                            <p class="item-price">${{ item.price }}</p>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+               <p class="user-name">{{ card.user.name }}</p>
+                <button class="carousel-control-prev" type="button" data-bs-target="#carousel{{ card.id }}" data-bs-slide="prev">
+                    <span aria-hidden="true">&lt;</span>
+                    <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#carousel{{ card.id }}"data-bs-slide="next">
+                    <span aria-hidden="true">&gt;</span>
+                    <span class="visually-hidden">Next</span>
+                </button>
+            </div>
+        </div>
+        
+        {% endfor %}
+    </div>
+
+
+    <script>
+
+        document.addEventListener("DOMContentLoaded", function() {
+            const carousels = document.querySelectorAll('.carousel');
+    
+            carousels.forEach(carousel => {
+                carousel.addEventListener('slid.bs.carousel', function() {
+                    const carouselInner = this.querySelector('.carousel-inner');
+                    const prevButton = this.querySelector('.carousel-control-prev');
+                    const nextButton = this.querySelector('.carousel-control-next');
+                    const activeItem = carouselInner.querySelector('.carousel-item.active');
+    
+                    // Hide both buttons by default
+                    prevButton.style.display = 'none';
+                    nextButton.style.display = 'none';
+    
+                    // Check if there's more than one item in the carousel
+                    if (carouselInner.children.length > 1) {
+                        // Show both buttons
+                        prevButton.style.display = 'block';
+                        nextButton.style.display = 'block';
+    
+                        // Check if the current slide is the first or last item
+                        if (activeItem.nextElementSibling === null) {
+                            nextButton.style.visibility = 'hidden';
+                        } else {
+                            nextButton.style.visibility = 'visible';
+                        }
+    
+                        if (activeItem.previousElementSibling === null) {
+                            prevButton.style.visibility = 'hidden';
+                        } else {
+                            prevButton.style.visibility = 'visible';
+                        }
+                    }
+                });
+            });
+        });
+
+    </script> 
+    
+</main>
+
+  
+{% endblock %}
+     
+

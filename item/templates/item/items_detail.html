@@ -1,0 +1,74 @@
+{% extends 'base/main.html' %}
+{% load static %}
+{% block content %}
+<main>
+<div class="item-detail-container">
+    <h1>{{ item.title }}</h1> 
+    <div class="item-detail-card">
+        <div class="item-detail-card-left">             
+            <div class="item-detail-img-card">            
+                <img src="{{ item.image.url }}" alt="{{ item.title }}">               
+            </div>
+            <div class="item-detail-dropdown">
+                {% if request.user == item.user %}
+                    <button class="item-detail-dropbtn">...</button>
+                    <div class="item-detail-dropdown-content">
+                        <a href="{% url 'update-item' item.id %}">Update</a>
+                        <form action="{% url 'delete-item' item.id %}" method="post" class="item-detail-delete-form">
+                            {% csrf_token %}
+                            <button type="submit" class="item-detail-delete-button">Remove</button>
+                        </form>
+                    </div>
+                {% elif request.user.is_superuser %}
+                    <button class="item-detail-dropbtn">...</button>
+                    <div class="item-detail-dropdown-content">
+                        <form action="{% url 'delete-item' item.id %}" method="post" class="item-detail-delete-form">
+                            {% csrf_token %}
+                            <button type="submit" class="item-detail-delete-button">Remove</button>
+                        </form>
+                    </div>
+                {% endif %}
+            </div>
+            <div class="item-detail-info">
+                {% if user.id %}
+                <p>Artist: <a href="{% url 'artist-profile' item.user.id %}">{{ item.user }}</a></p>
+                {% endif %}
+                <p>Dimension:{{ item.length}}cm x {{ item.width }}cm</p>
+                <p>Price: ${{ item.price }}</p>
+                <p>ID: {{ item.id }}</p>               
+            </div>
+            <!-- Form to add item to cart -->
+            <div class="item-detail-cart-row">
+                <form action="{% url 'add-to-cart' item_id=item.id  %}" method="post">
+                    {% csrf_token %}
+                    <input type="hidden" name="item_id" value="{{ item.id}}">
+                    <label for="quantity">Quantity:</label>
+                    <input class="input-number" type="number" id="quantity" name="quantity" value="1" max="{{ item.quantity }}", min="1">
+                    <button class="btn btn-tertiary" type="submit" id="add-to-cart" value="{{ item.id }}">Add to Cart</button> <a class="btn btn-tertiary" href="{% if cart_items_count > 0 %} {% url 'view-cart' %}{% endif %}">View Cart </a>  
+                </form> 
+                {% if request.user.is_authenticated %}                   
+                    <form action="{% url 'add-to-wishlist' item.id %}" method="post">
+                        {% csrf_token %}
+                        <button type="submit"><img src="{% static 'img/item-detail-wishlist-heart.png' %}" alt="wishlist icon" class="item-detail-wishlist-icon-img"></button>
+                    </form>
+                {% else %}
+                    <a href="{% url 'login' %}">
+                        <img src="{% static 'img/item-detail-wishlist-heart.png' %}" alt="wishlist icon" class="item-detail-wishlist-icon-img">
+                    </a>
+                {% endif %}   
+            </div>
+        </div>
+        <div class="item-detail-description-card">
+            <h2>Detail</h2>
+            <div class="item-detail-description">
+                
+                <span>{{ item.description }}</span>
+            </div>
+        </div>
+    </div>
+   
+</div>
+
+
+</main>
+{% endblock content %}

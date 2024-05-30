@@ -1,0 +1,53 @@
+{% extends 'base/main.html' %}
+
+{% block content %}
+<main class="profile-container">
+    
+
+    <div class="profile">
+        
+        {% if user.is_artist %}
+            <div class="profile-avatar">
+                <a href="{% url 'home' %}" class="back-to-home">&larr; Back to Home</a>
+                <div class="avatar avatar--large active">
+                    {% if user.artistprofile.profile_picture %}
+                    <img src="{{ user.artistprofile.profile_picture.url }}" alt="Profile Picture"/>
+                    {% else %}
+                        <img src="{{ user.get_avatar_url }}" alt="Avatar"/>
+                    {% endif %}
+                </div>
+            </div>
+
+            <div class="profile-info">
+                <h3>{{ user.name }}</h3>
+                {% if request.user == user %}
+                    <a href="{% url 'update-artist-profile' %}" class="btn btn--main btn--pill">Edit Profile</a>
+                {% endif %}
+            </div>
+
+            <div class="profile-about">
+                <h3>About</h3>
+                <div class="profile-info">
+                    {% for key, value in artist_profile_form_data.items %}
+                        <div class="profile-field">
+                            <span class="profile-label">{{ key|capfirst }}:</span>
+                            <span class="profile-value">{{ value }}</span>
+                        </div>
+                    {% endfor %}
+                 </div> 
+            </div>
+
+            <div class="profile-header">
+                <div>
+                    <h2>Items displayed by {{ user.username }}</h2>
+                </div>
+            </div>
+        {% else %}
+            <div class="profile-info">
+                <h3>{{ user.name }}</h3>
+                <p>{{ user.email }}</p>
+            </div>
+        {% endif %}
+    </div>
+</main>
+{% endblock content %}

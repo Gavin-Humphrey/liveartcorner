@@ -1,0 +1,18 @@
+{% block content %}
+<section class="shopping-cart">
+    <div class="container">
+        <div class="payment-header">
+            {% if payment_status == 'success' %}
+            <h3>Payment Successful</h3>
+            <p>Thank you for your payment. Your order has been processed successfully.</p>
+            <!-- Add order and payment recaps here if needed -->
+        </div>          
+        {% else %}
+        <div class="payment-header">
+            <h3>Payment Failed</h3> 
+            <p>Oops! There was a problem processing this payment. Please try again later.</p>           
+        </div>
+        {% endif %}
+    </div>
+</section>
+{% endblock content %}

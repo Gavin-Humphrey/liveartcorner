@@ -1,0 +1,15 @@
+{% extends "base/main.html" %} 
+
+{% comment %} templates/order/success.html {% endcomment %}
+
+
+{% block title %} Success {% endblock title%} 
+{% block content %}
+<div class="alert alert-success" role="alert">
+  Thank you for odering!
+  <a
+      href="{% url 'home' %}"
+      >Back To Home</a
+    >
+</div>
+{% endblock content %}

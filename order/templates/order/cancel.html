@@ -1,0 +1,16 @@
+{% extends "base/main.html" %} 
+
+
+
+{% comment %} templates/order/cancel.html {% endcomment %}
+
+{% block title %} Cancel {% endblock title%} 
+{% block content %}
+<div class="alert alert-info" role="alert">
+  Something went wrong, try again.
+  <a
+      href="{% url 'home' %}"
+      >Back to home</a
+    >
+</div>
+{% endblock content %}

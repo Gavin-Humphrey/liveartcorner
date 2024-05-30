@@ -1,0 +1,18 @@
+{% extends 'base/main.html' %}
+{% block content %}
+<main class="form-container">
+  <div class="auth-form">
+    <h3>Get Verified</h3>
+    <form class="form" method="POST" action="">
+      {% csrf_token %}
+      {% for field in form %}
+      <div class="form-group">
+        <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+        {{ field }}
+      </div>
+      {% endfor %}
+      <button class="btn btn-primary" type="submit">Submit</button>
+    </form>
+  </div>
+</main>
+{% endblock content %}

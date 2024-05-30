@@ -1,0 +1,132 @@
+{% extends 'base/main.html' %} 
+{% load static %}
+
+{% block content %}
+
+<main class="page">
+    <section class="shopping-cart">
+        <div class="container">
+            <div class="cart-heading">
+                <h3>Shopping Cart</h3>
+            </div>
+            <div class="content-container">
+                <div class="row-grid-row">
+                    <div class="cart-display">
+                        <!--  -->
+                        
+                        {% if messages %}
+                        <ul class="messages">
+                            {% for message in messages %}
+                            <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>
+                                {{ message }}
+                            </li>
+                            {% endfor %}
+                        </ul>
+                        {% endif %}
+
+
+                        <!--  -->
+                        <div class="display-items-count text-right text-muted">{{ cart_items_count }} Items</div>
+                        <table class="cart-items-table">
+                            <thead>
+                                <tr class="table-header-style">
+                                    <th>Item</th>
+                                    <th>Name</th>
+                                    <th>Quantity</th>
+                                    <th>Price</th>
+                                    <th>Delete</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for item in cart_items %}
+                                <tr class="border-top border-bottom">
+                                    <td class="table-header-style">
+                                        <a class="cart-item-image" href="{% url 'item-detail' item.id %}">
+                                            <img class="img-fluid mx-auto d-block image" src="{{ item.item.image.url }}">
+                                        </a>
+                                    </td>
+                                    <td class="table-header-style">
+                                        <a class="product-name" href="{% url 'item-detail' item.id %}">{{ item.item.title }}</a>
+                                    </td>
+                                    <td class="table-header-style">
+                                        <div class="quantity">
+                                            <form action="{% url 'update-item-quantity' item.id %}" method="post">
+                                                {% csrf_token %}
+                                                <input type="hidden" name="item_id" value="{{ item.item.id }}">
+                                                <input class="cart-input-number" type="number" name="quantity" value="{{ item.quantity }}" min="0">
+                                                <button class="cart-update-button" type="submit">Update</button>
+                                            </form>
+                                        </div>
+                                    </td>
+                                    <td class="table-header-style">
+                                        <div class="price">&#36; {{ item.item.price }}</div>
+                                    </td>
+
+                                    <td class="table-header-style">
+                                        <form action="{% url 'remove-from-cart' item.id %}" method="post"> 
+                                            {% csrf_token %}
+                                            <button type="submit"><div class="cart-table-delete"><img src="{% static 'img/trash-can.svg' %}" alt="trash icon" class="cart-trash-img"></div>
+                                            </button>
+                                        </form>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                        <a class="back-to-shop-link btn-tertiary" href="{% url 'home' %}">&leftarrow;<span class="btn-tertiary">Back to shop</span></a>
+                    </div>
+                    <div class="checkout-summary-container">
+                        <!-- Checkout summary content here -->
+                        <div class="checkout-summary">
+                            <h3>Summary</h3>
+                            <div class="summary-item"><span class="text" style="padding-left:0;">SUBTOTAL</span><span class="price">&#36; {{ sub_total }}</span></div>
+                            <div class="summary-item">
+                                <form method="post" action="{% url 'update-cart-total-cost' %}">
+                                    {% csrf_token %}
+                                    <label for="selected_delivery_method_id">SELECT DELIVERY METHOD</label>
+                                    <select name="selected_delivery_method_id" id="selected_delivery_method_id">
+                                        <option value="placeholder">Select a delivery method</option>
+                                        {% for delivery_method in delivery_methods %}
+                                        <option value="{{ delivery_method.id }}">
+                                            {{ delivery_method.method }} - €{{ delivery_method.cost }}
+                                        </option>
+                                        {% endfor %}
+                                    </select>
+                                    <p class="enter-code">ENTER DISCOUNT CODE:</p>
+                                    <input name="discount_code" id="code" placeholder="Enter your code">
+                                    <button class="cart-update-total-button btn-tertiary" type="submit">Update Total Cost</button>
+                                </form>
+                                
+                            </div>
+                            
+                            {% if messages %}
+                            <div>
+                                {% for message in messages %}
+                                <p{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</p>
+                                {% endfor %}
+                            </div>
+                            {% endif %}
+                            
+                            <div class="summary-item">
+                                <span class="text">TOTAL:</span>
+                                <span class="price">{% if total_cost %} &#36; {{ total_cost|default_if_none:sub_total }} {% else %} 0 {% endif %}</span>
+                            </div>
+                            <form action="{% url 'process-delivery' %}" method="POST">
+                                {% csrf_token %}
+                                <!-- {{ delivery_form.as_p }} -->
+                                <input type="hidden" name="chosen_delivery_method" value="{{ chosen_delivery_method }}">
+                                <input type="hidden" name="delivery_cost" value="{{ delivery_cost }}">
+                                <input type="hidden" name="discount_value" value="{{ discount_value }}">
+                                <input type="hidden" name="total_cost" value="{{ total_cost }}">
+                                <input type="hidden" name="order_id" value="{{ order_id }}">
+                                <button type="submit" class="btn-checkout">Checkout &rarr;</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+
+{% endblock content %}
