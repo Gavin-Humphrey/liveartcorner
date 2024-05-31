@@ -27,7 +27,11 @@
                 <a href="{% url 'update-artist-profile' %}" class="btn btn-primary">Update Profile</a>
             </div>  
         </div>
-
+        <div class="dashboard-section">
+            <h2>My services</h2>
+            <a href="{% url 'add-service' %}" class="btn btn-primary">Set services</a>
+            <a href="{% url 'services-list' %}" class="btn btn-primary">Services</a>
+        </div>
         <div class="dashboard-section">
             <h2>Calendar</h2>
             <a href="{% url 'manage-calendar' %}" class="btn btn-primary">Manage Calendar</a>

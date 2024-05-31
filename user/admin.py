@@ -4,14 +4,6 @@ from .models import User
 from base.forms import CustomUserChangeForm
 
 
-# def vet_artists(modeladmin, request, queryset):
-#     queryset.update(is_vetted_artist=True)
-    
-# class UserAdmin(admin.ModelAdmin):
-#     list_display = ['email', 'name', 'is_artist', 'is_vetted_artist']
-#     actions = [vet_artists]
-# admin.site.register(User, UserAdmin)
-
 
 def vet_artists(modeladmin, request, queryset):
     queryset.update(is_vetted_artist=True)

@@ -1,0 +1,30 @@
+{% extends 'base/main.html' %}
+
+{% block content %}
+<main class="form-container">
+    <div class="auth-form">
+        <h3>Add a New Service</h3>
+        <form class="form" method="POST" action="">
+            {% csrf_token %}
+            {% for field in form %}
+                <div class="form-group">
+                    <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                    {{ field }}
+                    {% if field.errors %}
+                        <div class="form-error">
+                            {{ field.errors }}
+                        </div>
+                    {% endif %}
+                </div>
+            {% endfor %}
+            <button class="btn btn-primary" type="submit">Submit</button>
+        </form>
+
+        {% if form.non_field_errors %}
+            <div class="form-error">
+                {{ form.non_field_errors }}
+            </div>
+        {% endif %}
+    </div>
+</main>
+{% endblock %}

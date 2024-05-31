@@ -6,9 +6,10 @@
 
     <div class="profile">
         
-        {% if user.is_artist %}
+        {% if user.is_authenticated %}
             <div class="profile-avatar">
                 <a href="{% url 'home' %}" class="back-to-home">&larr; Back to Home</a>
+              
                 <div class="avatar avatar--large active">
                     {% if user.artistprofile.profile_picture %}
                     <img src="{{ user.artistprofile.profile_picture.url }}" alt="Profile Picture"/>
@@ -36,18 +37,28 @@
                     {% endfor %}
                  </div> 
             </div>
-
-            <div class="profile-header">
+        
+            <!-- <div class="profile-header">
                 <div>
-                    <h2>Items displayed by {{ user.username }}</h2>
+                    <h2>Services by {{ user.username }}</h2>
                 </div>
-            </div>
-        {% else %}
-            <div class="profile-info">
+            </div> -->
+        
+            <!-- <div class="profile-info">
                 <h3>{{ user.name }}</h3>
                 <p>{{ user.email }}</p>
             </div>
-        {% endif %}
+            <div class="profile-header"> -->
+        <div class="profile-about">
+            <h3>Services</h3>
+            <div class="profile-info">
+                <!-- <div>
+                    <h3>Services</h3>
+                </div> -->
+                <a href="{% url 'services-list' %}" class="btn btn-primary">Services menu</a>
+            </div>
+        </div>
+        {% endif %}    
     </div>
 </main>
 {% endblock content %}

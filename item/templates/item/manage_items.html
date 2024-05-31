@@ -1,0 +1,48 @@
+{% extends 'base/main.html' %}
+
+{% block content %}
+
+<body>
+    <div class="dashboard-header dashboard-manage">
+        <a href="{% url 'artist-dashboard' user.id %}" class="btn btn-secondary">Back to Home</a>
+    </div>
+    <h1>Manage Your Items</h1>
+    <div class="manage-item-list-container">
+        <form method="post">
+            {% csrf_token %}
+            <table class="manage-item-list">
+                <thead>
+                    <tr>
+                        <th>Title</th>
+                        <th>Dimension(cm)</th>
+                        <th>Quantity</th>
+                        <th>Image</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for item in items %}
+                    <tr>
+                        <td>{{ item.title }}</td>
+                        <td>{{ item.length}} x {{ item.width }}</td>
+                        <td>
+                            <input type="number" name="quantity_{{ item.id }}" value="{{ item.quantity }}" min="0">
+                        </td>
+                        <td>
+                            {% if item.image %}
+                            <img src="{{ item.image.url }}" alt="{{ item.title }}" width="50">
+                            {% else %}
+                            No image
+                            {% endif %}
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            <div class="items-detail-update-qty">
+                <button type="submit" >Update Items</button>
+            </div>
+        </form>
+    </div>
+</body>
+
+{% endblock %}

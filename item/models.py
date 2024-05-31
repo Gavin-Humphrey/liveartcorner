@@ -4,14 +4,11 @@ from PIL import Image
 
 
 
-
-
 class CardItems(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     
 class Meta:
-        app_label = 'base'
-
+    app_label = 'base'
 
 
 class Item(models.Model):
@@ -24,6 +21,7 @@ class Item(models.Model):
     width = models.DecimalField(max_digits=2, decimal_places=0, help_text="Width in centimeters")
     price = models.DecimalField(max_digits=10, decimal_places=2)
     quantity = models.DecimalField(max_digits=10, decimal_places=0)
+    is_available = models.BooleanField(default=True)
 
 
     @property

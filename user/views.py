@@ -6,8 +6,7 @@ from django.contrib import messages
 
 from base.forms import RegisterForm, ArtistProfileForm, UserProfileForm
 from .models import User, ArtistProfile
-from item.models import CardItems
-
+from item.models import CardItems, Item
 
 
 
@@ -36,32 +35,6 @@ def registerUser(request):
     )
 
 
-# @login_required
-# def artist_profile_view(request, username):
-#     try:
-#         profile_user = User.objects.get(username=username)
-#         artist_profile = profile_user.artistprofile
-#     except User.DoesNotExist:
-#         messages.error(request, "User not found.")
-#         return redirect("home")
-#     except ArtistProfile.DoesNotExist:
-#         artist_profile = None
-
-#     artist_profile_form_data = {
-#         "Bio": artist_profile.bio,
-#         "Portfolio URL": artist_profile.portfolio_url,
-#         "Phone Number": artist_profile.phone_number,
-#         "Location": artist_profile.location,
-#         "Artistic Medium": artist_profile.artistic_medium,
-#         "Experience Education": artist_profile.experience_education,
-#     } if artist_profile else {}
-
-#     context = {
-#         "user": profile_user,
-#         "artist_profile_form_data": artist_profile_form_data,
-#     }
-#     return render(request, "user/user_profile.html", context)
-
 @login_required
 def artist_profile_view(request, user_id):
     profile_user = get_object_or_404(User, id=user_id)
@@ -85,46 +58,6 @@ def artist_profile_view(request, user_id):
     }
     return render(request, "user/user_profile.html", context)
 
-
-# @login_required
-# def update_artist_profile(request):
-#     user = request.user
-#     if not user.is_vetted_artist:
-#         messages.error(request, "You are not authorized to update artist profile.")
-#         return redirect("home")
-
-#     try:
-#         artist_profile = user.artistprofile
-#     except ArtistProfile.DoesNotExist:
-#         artist_profile = ArtistProfile(user=user)
-
-#     if request.method == "POST":
-#         logger.debug("POST data: %s", request.POST)
-#         logger.debug("FILES data: %s", request.FILES)
-        
-#         user_form = UserProfileForm(request.POST, instance=user)
-#         profile_form = ArtistProfileForm(request.POST, request.FILES, instance=artist_profile)
-        
-#         if user_form.is_valid() and profile_form.is_valid():
-#             user_form.save()
-#             profile_form.save()
-#             messages.success(request, "Profile updated successfully.")
-#             return redirect("artist-profile", username=user.username)
-#         else:
-#             logger.error("User form errors: %s", user_form.errors)
-#             logger.error("Profile form errors: %s", profile_form.errors)
-#             messages.error(request, "Error updating your profile.")
-#     else:
-#         user_form = UserProfileForm(instance=user)
-#         profile_form = ArtistProfileForm(instance=artist_profile)
-
-#     context = {
-#         "user_form": user_form,
-#         "profile_form": profile_form,
-#         "form_title": "Update Your Profile",
-#         "button_text": "Save Changes"
-#     }
-#     return render(request, "user/update_artist_profile.html", context)
 
 @login_required
 def update_artist_profile(request):
@@ -166,30 +99,7 @@ def update_artist_profile(request):
     }
     return render(request, "user/update_artist_profile.html", context)
 
-# @login_required
-# def artist_dashboard(request, username):
-#     user = get_object_or_404(User, username=username)
 
-#     if not user.is_artist:
-#         messages.error(request, "This user is not an artist.")
-#         return redirect("home")
-
-#     if request.user != user:
-#         messages.error(request, "You are not authorized to view this dashboard.")
-#         return redirect("home")
-
-#     try:
-#         card_items = CardItems.objects.get(user=user)
-#         items_count = card_items.items.count()
-#     except CardItems.DoesNotExist:
-#         items_count = 0
-
-#     context = {
-#         'user': user,
-#         'items_count': items_count,
-#         # Add other context data as needed
-#     }
-#     return render(request, 'user/artist_dashboard.html', context)
 
 @login_required
 def artist_dashboard(request, user_id):
@@ -212,26 +122,85 @@ def artist_dashboard(request, user_id):
     context = {
         'user': user,
         'items_count': items_count,
-        # Add other context data as needed
     }
     return render(request, 'user/artist_dashboard.html', context)
 
+
 @login_required
 def manage_items(request):
-    # Placeholder view for managing items
-    return render(request, 'manage_items.html')
+    user = request.user
+
+    # Fetch the CardItems instance for the logged-in user
+    try:
+        card_items = CardItems.objects.get(user=user)
+    except CardItems.DoesNotExist:
+        messages.error(request, "You have no items to manage.")
+        return redirect('home')
+
+    items = card_items.items.all()
+
+    if request.method == 'POST':
+        any_changes = False
+        for item in items:
+            quantity_field = f'quantity_{item.id}'
+            if quantity_field in request.POST:
+                new_quantity = request.POST[quantity_field]
+                try:
+                    new_quantity = int(new_quantity)
+                    if new_quantity != item.quantity:
+                        item.quantity = new_quantity
+                        item.save()
+                        any_changes = True
+                except ValueError:
+                    messages.error(request, f"Invalid quantity for {item.title}")
+
+        if any_changes:
+            messages.success(request, "Item quantities updated successfully.")
+        else:
+            messages.info(request, "No changes were made.")
+
+        return redirect('manage-items')
+
+    return render(request, 'item/manage_items.html', {'items': items})
+
 
 @login_required
 def manage_availability(request):
-    # Placeholder view for managing availability
-    return render(request, 'manage_availability.html')
+    user = request.user
+
+    # Fetch the CardItems instance for the logged-in user
+    try:
+        card_items = CardItems.objects.get(user=user)
+    except CardItems.DoesNotExist:
+        messages.error(request, "You have no items to manage.")
+        return redirect('home')
+
+    items = card_items.items.all()
+
+    if request.method == 'POST':
+        any_changes = False
+        for item in items:
+            availability_field = f'is_available_{item.id}'
+            new_availability = availability_field in request.POST  # Checkbox is checked if field is present in POST
+            
+            if new_availability != item.is_available:
+                item.is_available = new_availability
+                item.save()
+                any_changes = True
+
+        if any_changes:
+            messages.success(request, "Item availability updated successfully.")
+        else:
+            messages.info(request, "No changes were made.")
+
+        return redirect('manage-availability')
+
+    return render(request, 'item/manage_availability.html', {'items': items})
 
 @login_required
 def manage_calendar(request):
-    # Placeholder view for managing calendar
     return render(request, 'manage_calendar.html')
 
 @login_required
 def upload_files(request):
-    # Placeholder view for uploading files
     return render(request, 'upload_files.html')

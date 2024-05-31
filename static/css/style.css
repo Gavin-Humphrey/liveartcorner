@@ -238,12 +238,13 @@ body, html {
 }
 
 .item-detail-wishlist-icon-img {
-  max-height: 1.9rem;
-  max-width: 1.9rem;
-  background-color: black; /* Desired background color */
-  
+  height: 1.8rem;
+  width: 1.8rem;
+  background-color: #535151;
+  border: none;
+  padding: 0;
+  border-radius:  5px;
 }
-
 
 /* ========= */
 
@@ -1305,3 +1306,155 @@ h5 {
 .btn-primary:active {
   background-color: #004085;
 }
+
+
+/* ========Dashboard======== */
+    /* =====Manage Items======= */
+.dashboard-manage {
+  margin-left: 3rem;
+}
+.manage-item-list-container {
+  max-width: 80%;
+  margin: 0 auto;
+  padding: 20px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+.manage-item-list {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 0 auto;
+}
+.manage-item-list th, .manage-item-list td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: center;
+}
+.manage-item-list th {
+  background-color: #f2f2f2;
+}
+h1 {
+  text-align: center;
+}
+.manage-item-list input[type="number"] {
+  width: 60px;
+}
+
+.items-detail-update-qty {
+  text-align: center;
+  margin-top: 20px;
+}
+.items-detail-update-qty button {
+  padding: 0.3rem;
+  border-radius: 5px;
+  background-color: #333;
+  color: #fff;
+}
+@media (max-width: 768px) {
+  .manage-item-list input[type="number"] {
+      width: 40px;
+  }
+}
+
+@media (max-width: 768px) {
+  .manage-item-list th, .manage-item-list td {
+      padding: 12px;
+      font-size: 0.9em;
+  }
+}
+
+@media (max-width: 480px) {
+  .manage-item-list th, .manage-item-list td {
+      padding: 10px;
+      font-size: 0.8em;
+  }
+
+  .manage-item-list img {
+      width: 40px; 
+  }
+}
+  /* =============== */
+
+/* ========Manage Availability========= */
+.manage-availability-list-container {
+  max-width: 80%;
+  margin: 0 auto;
+  padding: 20px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+.manage-availability-list {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 0 auto;
+}
+.manage-availability-list th, .manage-availability-list td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: center;
+}
+.manage-availability-list th {
+  background-color: #f2f2f2;
+}
+h1 {
+  text-align: center;
+}
+
+/* ======== Services Styling ======== */
+
+.services-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.dashboard-header {
+  display: flex;
+  justify-content: flex-start;
+  margin-bottom: 20px;
+}
+
+.services-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: space-around;
+}
+
+.service-card {
+  background: #ffffff;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  padding: 20px;
+  width: 100%;
+  max-width: 300px;
+  box-sizing: border-box;
+  text-align: center;
+}
+
+.service-card h2 {
+  font-size: 1.5em;
+  margin-bottom: 10px;
+}
+
+.service-card p {
+  font-size: 1em;
+  color: #666666;
+  margin-bottom: 10px;
+}
+
+@media (max-width: 768px) {
+  .services-list {
+      flex-direction: column;
+      align-items: center;
+  }
+
+  .service-card {
+      width: 90%;
+  }
+}
+
+@media (min-width: 769px) and (max-width: 1024px) {
+  .service-card {
+      width: 45%;
+  }
+}
+

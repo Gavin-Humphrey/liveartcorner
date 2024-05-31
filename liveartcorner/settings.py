@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     "cart.apps.CartConfig",
     "order.apps.OrderConfig",
     "wishlist.apps.WishlistConfig",
+    "services.apps.ServicesConfig",
 ]
 
 AUTH_USER_MODEL = 'user.User'

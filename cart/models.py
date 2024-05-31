@@ -13,7 +13,7 @@ class DeliveryMethod(models.Model):
 class DiscountCode(models.Model):
     code = models.CharField(max_length=100)
     value = models.DecimalField(max_digits=10, decimal_places=2)
-    expiration_date = models.DateField(blank=True, null=True)  # Optional expiration date
+    expiration_date = models.DateField(blank=True, null=True)  
     active = models.BooleanField(default=True)  # Track active/inactive status
 
 

@@ -31,6 +31,7 @@ urlpatterns = [
     path("", include("cart.urls")),
     path("", include("wishlist.urls")),
     path("", include("order.urls")),
+    path("", include("services.urls")),
     #re_path(r"^media/(?P<path>.*)$", serve, {"document_root": settings.MEDIA_ROOT}),
    
 ]

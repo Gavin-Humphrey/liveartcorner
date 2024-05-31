@@ -1,10 +1,7 @@
 from django.contrib import admin
-from .models import Cart, CartItem, DeliveryMethod, DiscountCode #CartItem 
+from .models import Cart, CartItem, DeliveryMethod, DiscountCode 
 
 
-
-
-#admin.site.register(CartItem)
 
 
 class CartAdmin(admin.ModelAdmin):
@@ -21,11 +18,6 @@ class CartItemAdmin(admin.ModelAdmin):
     list_display = ['id', 'cart', 'item', 'quantity']
 admin.site.register(CartItem, CartItemAdmin)
 
-# class CartItem(admin.TabularInline):
-#     model = CartItem
-#     extra = 0
-#     fields = ['item', 'quantity',]
-#     readonly_fields = ['item', 'quantity',]
 
 class DiscountCodeAdmin(admin.ModelAdmin):
     model = DiscountCode

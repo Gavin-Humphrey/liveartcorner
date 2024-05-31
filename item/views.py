@@ -8,9 +8,6 @@ from wishlist.views import my_wishlist,  get_wishlist_items_count
 
 
 
-
-
-
 @login_required
 def upload_item(request):
     if request.method == 'POST':

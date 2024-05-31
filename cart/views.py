@@ -35,7 +35,6 @@ def view_cart(request):
     delivery_methods = DeliveryMethod.objects.all()
 
     # Retrieve cart items and count
- 
     cart_items_count = cart.get_cart_items_count()
 
     # Check for empty cart and add message
