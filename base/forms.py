@@ -75,4 +75,5 @@ class ContactForm(forms.Form):
 class ServiceForm(forms.ModelForm):
     class Meta:
         model = Service
+        exclude = ['artist']
         fields = ['name', 'description', 'duration', 'price']

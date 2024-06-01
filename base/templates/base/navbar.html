@@ -63,14 +63,13 @@
                     <!-- Favorite Icon -->
                     <div class="nav-link">
                         {% if request.user.is_authenticated %}
-                            <a href="{% url 'my-wishlist' %}" class="wishlist-container">
+                            <a href="{% if wishlist_items_count > 0 %}{% url 'my-wishlist' %}{% endif %}" class="wishlist-container">
                                 <img src="{% static 'img/heart.png' %}" alt="wishlist icon" class="icon-img">
                                 <span class="wishlist-count">{{ wishlist_items_count }}</span>
                             </a>
                         {% else %}
                             <a href="{% url 'login' %}">
                                 <img src="{% static 'img/heart.png' %}" alt="wishlist icon" class="icon-img">
-                                <span class="wishlist-count"></span>
                             </a>
                         {% endif %}
 

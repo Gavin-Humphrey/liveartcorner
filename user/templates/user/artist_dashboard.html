@@ -3,7 +3,8 @@
 {% block content %}
 <main class="dashboard-container">
     <div class="dashboard-header">
-        <a href="{% url 'home' %}" class="btn btn-secondary">Back to Home</a>
+        <!-- <a href="{% url 'home' %}" class="btn btn-secondary">Back to Home</a> -->
+        <a href="{{ request.META.HTTP_REFERER }}" class="btn btn-secondary">Go Back</a>
         <h1>Artist Dashboard</h1>
     </div>
     <div class="dashboard-content">

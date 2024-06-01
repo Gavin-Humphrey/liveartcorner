@@ -1,13 +1,10 @@
 from django.contrib import admin
+from services.models import Service
 
-from .models import Service
-
-
-
-class ServiceAdmin(admin.ModelAdmin):
+class ServiceInline(admin.TabularInline):
     model = Service
     extra = 0
-    fields = ['user',]
-    list_display = ['name', 'description', 'price']
-admin.site.register(Service, ServiceAdmin)
+    fields = ['name', 'description', 'duration', 'price']
+    readonly_fields = ['name', 'description', 'duration', 'price']
 
+admin.site.register(Service)
