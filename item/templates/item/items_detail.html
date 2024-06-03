@@ -13,19 +13,17 @@
                 {% if request.user == item.user %}
                     <button class="item-detail-dropbtn">...</button>
                     <div class="item-detail-dropdown-content">
-                        <a href="{% url 'update-item' item.id %}">Update</a>
-                        <form action="{% url 'delete-item' item.id %}" method="post" class="item-detail-delete-form">
-                            {% csrf_token %}
-                            <button type="submit" class="item-detail-delete-button">Remove</button>
-                        </form>
+                        <a href="{% url 'update-item' item.id %}" class="item-detail-update-button">Update</a>
+                        <div class="item-detail-delete-form ">
+                            <a href="{% url 'delete-item' item.id %}" class="item-detail-delete-button">Remove</a>
+                        </div>
                     </div>
                 {% elif request.user.is_superuser %}
                     <button class="item-detail-dropbtn">...</button>
                     <div class="item-detail-dropdown-content">
-                        <form action="{% url 'delete-item' item.id %}" method="post" class="item-detail-delete-form">
-                            {% csrf_token %}
-                            <button type="submit" class="item-detail-delete-button">Remove</button>
-                        </form>
+                        <div class="item-detail-delete-form service-delete">
+                            <a href="{% url 'delete-item' item.id %}" class="item-detail-delete-button">Remove</a>
+                        </div>
                     </div>
                 {% endif %}
             </div>

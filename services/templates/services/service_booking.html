@@ -1,0 +1,21 @@
+{% extends 'base/main.html' %}
+
+{% block content %}
+  <div class="book-service-details">
+    <h2>{{ service.name }}</h2>
+    <p>{{ service.description }}</p>
+    <p>Price: ${{ service.price }}</p>
+
+    <form method="POST" action="{% url 'service-booking' service.id %}">
+      {% csrf_token %}
+      <label for="date">Select Date & Time:</label>
+      <select name="availability_slot" id="availability_slot" required>
+        {% for slot in available_slots %}
+          <option value="{{ slot.id }}">{{ slot.date }} ({{ slot.time_start }} - {{ slot.time_end }})</option>
+        {% endfor %}
+      </select>
+      <button type="submit" class="book-now-btn">Book Now</button>
+    </form>
+  </div>
+
+{% endblock %}

@@ -3,11 +3,9 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 
-
-from base.forms import RegisterForm, ArtistProfileForm, UserProfileForm
-from .models import User, ArtistProfile
+from base.forms import RegisterForm, ArtistProfileForm, UserProfileForm, ArtistAvailabilityForm
+from .models import User, ArtistProfile, ArtistAvailability
 from item.models import CardItems, Item
-
 
 
 
@@ -119,9 +117,11 @@ def artist_dashboard(request, user_id):
     except CardItems.DoesNotExist:
         items_count = 0
 
+
     context = {
         'user': user,
         'items_count': items_count,
+        #'availability': availability,
     }
     return render(request, 'user/artist_dashboard.html', context)
 
@@ -130,7 +130,6 @@ def artist_dashboard(request, user_id):
 def manage_items(request):
     user = request.user
 
-    # Fetch the CardItems instance for the logged-in user
     try:
         card_items = CardItems.objects.get(user=user)
     except CardItems.DoesNotExist:
@@ -168,7 +167,6 @@ def manage_items(request):
 def manage_availability(request):
     user = request.user
 
-    # Fetch the CardItems instance for the logged-in user
     try:
         card_items = CardItems.objects.get(user=user)
     except CardItems.DoesNotExist:
@@ -181,7 +179,7 @@ def manage_availability(request):
         any_changes = False
         for item in items:
             availability_field = f'is_available_{item.id}'
-            new_availability = availability_field in request.POST  # Checkbox is checked if field is present in POST
+            new_availability = availability_field in request.POST  
             
             if new_availability != item.is_available:
                 item.is_available = new_availability
@@ -197,9 +195,66 @@ def manage_availability(request):
 
     return render(request, 'item/manage_availability.html', {'items': items})
 
+
+
 @login_required
-def manage_calendar(request):
-    return render(request, 'manage_calendar.html')
+def create_artist_availability_calendar(request):
+    if request.method == 'POST':
+        form = ArtistAvailabilityForm(request.POST)
+        if form.is_valid():
+            form.instance.artist = request.user
+            form.save()
+            return redirect('artist-availability-calendar')  
+    else:
+        form = ArtistAvailabilityForm()
+
+    context = {"form": form, "form_title": "Add Your Availability", "button_text": "Add"}
+    return render(request, "item/items_form.html", context)
+
+
+@login_required
+def artist_availability_calendar(request):
+    user = request.user
+    availabilities = ArtistAvailability.objects.filter(artist=user).order_by('date', 'start_time')
+    context = {'availabilities': availabilities}
+    return render(request, 'user/artist_availability_calendar.html', context)
+
+
+@login_required
+def update_artist_availability_calendar(request, pk):
+    try:
+        artist_availability = ArtistAvailability.objects.get(artist=request.user, pk=pk)
+    except ArtistAvailability.DoesNotExist:
+        # If no matching availability record is found, display an error message
+        messages.error(request, "No availability record found for this artist.")
+        return redirect('artist-dashboard', user_id=request.user.id)
+
+    if request.method == 'POST':
+        form = ArtistAvailabilityForm(request.POST, instance=artist_availability)
+        if form.is_valid():
+            form.save()
+            return redirect('artist-availability-calendar')  
+    else:
+        form = ArtistAvailabilityForm(instance=artist_availability)
+
+    context = {"form": form, "form_title": "Update Your Availability", "button_text": "Update"}
+    return render(request, "item/items_form.html", context)
+
+
+@login_required
+def delete_artist_availability(request, pk):
+    artist_availability = get_object_or_404(ArtistAvailability, pk=pk)
+    user = request.user
+    if user.is_vetted_artist:
+        if request.method == 'POST':
+            artist_availability.delete()
+            return redirect("artist-availability-calendar")
+        else:
+            return render(request, "user/user_confirm_delete.html", {"artist_availability": artist_availability})
+    else:
+        return redirect('artist-availability-calendar')
+    
+
 
 @login_required
 def upload_files(request):

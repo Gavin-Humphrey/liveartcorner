@@ -2,7 +2,8 @@ from django.db import models
 from django.contrib.auth.models import AbstractUser
 from django.conf import settings
 from .managers import CustomUserManager
-
+import datetime
+from datetime import timedelta
 
 
 
@@ -44,3 +45,15 @@ class ArtistProfile(models.Model):
 
     def __str__(self):
         return self.user.name if self.user.name else self.user.email
+    
+
+
+class ArtistAvailability(models.Model):
+    artist = models.ForeignKey(User, on_delete=models.CASCADE)
+    date = models.DateField()
+    start_time = models.TimeField()
+    end_time = models.TimeField()
+    booked = models.BooleanField(default=False) 
+
+    def __str__(self):
+        return f"{self.artist} - Available on {self.date} from {self.start_time} to {self.end_time}"

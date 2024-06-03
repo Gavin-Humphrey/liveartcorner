@@ -17,7 +17,7 @@
             </div>
         </div>
         <div class="dashboard-section">
-            <h2>Availability</h2>
+            <h2>Item Availability</h2>
             <a href="{% url 'manage-availability' %}" class="btn btn-primary">Set Availability</a>
         </div>
 
@@ -34,8 +34,11 @@
             <a href="{% url 'services-list' %}" class="btn btn-primary">Services</a>
         </div>
         <div class="dashboard-section">
-            <h2>Calendar</h2>
-            <a href="{% url 'manage-calendar' %}" class="btn btn-primary">Manage Calendar</a>
+            <h2>My Calendar</h2>
+            <a href="{% url 'artist-availability-calendar' %}" class="btn btn-primary">Calendar</a></p>
+            <a href="{% url 'create-artist-availability-calendar' %}" class="btn btn-primary">Add Calendar</a></p>
+            <a href="{% url 'update-artist-availability-calendar' user.id %}" class="btn btn-primary">Update Calendar</a></p>
+            
         </div>
         <div class="dashboard-section">
             <h2>Upload Files</h2>

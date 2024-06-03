@@ -817,23 +817,26 @@ body, html {
 /* ======== */
 
 /* Style for the three-dot button */
+
 .item-detail-dropbtn {
-  background-color: transparent;
-  border: none;
-  font-size: 24px;
-  font-weight: bolder;
-  cursor: pointer;
   position: absolute;
+  background-color: #3498db;
+  color: white;
+  padding: 10px;
+  font-size: 16px;
+  border: none;
+  cursor: pointer;
+  border-radius: 4px; 
   top: 10px;
   right: 10px;
-  color: red;
 }
 
 /* The dropdown container */
 .item-detail-dropdown {
   position: relative;
-  display: inline-block;
+  /* display: inline-block; */
 }
+
 
 /* The dropdown menu */
 .item-detail-dropdown-content {
@@ -869,15 +872,13 @@ body, html {
   display: block;
 }
 
-.item-detail-delete-button {
-  background: none;
-  border: none;
-  color: red;
-  cursor: pointer;
-  /* text-align: left; */
-  text-align: center;
-  width: 100%;
-  padding: 0;
+.item-detail-dropdown-content .item-detail-update-button:hover {
+  background-color: #ffe6e6;
+}
+.item-detail-dropdown-content .item-detail-delete-button:hover {
+  /* background-color: #ffe6e6; */
+  background-color: #e13838;
+  color: #fff;
 }
 /* ======== */
 
@@ -1454,37 +1455,68 @@ h1 {
   box-shadow: 0 0 10px rgba(0,0,0,0.1);
 }
 
+/* Container for the dropdown */
 .custom-service-detail-dropdown {
-  position: absolute;
-  bottom: 10px;
-  right: 10px;
+  position: relative;
+  display: inline-block;
 }
 
+/* Button to trigger the dropdown */
 .custom-service-detail-dropbtn {
-  background-color: #f1f1f1;
+  background-color: #3498db;
+  color: white;
+  padding: 10px;
+  font-size: 16px;
   border: none;
   cursor: pointer;
-  font-size: 16px;
-  padding: 5px;
-  border-radius: 50%;
-  width: 35px;
-  height: 35px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  border-radius: 4px;
 }
 
+/* Container for dropdown content */
+.custom-service-detail-dropdown-content {
+  display: none;
+  position: absolute;
+  bottom: 100%; /* Position the dropdown above the button */
+  right: 0;
+  background-color: #f9f9f9;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+/* Style for the links inside the dropdown */
 .custom-service-detail-dropdown-content a {
   color: black;
   padding: 12px 16px;
   text-decoration: none;
   display: block;
-  align-items: center !important;
 }
+
+/* Hover effects for the dropdown links */
+.custom-service-detail-dropdown-content a:hover {
+  background-color: #f1f1f1;
+  /* background-color: #ffe6e6; */
+}
+
+/* Show the dropdown content when the button is clicked */
 .custom-service-detail-dropdown:hover .custom-service-detail-dropdown-content {
   display: block;
 }
-/* ======= */
+
+.custom-service-detail-dropdown-content .service-delete-button:hover {
+  background-color: #ffe6e6;
+  /* background-color: #e13838;
+  color: #fff; */
+}
+
+.custom-service-detail-dropdown-content .service-book-button:hover {
+  background-color: #3498db;
+  /* background-color: #e13838;*/
+  color: #fff; 
+}
+
 
 /* ======== */
 
@@ -1506,3 +1538,21 @@ h1 {
 }
 
 
+/* =======Service Booking======= */
+.book-service-details {
+  margin: 0 auto;
+  padding: 20px;
+  border: 1px solid #ddd; 
+  display: grid; 
+  place-items: center; 
+}
+
+
+.book-now-btn {
+  background-color: #007bff; 
+  color: white; 
+  padding: 3px 5px; 
+  border: none; 
+  border-radius: 5px; 
+  cursor: pointer; 
+}

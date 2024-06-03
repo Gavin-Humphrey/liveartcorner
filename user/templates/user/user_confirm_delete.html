@@ -1,0 +1,17 @@
+
+
+{% extends 'base/main.html' %}
+
+{% block content %}
+<main class="container">
+    <h1>Delete Availability</h1>
+    <p>Are you sure you want to delete - "{{ artist_availability.date|date:"M d, Y" }} from {{ artist_availability.start_time|time:"H:i" }} to {{ artist_availability.end_time|time:"H:i" }}" - time slot?</p>
+    <form method="POST">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-danger">Confirm Delete</button>
+        <a href="{% url 'artist-availability-calendar' %}" class="btn btn-secondary">Cancel</a>
+    </form>
+</main>
+{% endblock %}
+
+

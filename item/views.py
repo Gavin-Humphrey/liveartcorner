@@ -54,7 +54,7 @@ def delete_item(request, item_id):
             item.delete()
             return redirect("home")
         else:
-            return render(request, "item/confirm_delete.html", {"item": item})
+            return render(request, "item/item_confirm_delete.html", {"item": item})
     else:
         # Redirect or show message indicating restricted access
         return redirect('home')

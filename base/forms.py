@@ -1,7 +1,7 @@
 from django.forms import ModelForm
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
-from user.models import  User, ArtistProfile
+from user.models import  User, ArtistProfile, ArtistAvailability
 from item.models import CardItems, Item
 from services.models import Service
 
@@ -77,3 +77,18 @@ class ServiceForm(forms.ModelForm):
         model = Service
         exclude = ['artist']
         fields = ['name', 'description', 'duration', 'price']
+
+
+
+class ArtistAvailabilityForm(forms.ModelForm):
+    class Meta:
+        model = ArtistAvailability
+        fields = ['date', 'start_time', 'end_time']  # Use fields from the model
+        widgets = {
+            'start_datetime': forms.SplitDateTimeWidget(),  # Adjust widgets accordingly
+            'end_datetime': forms.SplitDateTimeWidget(),
+        }
+
+        
+
+

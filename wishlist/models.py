@@ -20,3 +20,5 @@ class WishListItem(models.Model):
         return f"{self.item.title} in {self.wishlist.user.username}'s Wishlist"
     
 
+
+

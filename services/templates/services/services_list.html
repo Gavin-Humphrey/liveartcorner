@@ -3,37 +3,53 @@
 {% block content %}
 <main class="services-container">
     <div class="dashboard-header dashboard-services">
-        <!-- <a href="{% url 'artist-dashboard' user.id %}" class="btn btn-secondary">Back to Home</a> -->
-        <a href="{{ request.META.HTTP_REFERER }}" class="btn btn-secondary">Go Back</a>
+        <a href="{% url 'artist-dashboard' user.id %}" class="btn btn-secondary">Back to Dashboard</a>
     </div>
     <h1>Services</h1>
-    <div class="services-list custom-service-list">
+    <div class="services-list">
         {% for service in services %}
-        
-        <div class="service-card custom-service-card">                        
-            <h2>{{ service.name }}</h2>
-            <p>Description: {{ service.description }}</p>
-            <p>Duration: {{ service.duration }}hrs</p>
-            <p>Price: ${{ service.price }}</p>
-            <div class="item-detail-dropdown custom-service-detail-dropdown">
+            <div class="service-card custom-service-card">
+                <h2>{{ service.name }}</h2>
+                <p>Description: {{ service.description }}</p>
+                <p>Duration: {{ service.duration }} hrs</p>
+                <p>Price: ${{ service.price }}</p>
                 {% if service.artist == request.user %}
-                <button class="item-detail-dropbtn custom-service-detail-dropbtn">...</button>
+                    <div class="custom-service-detail-dropdown">
+                        <button class="custom-service-detail-dropbtn">...</button>
+                        <div class="custom-service-detail-dropdown-content">
+                            <a href="{% url 'update-service' service.id %}">Update</a>
+                            <div class="item-detail-delete-form service-delete">
+                                <a href="{% url 'delete-service' service.id %}" class="service-delete-button">Delete</a>
+                            </div>
+                        </div>
+                    </div>
+                {% elif request.user.is_superuser %}
+                    <div class="custom-service-detail-dropdown">
+                        <button class="custom-service-detail-dropbtn">...</button>
+                        <div class="custom-service-detail-dropdown-content">
+                            <div class="item-detail-delete-form service-delete">
+                                <a href="{% url 'delete-service' service.id %}" class="service-delete-button">Delete</a>
+                            </div>
+                        </div>
+                    </div> 
+                    
+                {% else %}
+                <div class="custom-service-detail-dropdown">
+                    <button class="custom-service-detail-dropbtn">...</button>
+                    <div class="custom-service-detail-dropdown-content">
+                        <div class="item-detail-delete-form service-delete">
+                            <a href="{% url 'service-booking' service.id %}" class="service-book-button">Book</a>
+                            
+                        </div>
+                    </div>
+                </div>  
                 {% endif %}
-                <div class="item-detail-dropdown-content custom-service-detail-dropdown-content">
-                    <a href="{% url 'update-service' service.id %}">Update</a>
-                    <form action="{% url 'delete-service' service.id %}" method="post" class="item-detail-delete-form service-delete">
-                        {% csrf_token %}
-                        <button type="submit" class="item-detail-delete-button">Remove</button>
-                    </form>
-                </div>
-            </div>    
-        </div>
+                
+            </div>
         {% endfor %}
     </div>
 </main>
 {% endblock %}
-
-
 
 
 

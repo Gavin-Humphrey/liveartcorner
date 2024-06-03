@@ -1,0 +1,13 @@
+{% extends 'base/main.html' %}
+
+{% block content %}
+<main class="container">
+    <h1>Delete Service</h1>
+    <p>Are you sure you want to delete the item "{{ item.title }}"?</p>
+    <form method="POST">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-danger">Confirm Delete</button>
+        <a href="{% url 'home' %}" class="btn btn-secondary">Cancel</a>
+    </form>
+</main>
+{% endblock %}
