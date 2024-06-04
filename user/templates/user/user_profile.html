@@ -1,10 +1,14 @@
 {% extends 'base/main.html' %}
 
 {% block content %}
+
 <main class="profile-container">
+    <div class="dashboard-header">
+        <a href="{{ request.META.HTTP_REFERER }}" class="btn btn-secondary">Go Back</a>
+    </div>
     <div class="profile">
         <div class="profile-avatar">
-            <a href="{% url 'home' %}" class="back-to-home">&larr; Back to Home</a>
+            <!-- <a href="{% url 'home' %}" class="back-to-home">&larr; Back to Home</a> -->
             <div class="avatar avatar--large active">
                 {% if user.artistprofile.profile_picture %}
                 <img src="{{ user.artistprofile.profile_picture.url }}" alt="Profile Picture"/>
@@ -35,10 +39,7 @@
             </div>
 
             {% if user.services.all %}
-                <div class="profile-header">
-                    <!-- <div>
-                        <h3>Services by {{ user.username }}</h3>
-                    </div> -->
+                <div class="profile-header view-services-btn">
                     <a href="{% url 'services-list' %}" class="btn btn-primary">View Services</a>
                 </div>
             {% endif %}

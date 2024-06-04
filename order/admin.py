@@ -2,8 +2,6 @@ from django.contrib import admin
 from .models import GuestUser, Order, OrderItem
 
 
-
-
 admin.site.register(GuestUser)
 
 
@@ -35,4 +33,3 @@ class OrderItemAdmin(admin.ModelAdmin):
     readonly_fields = ['order', 'item', 'quantity', 'price', 'discount_code']
     list_display = ['order', 'item', 'quantity', 'price', 'discount_code']
 admin.site.register(OrderItem, OrderItemAdmin)
-

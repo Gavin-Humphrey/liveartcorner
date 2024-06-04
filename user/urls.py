@@ -15,5 +15,6 @@ urlpatterns = [
     path('update-artist-availability-calendar/<int:pk>/', views.update_artist_availability_calendar, name='update-artist-availability-calendar'),
     path('artist-availability-calendar/', views.artist_availability_calendar, name='artist-availability-calendar'),
     path("delete-artist-availability/<int:pk>/", views.delete_artist_availability, name="delete-artist-availability"),
+    path('view-artist-bookings/', views.get_artist_bookings, name='view-artist-bookings'),
     path('upload-files/', views.upload_files, name='upload-files'),
 ]

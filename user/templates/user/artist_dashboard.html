@@ -38,6 +38,7 @@
             <a href="{% url 'artist-availability-calendar' %}" class="btn btn-primary">Calendar</a></p>
             <a href="{% url 'create-artist-availability-calendar' %}" class="btn btn-primary">Add Calendar</a></p>
             <a href="{% url 'update-artist-availability-calendar' user.id %}" class="btn btn-primary">Update Calendar</a></p>
+            <a href="{% url 'view-artist-bookings'  %}" class="btn btn-primary">View Bookings</a></p>
             
         </div>
         <div class="dashboard-section">
@@ -45,5 +46,6 @@
             <a href="{% url 'upload-files' %}" class="btn btn-primary">Upload Files</a>
         </div>
     </div>
+    
 </main>
 {% endblock %}

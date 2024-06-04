@@ -16,7 +16,7 @@ class Service(models.Model):
 class Booking(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)  # Customer who booked
     availability = models.ForeignKey(ArtistAvailability, on_delete=models.CASCADE)
-    service = models.ForeignKey(Service, on_delete=models.CASCADE)  # Service being booked (optional)
+    service = models.ForeignKey(Service, on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):

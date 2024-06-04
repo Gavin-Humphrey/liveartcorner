@@ -19,7 +19,7 @@ def process_delivery(request, order_id=None, context=None):
     delivery_cost = request.POST.get('delivery_cost')
     discount_value = request.POST.get('discount_value', '0')
 
-    # Calculate the total cost using your existing logic
+    # Calculate the total cost using existing logic
     cart_sub_total = cart.calculate_sub_total()
     total_cost = request.POST.get('total_cost', 0) 
 
@@ -43,44 +43,6 @@ def process_delivery(request, order_id=None, context=None):
     })
 
     return render(request, 'order/process_delivery.html', context)
-
-
-
-# def process_delivery(request, order_id=None, context=None):
-#     cart = CartHandler(request)
-
-#     if context is None:
-#         context = {}
-
-#     chosen_delivery_method = request.POST.get('chosen_delivery_method')
-#     delivery_cost = request.POST.get('delivery_cost')
-#     discount_value = request.POST.get('discount_value', '0')
-
-#     # Calculate the total cost using existing logic
-#     cart_sub_total = cart.calculate_sub_total()
-#     total_cost = request.POST.get('total_cost', 0) 
-
-#     # Instantiate the form without any data if the request method is not POST
-#     delivery_form = DeliveryInfoForm()
-
-#     if request.method == 'POST':
-#         # Instantiating the form with POST data only if the request method is POST
-#         delivery_form = DeliveryInfoForm(request.POST)
-        
-#     context.update({
-#         'cart_items': cart.get_cart_items(),
-#         'cart_items_count': cart.get_cart_items_count(),
-#         'sub_total': cart_sub_total,
-#         'chosen_delivery_method': chosen_delivery_method,
-#         'delivery_cost': delivery_cost,
-#         'discount_value': discount_value,
-#         'total_cost': total_cost,
-#         'delivery_form': delivery_form,
-#         'order_id': order_id,
-#     })
-
-#     return render(request, 'order/process_delivery.html', context)
-
 
 
 
@@ -125,7 +87,7 @@ def process_checkout(request):
                             price=price
                         )
 
-                    cart.clear_cart()  # Uncomment this if you want to clear the cart after order creation
+                    cart.clear_cart()  # clearing the cart after order creation
 
                     context.update({
                         'cart_items': cart.get_cart_items(),

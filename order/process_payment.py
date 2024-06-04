@@ -100,7 +100,7 @@ def handle_checkout_session(session):
             for order_item in order.orderitem_set.all():
                 item = order_item.item
                 item_quantity = order_item.quantity
-                seller = item.card.user  # Assuming each item has a seller (owner)
+                seller = item.card.user  # Each item has a seller (owner)
                 seller_card_item, created = CardItems.objects.get_or_create(user=seller)
                 # Deduct the quantity from the seller's CardItem
                 if seller_card_item:
@@ -149,9 +149,3 @@ def handle_successful_payment(order):
         quantity_purchased = order_item.quantity
         item.quantity -= quantity_purchased
         item.save()
-
-# Usage:
-# Once payment is successful, call handle_successful_payment with the order object
-# For example:
-# order = Order.objects.get(pk=order_id)
-# handle_successful_payment(order)

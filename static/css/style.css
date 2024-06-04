@@ -538,6 +538,14 @@ body, html {
   padding-bottom: 0.3125rem; 
 }
 
+.profile-header a {
+  margin-left: 0;
+  margin-bottom: 0.625rem;
+}
+.view-services-btn {
+  border-bottom: 0.125rem solid #333; 
+}
+
 .back-to-home {
   position: absolute;
   /* top: 5rem;  */
@@ -880,7 +888,6 @@ body, html {
   background-color: #e13838;
   color: #fff;
 }
-/* ======== */
 
 
 .row-grid-row {
@@ -909,7 +916,6 @@ body, html {
   align-items: center;
   padding-top: 2.5rem; 
 }
-
 
 .cart-display {
   padding: 1rem 0 1rem 1rem; 
@@ -1175,8 +1181,6 @@ h5 {
   gap: 1rem; 
 }
 
-
-
 @media screen and (max-width: 768px) { 
   .process-checkout-row {
     grid-template-columns: 1fr; 
@@ -1202,8 +1206,6 @@ h5 {
 .delivery-value {
   margin-left: 0.5rem;
 }
-
-
 
 /* Dashboard container */
 .dashboard-container {
@@ -1375,7 +1377,6 @@ h1 {
       width: 40px; 
   }
 }
-  /* =============== */
 
 /* ========Manage Availability========= */
 .manage-availability-list-container {
@@ -1537,16 +1538,80 @@ h1 {
   }
 }
 
+/* =========ARTIST AVAILABILITY SLOTS=========== */
+
+.dashboard-artist-availability {
+    font-family: Arial, sans-serif;
+    margin: 20px auto;
+    width: 80%;
+    max-width: 800px;
+    text-align: center;
+}
+
+.dashboard-artist-availability {
+    text-align: center;
+}
+
+.availability-slots-list {
+    list-style-type: none;
+    padding: 0;
+    margin: 20px auto;
+    width: 100%;
+}
+
+.availability-slots {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    border: 1px solid #ddd;
+    background-color: #fff;
+    margin-bottom: 10px;
+}
+
+.availability-slots:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+.availability-slots:hover {
+    background-color: #f1f1f1;
+}
+
+.delete-form {
+    display: inline;
+}
+
+.delete-button {
+    background-color: #dc3545;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+    border-radius: 3px;
+}
+
+.delete-button:hover {
+    background-color: #c82333;
+}
+
+.no-availabilities {
+    margin-top: 20px;
+    font-size: 18px;
+    color: #555;
+}
+
 
 /* =======Service Booking======= */
 .book-service-details {
+  background-color: #f9f9f9;
+  width: 70vw;
   margin: 0 auto;
   padding: 20px;
-  border: 1px solid #ddd; 
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  /* border: 1px solid #ddd;  */
   display: grid; 
   place-items: center; 
 }
-
 
 .book-now-btn {
   background-color: #007bff; 
@@ -1555,4 +1620,54 @@ h1 {
   border: none; 
   border-radius: 5px; 
   cursor: pointer; 
+}
+
+/* =====DASHBOARD ARTIST BOOKINGS DISPLAY======= */
+
+.dashboard-artist-booking {
+  font-family: Arial, sans-serif;
+  margin: 20px;
+}
+
+.dashboard-artist-booking h2 {
+  color: #333;
+  margin-bottom: 20px;
+  font-size: 24px;
+}
+
+.dashboard-artist-booking table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 20px;
+}
+
+.dashboard-artist-booking th, 
+.dashboard-artist-booking td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: left;
+}
+
+.dashboard-artist-booking th {
+  background-color: #f4f4f4;
+  color: #333;
+  font-weight: bold;
+}
+
+.dashboard-artist-booking tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+.dashboard-artist-booking tr:hover {
+  background-color: #f1f1f1;
+}
+
+.dashboard-artist-booking .booked-status {
+  text-align: center;
+}
+
+.dashboard-artist-booking input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+  cursor: not-allowed;
 }

@@ -4,7 +4,9 @@ from item.models import Item, CardItems
 from .shopping_cart import CartHandler
 from .models import DeliveryMethod, DiscountCode
 from wishlist.models import WishList, WishListItem
-from django.contrib.messages import info   ### For message
+from django.contrib.messages import info   
+from base.forms import DeliveryInfoForm
+
 
 
 def add_to_cart(request, item_id):
@@ -60,7 +62,7 @@ def update_item_quantity(request, item_id):
         cart.update_quantity(item_id, quantity)
         return redirect('view-cart')
     
-from base.forms import DeliveryInfoForm####
+
 def update_cart_total_cost(request):####
     cart = CartHandler(request)
     delivery_methods = DeliveryMethod.objects.all()

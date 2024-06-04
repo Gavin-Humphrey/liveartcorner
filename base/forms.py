@@ -3,7 +3,7 @@ from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from user.models import  User, ArtistProfile, ArtistAvailability
 from item.models import CardItems, Item
-from services.models import Service
+from services.models import Service, Booking
 
 
 
@@ -90,5 +90,8 @@ class ArtistAvailabilityForm(forms.ModelForm):
         }
 
         
-
+class BookingForm(forms.ModelForm):
+    class Meta:
+        model = Booking
+        fields = []  
 

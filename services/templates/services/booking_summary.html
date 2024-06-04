@@ -1,0 +1,30 @@
+{% extends 'base/main.html' %}
+
+{% block content %}
+  <div class="booking-summary" style="text-align: center;">
+    <h2>Booking Summary</h2>
+    <div class="book-service-details">
+      <h3>{{ service.name }}</h3>
+      <p style="font-weight: bolder;">Description <br>{{ service.description }}</p>
+      <p class="price" style="font-weight: bolder;">Price <br> ${{ service.price }}</p>
+
+        <div class="availability-details">
+        <p  style="font-weight: bolder;">Selected Date & Time<br>
+        {{ booking.availability.date }} ({{ booking.availability.start_time }} - {{ booking.availability.end_time }})</br>
+        </div>
+
+        <h3>User Information</h3>
+        <div class="user-details">
+        <p>Name: {{ booking.user }}</p>
+        <p>Email: {{ booking.user.email }}</p>
+        </div>
+        </div>
+        <form method="post" action="{% url 'create-booking-checkout-session' service_id=service.id %}">
+        {% csrf_token %}
+        <input type="hidden" name="total_cost" value="{{ service.price }}">
+        <input type="hidden" name="availability_slot" value="{{ booking.availability.id }}">
+        <button type="submit" class="book-now-btn" style="margin-top: 20px;">Proceed to Payment</button>
+        </form>
+  </div>
+{% endblock %}
+

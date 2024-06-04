@@ -24,7 +24,7 @@ def create_order(user, delivery_data, chosen_delivery_method):
         user=order_user,
         order_type=order_type,
         total_cost=delivery_data['total_cost'],
-        delivery_method=chosen_delivery_method,  # Assuming chosen_delivery_method is an instance
+        delivery_method=chosen_delivery_method,  # Chosen_delivery_method is an instance
         order_status='Pending',
         delivery_info=delivery_info
     )

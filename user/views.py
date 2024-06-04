@@ -6,6 +6,7 @@ from django.contrib import messages
 from base.forms import RegisterForm, ArtistProfileForm, UserProfileForm, ArtistAvailabilityForm
 from .models import User, ArtistProfile, ArtistAvailability
 from item.models import CardItems, Item
+from services.models import Booking
 
 
 
@@ -102,6 +103,7 @@ def update_artist_profile(request):
 @login_required
 def artist_dashboard(request, user_id):
     user = get_object_or_404(User, id=user_id)
+    
 
     if not user.is_artist:
         messages.error(request, "This user is not an artist.")
@@ -196,7 +198,6 @@ def manage_availability(request):
     return render(request, 'item/manage_availability.html', {'items': items})
 
 
-
 @login_required
 def create_artist_availability_calendar(request):
     if request.method == 'POST':
@@ -255,6 +256,12 @@ def delete_artist_availability(request, pk):
         return redirect('artist-availability-calendar')
     
 
+def get_artist_bookings(request):
+    user = request.user
+    bookings = Booking.objects.filter(availability__artist=user).order_by('-availability__date')  # filter by artist's availability
+    logger.error("These are your bookings: ", bookings)
+    context = {'bookings': bookings,}
+    return render(request, 'user/artist_bookings.html', context)
 
 @login_required
 def upload_files(request):

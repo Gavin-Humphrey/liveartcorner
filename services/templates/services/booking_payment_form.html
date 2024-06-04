@@ -1,4 +1,4 @@
-{% extends 'base/main.html' %}
+<!-- {% extends 'base/main.html' %}
 {% block script %} <script src="https://js.stripe.com/v3/"></script> {% endblock script%} 
 {% block content %}
 <section class="shopping-cart">
@@ -7,10 +7,10 @@
             <h3>Payment</h3>
         </div>
 
-        <form id="payment-form" method="POST" action="{% url 'create-checkout-session' order_id=order_id %}">
+        <form id="payment-form" method="POST" action="{% url 'create-checkout-session' booking_id=booking_id %}">
             {% csrf_token %}
             <input type="hidden" name="total_cost" value="{{ total_cost }}">
-            <input type="hidden" name="order_id" value="{{ order_id }}">
+            <input type="hidden" name="booking_id" value="{{ booking_id }}">
             <div class="form-row">
                 <label for="card-element">Credit or debit card</label>
                 <div id="card-element"></div>
@@ -23,5 +23,4 @@
 </section>
 
 
-{% endblock content %}
-
+{% endblock content %} -->
