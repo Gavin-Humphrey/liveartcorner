@@ -31,6 +31,7 @@ class CartHandler:
                 request.session['cart'] = self.cart.pk
             self.cart_items = CartItem.objects.filter(cart=self.cart)
 
+
     def add_to_cart(self, item, quantity):
         cart_item, created = CartItem.objects.get_or_create(cart=self.cart, item=item)
         if not created:

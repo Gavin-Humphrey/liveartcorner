@@ -32,4 +32,4 @@ def create_order(user, delivery_data, chosen_delivery_method):
     return order
 
 
-
+  

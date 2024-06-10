@@ -8,6 +8,16 @@ from wishlist.views import my_wishlist,  get_wishlist_items_count
 
 
 
+
+
+# @login_required
+# def item_view(request, pk):
+#     user = request.user 
+#     items = CardItems.objects.get(user, id=pk)
+#     context = {"items": items}
+#     return render(request, "items/view_items.html", context)
+
+
 @login_required
 def upload_item(request):
     if request.method == 'POST':
@@ -63,8 +73,6 @@ def item_detail(request, item_id):
     item = get_object_or_404(Item, id=item_id)
     cart = CartHandler(request)
     cart_items_count = cart.get_cart_items_count()
-    #wishlist_items_count = get_wishlist_items_count(request)
-    #wishlist_items = get_wishlist_items(request)
     wishlist_items = my_wishlist(request)
     context = {'item': item, 'cart_items_count': cart_items_count, 'wishlist_items': wishlist_items}
     return render(request, 'item/items_detail.html', context)

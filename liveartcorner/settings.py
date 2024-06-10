@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "base.apps.BaseConfig",
     "user.apps.UserConfig",
+    "dashboard.apps.DashboardConfig",
     "item.apps.ItemConfig",    
     "cart.apps.CartConfig",
     "order.apps.OrderConfig",
@@ -154,6 +155,8 @@ EMAIL_HOST_PASSWORD = config("WEBSITE_EMAIL_PASSWORD", default="Backuppassword")
 
 PASSWORD_RESET_TIMEOUT = 15000
 
+
+
 STRIPE_PUBLIC_KEY = config("STRIPE_PUBLIC_KEY")
 STRIPE_SECRET_KEY = config("STRIPE_SECRET_KEY")
 STRIPE_WEBHOOK_SECRET = config("STRIPE_WEBHOOK_SECRET")
@@ -164,16 +167,16 @@ PAYMENT_CANCEL_URL = config("PAYMENT_CANCEL_URL")
 
 
 
-# LOGGING = {
-#     'version': 1,
-#     'disable_existing_loggers': False,
-#     'handlers': {
-#         'console': {
-#             'class': 'logging.StreamHandler',
-#         },
-#     },
-#     'root': {
-#         'handlers': ['console'],
-#         'level': 'DEBUG',
-#     },
-# }
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'console': {
+            'class': 'logging.StreamHandler',
+        },
+    },
+    'root': {
+        'handlers': ['console'],
+        'level': 'DEBUG',
+    },
+}

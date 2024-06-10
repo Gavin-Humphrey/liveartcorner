@@ -1,10 +1,11 @@
 {% extends 'base/main.html' %}
+{% load static %}
 
 {% block content %}
 
 <body>
     <div class="dashboard-header dashboard-manage">
-        <a href="{% url 'artist-dashboard' user.id %}" class="btn btn-secondary">Back to Home</a>
+        <a href="{% url 'artist-dashboard' user.id %}" class="btn btn-secondary">Back to Dashboard</a>
     </div>
     <h1>Manage Your Items</h1>
     <div class="manage-item-list-container">
@@ -17,6 +18,7 @@
                         <th>Dimension(cm)</th>
                         <th>Quantity</th>
                         <th>Image</th>
+                        <th>Remove</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -33,6 +35,14 @@
                             {% else %}
                             No image
                             {% endif %}
+                        </td>
+
+                        <td class="table-header-style">
+                            <form action="{% url 'remove-from-cart' item.id %}" method="post"> 
+                                {% csrf_token %}
+                                <button type="submit"><div class="cart-table-delete"><img src="{% static 'img/trash-can.svg' %}" alt="trash icon" class="cart-trash-img"></div>
+                                </button>
+                            </form>
                         </td>
                     </tr>
                     {% endfor %}

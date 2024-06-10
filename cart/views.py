@@ -6,7 +6,31 @@ from .models import DeliveryMethod, DiscountCode
 from wishlist.models import WishList, WishListItem
 from django.contrib.messages import info   
 from base.forms import DeliveryInfoForm
+from django.contrib.auth.models import AnonymousUser
 
+
+
+# def add_to_cart(request, item_id):
+#     if request.method == 'POST':
+#         quantity = int(request.POST.get('quantity', 1))
+#         item = get_object_or_404(Item, id=item_id)  # Fetch the Item instance using item_id
+
+#         wishlist = WishList.objects.filter(user=request.user).first()        
+#         if wishlist:
+#             # Remove the specific item from the wishlist
+#             wishlist_item = WishListItem.objects.filter(wishlist=wishlist, item=item).first()
+#             if wishlist_item:
+#                 wishlist_item.delete()
+
+#         if item.quantity >= quantity:  
+#             cart = CartHandler(request)
+#             cart.add_to_cart(item, quantity=quantity)  # Pass the Item instance instead of item_id
+#             return redirect('home')
+#         else:
+#             messages.error(request, f"Sorry, there are only {item.quantity} items available.")
+#             return redirect('home')          
+#     else:
+#         return redirect('home')
 
 
 def add_to_cart(request, item_id):
@@ -14,12 +38,13 @@ def add_to_cart(request, item_id):
         quantity = int(request.POST.get('quantity', 1))
         item = get_object_or_404(Item, id=item_id)  # Fetch the Item instance using item_id
 
-        wishlist = WishList.objects.filter(user=request.user).first()        
-        if wishlist:
-            # Remove the specific item from the wishlist
-            wishlist_item = WishListItem.objects.filter(wishlist=wishlist, item=item).first()
-            if wishlist_item:
-                wishlist_item.delete()
+        if not isinstance(request.user, AnonymousUser):
+            wishlist = WishList.objects.filter(user=request.user).first()
+            if wishlist:
+                # Remove the specific item from the wishlist
+                wishlist_item = WishListItem.objects.filter(wishlist=wishlist, item=item).first()
+                if wishlist_item:
+                    wishlist_item.delete()
 
         if item.quantity >= quantity:  
             cart = CartHandler(request)

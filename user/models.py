@@ -14,9 +14,15 @@ class User(AbstractUser):
     username = models.CharField(max_length=150, default="")
     is_artist = models.BooleanField(default=False) 
     is_vetted_artist = models.BooleanField(default=False) 
+    phone_number = models.CharField(max_length=15, blank=True, default='') #
+    street_address = models.CharField(max_length=255, blank=True, default='') #
+    city = models.CharField(max_length=100, blank=True, default='') #
+    postal_code = models.CharField(max_length=20, blank=True, default='') #
+    country = models.CharField(max_length=100, blank=True, default='') #
 
     USERNAME_FIELD = "email"
-    REQUIRED_FIELDS = []
+    REQUIRED_FIELDS = ['name', 'phone_number', 'street_address', 'city', 'postal_code', 'country'] #
+    #REQUIRED_FIELDS = []
 
     objects = CustomUserManager()
 

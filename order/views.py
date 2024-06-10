@@ -132,3 +132,4 @@ def process_checkout(request):
             return render(request, 'order/checkout.html', context)
     return redirect('process-delivery')
 
+  

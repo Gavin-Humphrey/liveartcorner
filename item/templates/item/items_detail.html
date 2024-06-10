@@ -2,6 +2,9 @@
 {% load static %}
 {% block content %}
 <main>
+    <div class="dashboard-header dashboard-manage">
+        <a href="{% url 'home' %}" class="btn btn-secondary">Back to Home</a>
+    </div>
 <div class="item-detail-container">
     <h1>{{ item.title }}</h1> 
     <div class="item-detail-card">
@@ -53,7 +56,6 @@
                             </svg>
                           </button>
                           
-                        <!-- <button type="submit"><img src="{% static 'img/item-detail-wishlist-heart.png' %}" alt="wishlist icon" class="item-detail-wishlist-icon-img"></button> -->
                     </form>
                 {% else %}
                     <a href="{% url 'login' %}">

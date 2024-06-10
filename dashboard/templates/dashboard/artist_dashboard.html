@@ -1,0 +1,195 @@
+{% extends 'base/main.html' %}
+
+{% block content %}
+
+<body>
+    
+    <div class="dashboard">
+        <span class="hamburger" id="hamburger">&#9776;</span>  
+
+        <div class="sidebar" id="sidebar"> 
+            <h2>Dashboard</h2>
+            <ul>
+                <li><a href="{% url 'home' %}">Home</a></li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle">Settings</a>
+                    <ul class="dropdown-menu">
+                        <li><a href="{% url 'artist-profile' user.id %}">Profile</a></li>
+                        <li><a href="{% url 'update-artist-profile' %}">Update Profile</a></li>
+                        <li><a href="{% url 'contact' %}">Contact Us</a></li>
+                    </ul>
+                </li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle">Items</a>
+                    <ul class="dropdown-menu">
+                        <li><a href="{% url 'manage-items-availability' %}">Items Availabilities</a></li>
+                        <li><a href="{% url 'upload-item' %}">Upload Items</a></li>
+                        <li><a href="{% url 'manage-items' %}">Manage Items</a></li>
+                    </ul>
+                </li>
+                
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle">Services</a>
+                    <ul class="dropdown-menu">
+                        <li><a href="{% url 'add-service' %}">Add Service</a></li>
+                        <li><a href="{% url 'services-list' %}">Services</a></li>
+                    </ul>
+                </li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle">Calendar</a>
+                    <ul class="dropdown-menu">
+                        <li><a href="{% url 'artist-availability-calendar' %}">Calendar Slots</a></li>
+                        <li><a href="{% url 'create-artist-availability-calendar' %}">Add Slots</a></li>
+                        <li><a href="{% url 'update-artist-availability-calendar' user.id %}">Update Slots</a></li>
+                        <li><a href="{% url 'view-artist-bookings'  %}">View Bookings</a></li>
+                    </ul>
+                </li>
+                <li><a href="#">Settings</a></li>
+                <li><a href="{% url 'ordered-items' %}">Ordered Items</a></li>
+            </ul>
+        </div> 
+        <div class="main-content">
+            <div class="top-bar">
+                
+                <h1>Welcome, {{ user }}!</h1>
+                <div class="dashboard-user-info">
+                    <span></span>
+                    {% if user.artistprofile.profile_picture %}
+                    <img src="{{ user.artistprofile.profile_picture.url }}" alt="Profile Picture"/>
+                    {% else %}
+                    <img src="{{ user.get_avatar_url }}" alt="Avatar"/>
+                    {% endif %}
+                </div> 
+            </div>
+            <div class="content dashboard-content">
+                <!-- Your existing content here -->
+                <div class="dashboard-artist-left">
+                    <h2>Bookings</h2>
+                    {% if bookings %}
+                    <table>
+                        <tr>
+                            <th>Customer</th>
+                            <th>Service</th>
+                            <th>Date</th>
+                            <th>Time</th>
+                            <th class="booked-status">Booked/Not Booked</th>  
+                        </tr>
+                        {% for booking in bookings|slice:":2" %}
+                        <tr>
+                            <td>{{ booking.user }}</td>
+                            <td>{{ booking.service}}</td>  
+                            <td>{{ booking.availability.date }}</td>  
+                            <td>{{ booking.availability.start_time }} - {{ booking.availability.end_time }}</td>
+                            <td class="left-status">
+                                <input type="checkbox" disabled checked />
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </table>
+                    <div class="items-detail-update-qty">
+                        <button type="submit" ><a href="{% url 'view-artist-bookings' %}" class="more-link">More</a></button>
+                    </div>
+                    {% else %}
+                    <p class="no-dashboard-item-found">No bookings found.</p>
+                    {% endif %}
+                </div>
+
+                <div class="dashboard-artist-right">
+                    <h2>Availabilities</h2>
+                    {% if availabilities %}
+                    <ul class="dashboard-artist-right-list">
+                        {% for availability in availabilities|slice:":3" %}
+                        <li class="dashboard-artist-right-item">
+                            <div>
+                                {{ availability.date }}: {{ availability.start_time }} - {{ availability.end_time }}
+                            </div>
+                            <form action="{% url 'delete-artist-availability' availability.pk %}" method="post" class="delete-form">
+                                {% csrf_token %}
+                                <button type="submit" class="delete-button dashboard-delete-button">Delete</button>
+                            </form>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                    <div class="items-detail-update-qty">
+                        <button type="submit" ><a href="{% url 'artist-availability-calendar' %}" class="more-link">More</a></button>
+                    </div>
+                    {% else %}
+                    <p class="no-dashboard-item-found">No availabilities found.</p>
+                    {% endif %}
+                </div>
+                
+                <div class="dashboard-artist-left">
+                    {% if ordered_items %}
+                    <h2>Ordered Items</h2>
+                    <table>
+                        <tr>
+                            <th>Order#</th>
+                            <th>Item</th>
+                            <th>Quantity</th>
+                            <th>Price</th>
+                            <th>Total</th>
+                        </tr>
+                        {% for order_item in ordered_items|slice:":3" %}
+                        <tr>
+                            <td>{{ order_item.order.id }}</td>
+                            <td>{{ order_item.item.title }}</td>
+                            <td>{{ order_item.quantity }}</td>
+                            <td>{{ order_item.item.price }}</td>
+                            <td>{{ order_item.get_total_cost }}</td>
+                        </tr>
+                        {% endfor %}
+                    </table>
+                    <div class="items-detail-update-qty">
+                        <button type="submit" > <a href="{% url 'ordered-items' %}" class="more-link">More</a></button>
+                    </div>
+                    {% else %}
+                    <p class="no-dashboard-item-found">No ordered items found.</p>
+                    {% endif %}
+                </div>
+                
+                <div class="dashboard-artist-left  side-right-small">
+                    <div class="dashboard-items-count">
+                    <h2 >Your Items</h2> <p>You have uploaded {{ items_count }} items.</p>
+                    </div>
+                    {% if items %}
+                    <table>
+                        <tr>
+                            <th>Title</th>
+                            <th>Dimension(cm)</th>
+                            <th>Quantity</th>
+                        </tr>                   
+                        {% for item in items|slice:":2" %}
+                        <tr>
+                            <td>{{ item.title }}</td>
+                            <td>{{ item.length}} x {{ item.width }}</td>
+                            <td>{{ item.quantity }}</td>
+                        </tr>
+                        {% endfor %}
+                    </table>
+                    <div class="items-detail-update-qty">
+                        <button type="submit" > <a href="{% url 'manage-items' %}" class="more-link">More</a></button>
+                    </div>
+                    {% else %}
+                    <p class="no-dashboard-item-found">No bookings found.</p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        document.getElementById('hamburger').onclick = function() {
+            var sidebar = document.getElementById('sidebar');
+            if (sidebar.style.display === 'block' || sidebar.style.display === '') {
+                sidebar.style.display = 'none';
+            } else {
+                sidebar.style.display = 'block';
+            }
+        };
+    </script>
+    
+    
+</body>
+
+
+{% endblock %}

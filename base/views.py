@@ -1,8 +1,8 @@
 import logging
 from django.shortcuts import render, redirect, get_object_or_404
-from django.contrib.auth import authenticate, login, logout, get_user_model
+#from django.contrib.auth import authenticate, login, logout, get_user_model
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.forms import AuthenticationForm
+#from django.contrib.auth.forms import AuthenticationForm
 from django.contrib import messages
 
 from .forms import RegisterForm, ArtistProfileForm, UserProfileForm,  ItemForm, ContactForm
@@ -19,35 +19,35 @@ logger = logging.getLogger(__name__)
 
 
 
-def loginPage(request):
-    page = "login"
+# def loginPage(request):
+#     page = "login"
 
-    if request.user.is_authenticated:
-        return redirect("home")
+#     if request.user.is_authenticated:
+#         return redirect("home")
 
-    try:
-        if request.method == "POST":
-            form = AuthenticationForm(data=request.POST)
-            if form.is_valid():
-                user = form.get_user()
-                login(request, user)
-                return redirect("home")
-            else:
-                raise ValueError("Invalid username or password")
-        else:
-            form = AuthenticationForm()
+#     try:
+#         if request.method == "POST":
+#             form = AuthenticationForm(data=request.POST)
+#             if form.is_valid():
+#                 user = form.get_user()
+#                 login(request, user)
+#                 return redirect("home")
+#             else:
+#                 raise ValueError("Invalid username or password")
+#         else:
+#             form = AuthenticationForm()
 
-    except Exception as e:
-        logger.error(f"An error occurred in loginPage view: {e}")
-        messages.error(request, "Invalid name or password.")
+#     except Exception as e:
+#         logger.error(f"An error occurred in loginPage view: {e}")
+#         messages.error(request, "Invalid name or password.")
 
-    context = {"page": page, "form": form}
-    return render(request, "user/signup_login.html", context)
+#     context = {"page": page, "form": form}
+#     return render(request, "user/signup_login.html", context)
 
 
-def logout_view(request):
-    logout(request)
-    return redirect("home")
+# def logout_view(request):
+#     logout(request)
+#     return redirect("home")
 
 
 def home(request):

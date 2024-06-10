@@ -3,6 +3,35 @@
 {% block content %}
 
 <main>
+    <!-- Offcanvas for Popular Items -->
+    <h3 class="popular-items-header">Popular Items</h3>
+    <div class="popular-items-section">
+        <div class="container">
+            <!-- <h3>Popular Items</h3> -->
+            <div class="popular-items-container">
+                {% for card in card_items %}
+                {% for item in card.items.all %}
+                {% if item.popularity == 5 %}
+                <div class="popular-item">
+                    
+                    <a href="{% url 'item-detail' item.id %}">
+                        <img src="{{ item.image.url }}" alt="{{ item.title }}">
+     
+
+                        <!-- <div class="item-details">
+                            <p class="item-title">{{ item.title }}</p>
+                            <p class="item-price">${{ item.price }}</p>
+                        </div> -->
+                    </a>
+                </div>
+                {% endif %}
+                {% endfor %}
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    <!-- End of offcanvas -->
+
     <div class="card-container">
         {% for card in card_items %}
         <div class="card">
@@ -76,10 +105,30 @@
             });
         });
 
+
+
+    // OFFCANVASS ANIMATION   
+
+    document.addEventListener("DOMContentLoaded", function() {
+        var scrollContent = document.querySelector(".scroll-content");
+        var items = scrollContent.innerHTML;
+        scrollContent.innerHTML += items; // Duplicate the items
+
+        // Adjust the duration of the animation based on the number of items
+        var itemWidth = document.querySelector(".popular-item").offsetWidth;
+        var itemCount = document.querySelectorAll(".popular-item").length;
+        var totalWidth = itemWidth * itemCount;
+        var scrollDuration = totalWidth / 50; // I'm leaving the speed at this, for the moment.
+
+        // Update the animation duration
+        document.styleSheets[0].insertRule(`@keyframes scroll-left { 0% { transform: translateX(0); } 100% { transform: translateX(-${totalWidth / 2}px); } }`, 0);
+        scrollContent.style.animationDuration = `${scrollDuration}s`;
+
+    });
+
     </script> 
     
 </main>
-
   
 {% endblock %}
      

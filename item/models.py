@@ -48,3 +48,8 @@ class Item(models.Model):
             img_format = img.format
             img_path = self.image.path
             resized_img.save(img_path, format=img_format)
+
+
+
+
+
