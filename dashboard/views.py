@@ -83,7 +83,6 @@ def manage_items(request):
             messages.info(request, "No changes were made.")
 
         return redirect('manage-items')
-
     return render(request, 'item/manage_items.html', {'items': items})
 
 
@@ -115,7 +114,8 @@ def manage_items_availability(request):
         else:
             messages.info(request, "No changes were made.")
 
-        return redirect('manage-availability')
+        #return redirect('manage-availability')
+        return redirect('manage-items-availability')
 
     return render(request, 'item/manage_availability.html', {'items': items})
 

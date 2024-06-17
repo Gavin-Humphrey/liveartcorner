@@ -1,0 +1,49 @@
+version: '3.8'
+
+services:
+  db:
+    image: postgres:13
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    networks:
+      - liveartcorner-network
+
+  pgadmin:
+    image: dpage/pgadmin4
+    environment:
+      PGADMIN_DEFAULT_EMAIL: ${PGADMIN_DEFAULT_EMAIL}
+      PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_DEFAULT_PASSWORD}
+    ports:
+      - "5555:80"
+    networks:
+      - liveartcorner-network
+
+  web:
+    build: .
+    command: gunicorn liveartcorner.wsgi:application --bind 0.0.0.0:$PORT --timeout 300 --log-level debug
+    ports:
+      - "8000:8000"
+    volumes:
+      - .:/app
+      - static_volume:/app/staticfiles
+    environment:
+      - SENTRY_DSN=${LIVEARTCORNER_SENTRY_DSN}
+      - DOCKERIZED=1  # Override to 1 for Docker
+      - PORT=${PORT}
+      - DATABASE_URL=postgres://${POSTGRES_USER}:${POSTGRES_PASSWORD}@db:5432/${POSTGRES_DB}
+    depends_on:
+      - db
+    networks:
+      - liveartcorner-network
+
+networks:
+  liveartcorner-network:
+    driver: bridge
+
+volumes:
+  postgres_data:
+  static_volume:

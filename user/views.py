@@ -16,9 +16,32 @@ from .models import User, ArtistProfile
 
 
 
-
 logger = logging.getLogger(__name__)
 
+
+
+def registerUser(request):
+    if request.method == "POST":
+        form = RegisterForm(request.POST)
+        if form.is_valid():
+            user = form.save(commit=False)
+            user.is_artist = form.cleaned_data.get('is_artist')
+            user.is_active = False  # Set is_active to False until the user activates their account
+            user.save()
+            activateEmail(request, user, form.cleaned_data.get("email"))
+            return redirect("login")
+
+        else:
+            for error in list(form.errors.values()):
+                messages.error(request, error)
+
+    else:
+        form = RegisterForm()
+
+    return render(
+        request=request, template_name="user/login_signup.html", context={"form": form}
+    )
+    
 
 def activate(request, uidb64, token):
     try:
@@ -67,8 +90,6 @@ def activateEmail(request, user, to_email):
         )
 
 
-
-
 def login_view(request):
     page = "login"
 
@@ -96,37 +117,6 @@ def login_view(request):
     context = {"page": page, "form": form}
     return render(request, "user/login_signup.html", context)
 
-
-
-
-def logout_view(request):
-    logout(request)
-    return redirect("home")
-
-
-
-def registerUser(request):
-    if request.method == "POST":
-        form = RegisterForm(request.POST)
-        if form.is_valid():
-            user = form.save(commit=False)
-            user.is_artist = form.cleaned_data.get('is_artist')
-            user.is_active = False  # Set is_active to False until the user activates their account
-            user.save()
-            activateEmail(request, user, form.cleaned_data.get("email"))
-            return redirect("login")
-
-        else:
-            for error in list(form.errors.values()):
-                messages.error(request, error)
-
-    else:
-        form = RegisterForm()
-
-    return render(
-        request=request, template_name="user/login_signup.html", context={"form": form}
-    )
-    
 
 @login_required
 def artist_profile_view(request, user_id):
@@ -191,3 +181,9 @@ def update_artist_profile(request):
         "button_text": "Save Changes"
     }
     return render(request, "user/update_artist_profile.html", context)
+
+
+def logout_view(request):
+    logout(request)
+    return redirect("home")
+

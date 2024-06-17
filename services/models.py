@@ -1,6 +1,8 @@
 from django.db import models
 from user.models import User, ArtistAvailability
 
+
+
 class Service(models.Model):
     artist = models.ForeignKey(User, related_name='services', on_delete=models.CASCADE)
     name = models.CharField(max_length=100)

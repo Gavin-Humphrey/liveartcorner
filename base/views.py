@@ -18,38 +18,6 @@ from wishlist.views import my_wishlist,  get_wishlist_items_count
 logger = logging.getLogger(__name__)
 
 
-
-# def loginPage(request):
-#     page = "login"
-
-#     if request.user.is_authenticated:
-#         return redirect("home")
-
-#     try:
-#         if request.method == "POST":
-#             form = AuthenticationForm(data=request.POST)
-#             if form.is_valid():
-#                 user = form.get_user()
-#                 login(request, user)
-#                 return redirect("home")
-#             else:
-#                 raise ValueError("Invalid username or password")
-#         else:
-#             form = AuthenticationForm()
-
-#     except Exception as e:
-#         logger.error(f"An error occurred in loginPage view: {e}")
-#         messages.error(request, "Invalid name or password.")
-
-#     context = {"page": page, "form": form}
-#     return render(request, "user/signup_login.html", context)
-
-
-# def logout_view(request):
-#     logout(request)
-#     return redirect("home")
-
-
 def home(request):
     card_items = CardItems.objects.all()  # Query all CardItems objects
     # cart = ShoppingCart(request)

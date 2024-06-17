@@ -16,3 +16,5 @@ class Migration(migrations.Migration):
             field=models.DecimalField(decimal_places=0, max_digits=2),
         ),
     ]
+
+

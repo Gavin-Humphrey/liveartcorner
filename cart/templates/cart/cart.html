@@ -109,7 +109,7 @@
                             
                             <div class="summary-item">
                                 <span class="text">TOTAL:</span>
-                                <span class="price">{% if total_cost %} &#36; {{ total_cost|default_if_none:sub_total }} {% else %} 0 {% endif %}</span>
+                                <span class="price">{% if total_cost %} &#36; {{ total_cost|default_if_none:sub_total }} {% else %} 0.00 {% endif %}</span>
                             </div>
                             <form action="{% url 'process-delivery' %}" method="POST">
                                 {% csrf_token %}

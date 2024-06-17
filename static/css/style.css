@@ -389,12 +389,9 @@ body, html {
   flex: 1;  
   overflow-y: auto;
   max-width: 400px;
-  /* padding: 20px 20px 20px 0;  */
   padding: 20px;
-  /* border: 1px solid #ccc; */
   border: 1px #333;
   border-radius: 10px;
-  /* background: #333;   */
   background-color: rgb(248, 249, 250);
   margin-bottom: 20px;    
 }
@@ -442,7 +439,6 @@ body, html {
 }
 
 .btn-link {
-  /* color: #007bff !important; */
   color: #007bff !important;
   font-weight: bolder !important;
   text-decoration: none !important;
@@ -647,14 +643,28 @@ body, html {
     max-width: 12.5rem; 
   }
 }
+/* Just Added here */
+@media (max-width: 920px) {
+  .card-container {
+    margin-left: 2.4rem;
+  }
+}
+
+
 
 @media (max-width: 768px) { 
+  .card-container {/* I added this too */
+    margin-left: 0;
+  }
   .card {
     flex-basis: calc(50% - 0.625rem); 
   }
 }
 
 @media (max-width: 480px) {  
+  .card-container { /* I added this too */
+    margin-left: 0;
+  }
   .card {
     flex-basis: 100%;  
   }
@@ -830,13 +840,13 @@ body, html {
   position: absolute;
   background-color: #3498db;
   color: white;
-  padding: 10px;
-  font-size: 16px;
+  padding: 0.625rem;
+  font-size: 1rem;
   border: none;
   cursor: pointer;
-  border-radius: 4px; 
-  top: 10px;
-  right: 10px;
+  border-radius: 0.25rem; 
+  top: 0.625rem;
+  right: 0.625rem;
 }
 
 /* The dropdown container */
@@ -850,11 +860,11 @@ body, html {
 .item-detail-dropdown-content {
   display: none;
   position: absolute;
-  top: 30px;
+  top: 1.875rem;
   right: 0;
   background-color: #f9f9f9;
-  min-width: 120px;
-  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  min-width: 7.5rem;
+  box-shadow: 0rem 0.5rem 1rem 0rem rgba(0,0,0,0.2);
   z-index: 1;
 }
 
@@ -862,8 +872,7 @@ body, html {
 .item-detail-dropdown-content a,
 .item-detail-dropdown-content form {
   color: black;
-  /* padding: 12px 16px; */
-  padding: 10px 0;
+  padding: 0.625rem 0;
   text-align: center;
   text-decoration: none;
   display: block;
@@ -889,7 +898,6 @@ body, html {
   color: #fff;
 }
 
-                                                /* =====IDENTIFIED ISSUE====== */
 .row-grid-row {
   display: grid;
   grid-template-columns: 6fr 4fr;
@@ -910,10 +918,10 @@ body, html {
     grid-template-columns: 1fr; 
   }
   .cart-display {
-    border-radius: 10px;
+    border-radius: 0.625rem;
   }
   .checkout-summary-container {
-    border-radius: 10px !important;
+    border-radius: 0.625rem !important;
   }
 }
 
@@ -927,8 +935,8 @@ body, html {
 .cart-display {
   padding: 1rem 0 1rem 1rem; 
   background-color: #fff;
-  border-radius: 10px 0 0 10px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  border-radius: 0.625rem 0 0 0.625rem;
+  box-shadow: 0 0 0.625rem rgba(0, 0, 0, 0.2);
 }
 
 .display-items-count {
@@ -1090,7 +1098,7 @@ body, html {
   font-weight: bold; 
   font-size: 1rem;
   display: inline-block;
-  min-width: 150px; 
+  min-width: 9.375rem; 
 }
 
 .summary-item .price {
@@ -1126,7 +1134,7 @@ body, html {
   background-color: #4b4848;
   color: #fff;
   border: none;
-  border-radius: 5px;
+  border-radius: 0.3125rem;
   cursor: pointer;
 }
 
@@ -1150,7 +1158,7 @@ body, html {
   grid-template-columns: 5fr 5fr;
   /* margin: 0 auto;  */
   margin-bottom: 5rem;
-  max-width: 7=60rem; 
+  max-width: 60rem; 
   gap: 3rem;
 }
 
@@ -1231,9 +1239,9 @@ h5 {
 
 /* Dashboard container */
 .dashboard-container {
-  max-width: 1200px;
+  max-width: 75rem;
   margin: 0 auto;
-  padding: 20px;
+  padding: 1.25rem;
 }
 
 /* Dashboard header */
@@ -1241,7 +1249,7 @@ h5 {
   display: flex;
   justify-content: space-between !important;
   align-items: center;
-  margin-bottom: 20px;
+  margin-bottom: 1.25rem;
 }
 
 .dashboard-header h1 {
@@ -1254,9 +1262,9 @@ h5 {
   background-color: #f0f0f0;
   color: #333;
   border: 1px solid #ccc;
-  padding: 10px 20px;
+  padding: 0.625rem 1.25rem;
   text-decoration: none;
-  border-radius: 5px;
+  border-radius: 0.3125rem;
   transition: background-color 0.3s ease;
 }
 
@@ -1268,7 +1276,7 @@ h5 {
 .dashboard-content {
   display: grid;
   grid-template-columns: 1fr;
-  gap: 20px;
+  gap: 1.25rem;
 }
 
 @media (min-width: 768px) {
@@ -1287,9 +1295,9 @@ h5 {
 .dashboard-section {
   background-color: #fff;
   border: 1px solid #ddd;
-  border-radius: 8px;
-  padding: 20px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  border-radius: 0.5rem;
+  padding: 1.25rem;
+  box-shadow: 0 0.25rem 0.375rem rgba(0, 0, 0, 0.1);
 }
 
 .dashboard-section h2 {
@@ -1305,16 +1313,16 @@ h5 {
 .btn-group {
   display: flex;
   flex-wrap: wrap;
-  gap: 10px;
+  gap: 0.625rem;
 }
 
 /* Buttons */
 .btn {
   display: inline-block;
-  padding: 10px 20px;
+  padding: 0.625rem 1.25rem;
   text-align: center;
   text-decoration: none;
-  border-radius: 5px;
+  border-radius: 0.3125rem;
   transition: background-color 0.3s ease;
   cursor: pointer;
 }
@@ -1335,7 +1343,7 @@ h5 {
 
 
 /* ========Dashboard======== */
-    /* =====DASHBOARD UPDATE ITEM QTY DISPLAY======= */
+/* =====DASHBOARD UPDATE ITEM QTY DISPLAY======= */
 .dashboard-manage {
   margin-left: 3rem;
 }
@@ -1343,7 +1351,7 @@ h5 {
   max-width: 80%;
   margin: 0 auto;
   padding: 20px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 0 0.625rem rgba(0, 0, 0, 0.1);
 }
 .manage-item-list {
   width: 100%;
@@ -1352,7 +1360,7 @@ h5 {
 }
 .manage-item-list th, .manage-item-list td {
   border: 1px solid #ddd;
-  padding: 8px;
+  padding: 0.5rem;
   text-align: center;
 }
 .manage-item-list th {
@@ -1362,49 +1370,49 @@ h1 {
   text-align: center;
 }
 .manage-item-list input[type="number"] {
-  width: 60px;
+  width: 3.75rem;
 }
 
 .items-detail-update-qty {
   text-align: center;
-  margin-top: 20px;
+  margin-top: 1.25rem;
 }
 .items-detail-update-qty button {
   padding: 0.3rem;
-  border-radius: 5px;
+  border-radius: 0.3125rem;
   background-color: #333;
   color: #fff;
 }
 @media (max-width: 768px) {
   .manage-item-list input[type="number"] {
-      width: 40px;
+      width: 2.5rem;
   }
 }
 
 @media (max-width: 768px) {
   .manage-item-list th, .manage-item-list td {
-      padding: 12px;
-      font-size: 0.9em;
+      padding: 0.75rem;
+      font-size: 0.9rem;
   }
 }
 
 @media (max-width: 480px) {
   .manage-item-list th, .manage-item-list td {
-      padding: 10px;
-      font-size: 0.8em;
+      padding: 0.625rem;
+      font-size: 0.8rem;
   }
 
   .manage-item-list img {
-      width: 40px; 
+      width: 2.5rem;
   }
 }
 
-/* ========DASHBOARD MANE ITEM AVAILABILITY DISPLAY========= */
+/* ========DASHBOARD MANAGE ITEM AVAILABILITY DISPLAY========= */
 .manage-availability-list-container {
   max-width: 80%;
   margin: 0 auto;
   padding: 20px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 0 0.625rem rgba(0, 0, 0, 0.1);
 }
 .manage-availability-list {
   width: 100%;
@@ -1413,7 +1421,7 @@ h1 {
 }
 .manage-availability-list th, .manage-availability-list td {
   border: 1px solid #ddd;
-  padding: 8px;
+  padding: 0.5rem;
   text-align: center;
 }
 .manage-availability-list th {
@@ -1426,55 +1434,56 @@ h1 {
 /* ========DASHBOARD SERVICES DISPLAY ======== */
 
 .services-container {
-  max-width: 1200px;
+  max-width: 75rem;
   margin: 0 auto;
-  padding: 20px;
+  padding: 1.25rem;
 }
 
 .dashboard-header {
   display: flex;
   justify-content: flex-start;
-  margin-bottom: 20px;
+  margin-bottom: 1.25rem;
 }
 
 .services-list {
   display: flex;
   flex-wrap: wrap;
-  gap: 20px;
+  gap: 1.25rem;
   justify-content: space-around;
 }
 
 .service-card {
-  background: #ffffff;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  border-radius: 8px;
-  padding: 20px;
+  background: #fff;
+  box-shadow: 0 0 0.625rem rgba(0, 0, 0, 0.1);
+  border-radius: 0.5rem;
+  padding: 1.25rem;
   width: 100%;
-  max-width: 300px;
+  max-width: 18.75rem;
   box-sizing: border-box;
   text-align: center;
 }
 
 .service-card h2 {
-  font-size: 1.5em;
-  margin-bottom: 10px;
+  font-size: 1.5rem;
+  margin-bottom: 0.625rem;
 }
 
 .service-card p {
-  font-size: 1em;
-  color: #666666;
-  margin-bottom: 10px;
+  font-size: 1rem;
+  color: #666;
+  margin-bottom: 0.625rem;
 }
+
 /* ======== */
 
 .custom-service-card {
   position: relative;
-  padding-bottom: 60px; 
+  padding-bottom: 3.75rem;
   border: 1px solid #ddd;
-  padding: 15px;
-  margin-bottom: 15px;
-  border-radius: 5px;
-  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+  padding: 0.9375rem;
+  margin-bottom: 0.9375rem;
+  border-radius: 0.3125rem;
+  box-shadow: 0 0 0.625rem rgba(0, 0, 0, 0.1);
 }
 
 /* Container for the dropdown */
@@ -1487,31 +1496,31 @@ h1 {
 .custom-service-detail-dropbtn {
   background-color: #3498db;
   color: white;
-  padding: 10px;
-  font-size: 16px;
+  padding: 0.625rem;
+  font-size: 1rem;
   border: none;
   cursor: pointer;
-  border-radius: 4px;
+  border-radius: 0.25rem;
 }
 
 /* Container for dropdown content */
 .custom-service-detail-dropdown-content {
   display: none;
   position: absolute;
-  bottom: 100%; /* Position the dropdown above the button */
+  bottom: 100%;
   right: 0;
   background-color: #f9f9f9;
-  min-width: 160px;
-  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  min-width: 10rem;
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.2);
   z-index: 1;
-  border-radius: 4px;
+  border-radius: 0.25rem;
   overflow: hidden;
 }
 
 /* Style for the links inside the dropdown */
 .custom-service-detail-dropdown-content a {
   color: black;
-  padding: 12px 16px;
+  padding: 0.75rem 1rem;
   text-decoration: none;
   display: block;
 }
@@ -1526,15 +1535,21 @@ h1 {
   display: block;
 }
 
-.custom-service-detail-dropdown-content .service-delete-button:hover {
+.custom-service-detail-dropdown-content .service-update-button:hover {
   background-color: #ffe6e6;
+  color: #333;
+}
+
+.custom-service-detail-dropdown-content .service-delete-button:hover {
+  /* background-color: #ffe6e6; */
+  background-color: #c82333;
+  color: #f9f9f9;
 }
 
 .custom-service-detail-dropdown-content .service-book-button:hover {
   background-color: #3498db;
-  color: #fff; 
+  color: #fff;
 }
-
 
 /* ======== */
 
@@ -1559,9 +1574,9 @@ h1 {
 
 .dashboard-artist-availability {
     font-family: Arial, sans-serif;
-    margin: 20px auto;
+    margin: 1.25rem auto;
     width: 80%;
-    max-width: 800px;
+    max-width: 50rem;
     text-align: center;
 }
 
@@ -1572,7 +1587,7 @@ h1 {
 .availability-slots-list {
     list-style-type: none;
     padding: 0;
-    margin: 20px auto;
+    margin: 1.25rem auto;
     width: 100%;
 }
 
@@ -1580,10 +1595,10 @@ h1 {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 10px;
+    padding: 0.625rem;
     border: 1px solid #ddd;
     background-color: #fff;
-    margin-bottom: 10px;
+    margin-bottom: 0.625rem;
 }
 
 .availability-slots:nth-child(even) {
@@ -1602,9 +1617,9 @@ h1 {
     background-color: #dc3545;
     color: white;
     border: none;
-    padding: 5px 10px;
+    padding: 0.3125rem 0.625rem;
     cursor: pointer;
-    border-radius: 3px;
+    border-radius: 0.1875rem;
 }
 
 .delete-button:hover {
@@ -1612,58 +1627,55 @@ h1 {
 }
 
 .no-availabilities {
-    margin-top: 20px;
-    font-size: 18px;
+    margin-top: 1.25rem;
+    font-size: 1.125rem;
     color: #555;
 }
-
 
 /* =======Service Booking======= */
 .book-service-details {
   background-color: #f9f9f9;
   width: 70vw;
   margin: 0 auto;
-  padding: 20px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-  /* border: 1px solid #ddd;  */
-  display: grid; 
-  place-items: center; 
+  padding: 1.25rem;
+  box-shadow: 0 0 0.625rem rgba(0, 0, 0, 0.2);
+  display: grid;
+  place-items: center;
 }
-
 
 /* =====CHECKBACK HERE!==== */
 .book-now-btn {
-  background-color: #007bff; 
-  color: white; 
-  padding: 3px 5px; 
-  border: none; 
-  border-radius: 5px; 
-  cursor: pointer; 
+  background-color: #007bff;
+  color: white;
+  padding: 0.1875rem 0.3125rem;
+  border: none;
+  border-radius: 0.3125rem;
+  cursor: pointer;
 }
 
 /* =====DASHBOARD ARTIST BOOKINGS DISPLAY======= */
 
 .dashboard-artist-booking {
   font-family: Arial, sans-serif;
-  margin: 20px;
+  margin: 1.25rem;
 }
 
 .dashboard-artist-booking h2 {
   color: #333;
-  margin-bottom: 20px;
-  font-size: 24px;
+  margin-bottom: 1.25rem;
+  font-size: 1.5rem;
 }
 
 .dashboard-artist-booking table {
   width: 100%;
   border-collapse: collapse;
-  margin-bottom: 20px;
+  margin-bottom: 1.25rem;
 }
 
 .dashboard-artist-booking th, 
 .dashboard-artist-booking td {
   border: 1px solid #ddd;
-  padding: 8px;
+  padding: 0.5rem;
   text-align: left;
 }
 
@@ -1686,8 +1698,8 @@ h1 {
 }
 
 .dashboard-artist-booking input[type="checkbox"] {
-  width: 18px;
-  height: 18px;
+  width: 1.125rem;
+  height: 1.125rem;
   cursor: not-allowed;
 }
 
@@ -1698,22 +1710,21 @@ h1 {
   height: 100%;
 }
 
-
 .sidebar {
-  width: 300px;
+  width: 18.75rem;
   background-color: #f9f9f9;
   color: #333;
-  padding: 20px;
-  margin-top: 20px;
-  margin-bottom: 35px;  
+  padding: 1.25rem;
+  margin-top: 1.25rem;
+  margin-bottom: 2.1875rem;
   display: block;
   transition: transform 0.3s ease-in-out;
 }
 
 .sidebar h2 {
   text-align: center;
-  margin-bottom: 20px;
-  font-size: 24px;
+  margin-bottom: 1.25rem;
+  font-size: 1.5rem;
 }
 
 .sidebar ul {
@@ -1722,25 +1733,24 @@ h1 {
 }
 
 .sidebar ul li {
-  margin: 15px 0;
+  margin: 0.9375rem 0;
 }
 
 .sidebar ul li a {
   color: #333;
   text-decoration: none;
-  font-size: 18px;
+  font-size: 1.125rem;
   display: block;
 }
 
 .sidebar ul li a:hover {
   background-color: #fff;
-  /* padding-left: 10px; */
 }
 
 .main-content {
   flex-grow: 1;
   background-color: #fff;
-  padding: 20px;
+  padding: 1.25rem;
   box-sizing: border-box;
 }
 
@@ -1748,10 +1758,9 @@ h1 {
   display: flex;
   justify-content: space-between;
   align-items: center;
-
   background-color: #f9f9f9;
   color: #333;
-  padding: 20px;
+  padding: 1.25rem;
   box-sizing: border-box;
   margin-top: 0;
   margin-bottom: 1rem;
@@ -1759,7 +1768,7 @@ h1 {
 
 .top-bar h1 {
   margin: 0;
-  font-size: 24px;
+  font-size: 1.5rem;
 }
 
 .dashboard-user-info {
@@ -1768,13 +1777,13 @@ h1 {
 }
 
 .dashboard-user-info span {
-  margin-right: 10px;
-  font-size: 18px;
+  margin-right: 0.625rem;
+  font-size: 1.125rem;
 }
 
 .dashboard-user-info img {
-  width: 40px;
-  height: 40px;
+  width: 2.5rem;
+  height: 2.5rem;
   border-radius: 50%;
 }
 
@@ -1787,14 +1796,14 @@ h1 {
 .dashboard-artist-left {
   width: 45%;
   background-color: #fff;
-  padding: 20px ;
+  padding: 1.25rem;
   box-sizing: border-box;
-  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+  box-shadow: 0 0 0.625rem rgba(0, 0, 0, 0.1);
   margin-left: 0;
-  margin-bottom: 20px;
-
+  margin-bottom: 1.25rem;
   font-size: small;
 }
+
 .side-right-small {
   width: 35%;
 }
@@ -1802,20 +1811,20 @@ h1 {
 .dashboard-artist-left h2,
 .dashboard-artist-left h2 {
   color: #333;
-  margin-bottom: 20px;
-  font-size: 20px;
+  margin-bottom: 1.25rem;
+  font-size: 1.25rem;
 }
 
 .dashboard-artist-left table {
   width: 100%;
   border-collapse: collapse;
-  margin-bottom: 20px;
+  margin-bottom: 1.25rem;
 }
 
 .dashboard-artist-left th, 
 .dashboard-artist-left td {
   border: 1px solid #ddd;
-  padding: 8px;
+  padding: 0.5rem;
   text-align: left;
 }
 
@@ -1838,31 +1847,29 @@ h1 {
 }
 
 .dashboard-artist-left input[type="checkbox"] {
-  width: 18px;
-  height: 18px;
+  width: 1.125rem;
+  height: 1.125rem;
   cursor: not-allowed;
 }
 
 .dashboard-artist-right {
   width: 35%;
- 
   background-color: #fff;
-  padding: 20px;
+  padding: 1.25rem;
   box-sizing: border-box;
-  box-shadow: 0 0 10px rgba(0,0,0,0.1);
-  margin-bottom: 20px;
-
+  box-shadow: 0 0 0.625rem rgba(0, 0, 0, 0.1);
+  margin-bottom: 1.25rem;
   font-size: small;
 }
 
 .dashboard-artist-right h2 {
-  font-size: 20px;
+  font-size: 1.25rem;
 }
 
 .dashboard-artist-right-list {
   list-style-type: none;
   padding: 0;
-  margin: 20px auto;
+  margin: 1.25rem auto;
   width: 100%;
 }
 
@@ -1870,10 +1877,10 @@ h1 {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 10px;
+  padding: 0.625rem;
   border: 1px solid #ddd;
   background-color: #fff;
-  margin-bottom: 10px;
+  margin-bottom: 0.625rem;
 }
 
 .dashboard-artist-right-item:nth-child(even) {
@@ -1892,9 +1899,9 @@ h1 {
   background-color: #dc3545;
   color: white;
   border: none;
-  padding: 5px 10px;
+  padding: 0.3125rem 0.625rem;
   cursor: pointer;
-  border-radius: 3px;
+  border-radius: 0.1875rem;
 }
 
 .delete-button:hover {
@@ -1902,8 +1909,8 @@ h1 {
 }
 
 .no-dashboard-artist-item-found {
-  margin-top: 20px;
-  font-size: 18px;
+  margin-top: 1.25rem;
+  font-size: 1.125rem;
   color: #555;
 }
 
@@ -1916,13 +1923,12 @@ h1 {
   color: #fff;
 }
 
-
 @media (max-width: 768px) { 
  
   .content {
     display: grid;
     grid-template-columns: 1fr;
-    gap: 20px;
+    gap: 1.25rem;
   }
   
   .dashboard-artist-left, .dashboard-artist-right, .side-right-small {
@@ -1931,35 +1937,30 @@ h1 {
  
   .main-content {
     margin: auto;
-    padding: 10px;
+    padding: 0.625rem;
   }
   .main-content h1, .sidebar h2{
-    font-size: 18px;
+    font-size: 1.125rem;
   }
   .main-content h2 {
-    font-size: 15px;
+    font-size: 0.9375rem;
   }
 
   .sidebar a {
-    font-size: 14px !important;
+    font-size: 0.875rem !important;
   }
 
 }
-
 
 /* ========DASHBOARD HAMBURGER========== */
 
 .hamburger {
   display: none;
-  font-size: 30px;
+  font-size: 1.875rem;
   cursor: pointer;
-
-  /* position: fixed;  */
-  /* top: 80px; */
   position: absolute;
-  top: 85px;
-  left: 10px;
-  /* z-index: 1001 */
+  top: 5.3125rem;
+  left: 0.625rem;
 }
 
 @media screen and (max-width: 900px) {   
@@ -1967,17 +1968,15 @@ h1 {
   .sidebar {
     display: none; 
     position: fixed;
-    width: 250px;
+    width: 15.625rem;
     background: #f9f9f9;
     color: #333;
     height: 50vh;
     z-index: 1000;
     left: 0;
-    top: 60px;
-    /* top: 80px; */
-    padding-top: 60px;
+    top: 3.75rem;
+    padding-top: 3.75rem;
     overflow-y: auto;
-    /* z-index: 1000; */
   }
 
   .sidebar ul {
@@ -1986,24 +1985,23 @@ h1 {
 
   .sidebar ul li {
       text-align: center;
-      padding: 10px;
+      padding: 0.625rem;
   }
-
 
   .dashboard {
     display: block;
-    margin-top: 80px;
+    margin-top: 5rem;
   }
 
   .content {
     display: grid;
     grid-template-columns: 1fr;
-    gap: 20px;
+    gap: 1.25rem;
   }
 
   .main-content {
     margin-left: 0;
-    padding: 10px;
+    padding: 0.625rem;
   }
 
   .hamburger {
@@ -2023,23 +2021,22 @@ h1 {
   }
 
   .hamburger {
-    top: 120px;
-    margin-left: 10px;
+    top: 7.5rem;
+    margin-left: 0.625rem;
   }
 
   .sidebar {
     width: 100%;
-    padding: 0 10px;
+    padding: 0 0.625rem;
     box-sizing: border-box;
   }
 
   .main-content {
     margin: 0;
-    padding: 10px;
+    padding: 0.625rem;
     width: 100%; 
     box-sizing: border-box;
   }
-
 
   .dashboard-content table {
     width: 100%;
@@ -2051,10 +2048,8 @@ h1 {
 
   .dashboard-content table th, .dashboard-content table td {
     word-wrap: break-word;
-    padding: 5px; 
+    padding: 0.3125rem; 
   }
-
- 
 
   ul.dashboard-artist-right-list {
     padding: 0;
@@ -2062,43 +2057,31 @@ h1 {
   }
 
   .main-content h1, .sidebar h2 {
-    font-size: 18px;
+    font-size: 1.125rem;
     margin: 0; 
   }
 
   .main-content h2 {
-    font-size: 15px;
+    font-size: 0.9375rem;
   }
 
   .sidebar a {
-    font-size: 14px !important;
+    font-size: 0.875rem !important;
     margin: 0; 
   }
 
   .no-dashboard-item-found {
-    font-size: 14px;
+    font-size: 0.875rem;
     margin: 0; 
   }
 
   .items-detail-update-qty {
     text-align: center;
-    margin: 10px 0; 
+    margin: 0.625rem 0; 
   }
 }
 
 /* Dropdown menu styles */
-/* .sidebar .dropdown-menu {
-  display: none;
-  position: absolute;
-  left: 100%;
-  top: 0;
-  margin-left: 10px; 
-  background-color: #f4f4f4;
-  padding: 0;
-  list-style-type: none;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-} */
-
 .sidebar .dropdown-menu {
   display: none;
   position: absolute;
@@ -2107,13 +2090,13 @@ h1 {
   background-color: #f4f4f4;
   padding: 0;
   list-style-type: none;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 0.125rem 0.3125rem rgba(0, 0, 0, 0.1);
   z-index: 1000; 
   width: 100%; 
 }
 
 .sidebar .dropdown-menu li a {
-  padding: 10px;
+  padding: 0.625rem;
   white-space: nowrap;
 }
 
@@ -2121,35 +2104,24 @@ h1 {
   display: block;
 }
 
-
-
-
-
-
 /* =======POPULAR ITEMS ANIMATION======== */
 
 .popular-items-section {
   background-color: #f8f9fa; 
-  /*padding: 20px 0;*/
   overflow-x: hidden; 
-  white-space: nowrap; /* Prevent items from wrapping to the next line */
-
-
+  white-space: nowrap;
   position: relative;
 }
 
-
 .popular-items-header {
-  margin-left: 0.8rem;
+  margin-left: 0.5rem;
 }
+
 .popular-items-container {
-  /* display: flex;
-  overflow-x: auto; */
-  display: inline-flex; /* Use inline-flex to prevent items from breaking to the next line */
+  display: inline-flex; 
   animation: scroll-left 20s linear infinite; 
 }
 
-/* Slow down the scroll animation */
 @keyframes scroll-left {
   0% { transform: translateX(0%); }
   100% { transform: translateX(-50%); }
@@ -2157,13 +2129,12 @@ h1 {
 
 .popular-item {
   min-width: 25rem; 
-  /*margin-right: 20px;*/
 }
-
 
 .popular-item img {
   width: 25rem !important; 
   height: 20rem !important; 
   object-fit: cover; 
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Add shadow for depth */
+  box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.1);
 }
+
