@@ -739,7 +739,8 @@ body, html {
 .item-detail-img-card {
   /* min-height: 50vh; */
   max-height: 25rem;  /*COME BACK HERE TO RESOLVE THIS ISSUE*/
-  min-width: 30rem; 
+  /* min-width: 30rem;  */
+  width: 30rem;
   background-color: #f9f9f9;
   box-shadow: 0 0 0.625rem rgba(0, 0, 0, 0.1); 
   border-radius: 0.3125rem; 

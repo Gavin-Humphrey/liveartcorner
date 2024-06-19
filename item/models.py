@@ -1,6 +1,11 @@
+from django.conf import settings
 from django.db import models
 from user.models import User
 from PIL import Image
+from io import BytesIO #
+from django.core.files.base import ContentFile #
+from cloudinary.models import CloudinaryField
+import cloudinary.uploader
 
 
 
@@ -14,7 +19,10 @@ class Meta:
 class Item(models.Model):
     card = models.ForeignKey(CardItems, related_name='items', on_delete=models.CASCADE)
     title = models.CharField(max_length=100)
-    image = models.ImageField(upload_to='img')
+    if settings.DEBUG:
+        image = models.ImageField(upload_to='img')
+    else:
+        image = CloudinaryField('img')
     description = models.TextField(max_length=2555)
     popularity = models.IntegerField(default=5)
     length = models.DecimalField(max_digits=2, decimal_places=0, help_text="Length in centimeters")
@@ -27,29 +35,21 @@ class Item(models.Model):
     @property
     def user(self):
         return self.card.user
-    
+           
     def save(self, *args, **kwargs):
-        super().save(*args, **kwargs)  # Save the model instance first
-
+        # Check if image field is not None
         if self.image:
-            # Open the uploaded image using Pillow
-            img = Image.open(self.image.path)
-            # Get the current aspect ratio
-            aspect_ratio = img.width / img.height
+            # Check if image has been modified
+            if (
+                hasattr(self, "_original_image")
+                and self.image.name != self._original_image
+            ):
+                img = Image.open(self.image.path)
+                img.save(self.image.path) 
 
-            # Set the target width and height for resizing
-            target_width = 300
-            target_height = int(target_width / aspect_ratio)
+            # Store the original image filename after the save
+            self._original_image = self.image.name  # Store filename
 
-            # Resize the image while maintaining aspect ratio
-            resized_img = img.resize((target_width, target_height))
-
-            # Save the resized image back to the model
-            img_format = img.format
-            img_path = self.image.path
-            resized_img.save(img_path, format=img_format)
-
-
-
-
-
+        # Call the parent save method to save other fields
+        super().save(*args, **kwargs)
+    

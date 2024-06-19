@@ -21,6 +21,12 @@ from sentry_sdk.integrations.django import DjangoIntegration
 import dj_database_url
 from dotenv import load_dotenv
 
+from liveartcorner.storage import CloudinaryMediaStorage
+import cloudinary
+import cloudinary_storage
+
+
+
 load_dotenv()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -56,6 +62,8 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "cloudinary_storage",
+    "cloudinary",
     "base.apps.BaseConfig",
     "user.apps.UserConfig",
     "dashboard.apps.DashboardConfig",
@@ -165,6 +173,28 @@ STATICFILES_DIRS = [
 # Media files (Uploaded files)
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
+
+# Configure Cloudinary using the CLOUDINARY_URL environment variable
+cloudinary.config(
+    cloud_name=config("APP_CLOUDINARY_CLOUD_NAME", "default_value"),
+    api_key=config("APP_CLOUDINARY_API_KEY", "default_value"),
+    api_secret=config("APP_CLOUDINARY_API_SECRET", "default_value"),
+)
+
+#if "CI" in os.environ or DEBUG:
+if DEBUG:
+    # Use Django's built-in static file serving during development
+    STATICFILES_STORAGE = "django.contrib.staticfiles.storage.StaticFilesStorage"
+
+    # Use local filesystem storage for testing
+    DEFAULT_FILE_STORAGE = "django.core.files.storage.FileSystemStorage"
+else:
+    # Use whitenoise for serving static files in production
+    STATICFILES_STORAGE = "whitenoise.storage.CompressedStaticFilesStorage"
+    #STATICFILES_STORAGE = "django.contrib.staticfiles.storage.StaticFilesStorage"
+
+    # Use custom Cloudinary storage for user-uploaded files
+    DEFAULT_FILE_STORAGE = "liveartcorner.storage.CloudinaryMediaStorage"
 
 
 # Default primary key field type
