@@ -1,0 +1,63 @@
+version: 2.1
+
+executors:
+  docker-executor:
+    docker:
+      - image: circleci/python:3.8-node-browsers 
+
+jobs:
+  build:
+    executor: docker-executor
+    steps:
+      - checkout
+      - setup_remote_docker:
+          version: 20.10.7
+      - run:
+          name: Build Docker Image
+          command: docker-compose build
+      - run:
+          name: Run Database Migrations
+          command: docker-compose run --env-file env django python manage.py migrate
+      - run:
+          name: Run Tests
+          command: docker-compose run web pytest
+
+  deploy-to-heroku:
+    executor: docker-executor
+    steps:
+      - checkout
+      - setup_remote_docker:
+          version: 20.10.7
+      - run:
+          name: Install Heroku CLI
+          command: curl https://cli-assets.heroku.com/install.sh | sh
+      - run:
+          name: Login to Heroku Container Registry
+          command: HEROKU_API_KEY=${HEROKU_TOKEN} heroku container:login 
+      - run:
+          name: Push to Heroku Container Registry
+          command: HEROKU_API_KEY=${HEROKU_TOKEN} heroku container:push -a ${HEROKU_APP_NAME} web 
+      - run:
+          name: Release to Heroku
+          command: HEROKU_API_KEY=${HEROKU_TOKEN} heroku container:release -a ${HEROKU_APP_NAME} web 
+      - run:
+          name: Run Database Migrations on Heroku
+          command: heroku run python manage.py migrate --app ${HEROKU_APP_NAME}
+      - run:
+          name: Set Environment Variables
+          command: |
+            echo "export CLOUDINARY_URL=$APP_CLOUDINARY_URL" >> $BASH_ENV
+            echo "export SENTRY_DSN=$LIVEARTCORNER_SENTRY_DSN" >> $BASH_ENV
+            source $BASH_ENV
+      - run:
+          name: Collect Static Files
+          command: heroku run -a ${HEROKU_APP_NAME} python manage.py collectstatic --noinput
+
+workflows:
+  version: 2
+  build_and_deploy:
+    jobs:
+      - build
+      - deploy-to-heroku:
+          requires:
+            - build
