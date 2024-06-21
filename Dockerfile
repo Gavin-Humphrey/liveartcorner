@@ -20,7 +20,9 @@ RUN pip install --no-cache-dir -r requirements.txt
 COPY . .
 
 # Collect static files
+COPY ./staticfiles /app/staticfiles
 RUN chmod -R 755 /app/staticfiles
+#COPY staticfiles /app/staticfiles 
 RUN chmod -R 777 /app/media
 
 # Command to run the application with Gunicorn
