@@ -30,8 +30,8 @@ MANIFEST
 
 # Django stuff:
 *.log
-static/
-media/
+#static/
+#media/
 
 # Local configuration files
 .env
