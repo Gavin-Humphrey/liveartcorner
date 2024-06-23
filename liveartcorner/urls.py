@@ -19,7 +19,7 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path, include, re_path
 #from base.views import home
-from cart import views
+#from cart import views
 from django.views.static import serve
 
 
