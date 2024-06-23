@@ -19,6 +19,9 @@ RUN pip install --no-cache-dir -r requirements.txt
 # Copy the rest of the application code to the working directory
 COPY . .
 
+# Check if staticfiles directory exists before copying
+RUN mkdir -p /app/staticfiles
+
 # Collect static files
 COPY staticfiles /app/staticfiles
 #RUN chmod -R 755 /app/staticfiles
