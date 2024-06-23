@@ -9,9 +9,7 @@ WORKDIR /app
 
 # Copy the requirements file to the working directory
 COPY requirements.txt /app/
-
-COPY ./manage.py .
-
+COPY manage.py /app/
 
 # Install dependencies
 RUN pip install --no-cache-dir -r requirements.txt
@@ -19,12 +17,13 @@ RUN pip install --no-cache-dir -r requirements.txt
 # Copy the rest of the application code to the working directory
 COPY . .
 
-# Check if staticfiles directory exists before copying
+# Create the staticfiles directory if it doesn't exist
 RUN mkdir -p /app/staticfiles
 
 # Collect static files
-COPY staticfiles /app/staticfiles
-#RUN chmod -R 755 /app/staticfiles
+RUN python manage.py collectstatic --noinput
+
+# Ensure permissions for /app/media
 RUN chmod -R 777 /app/media
 
 # Command to run the application with Gunicorn
