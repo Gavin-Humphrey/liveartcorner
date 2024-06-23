@@ -3,7 +3,7 @@ version: 2.1
 executors:
   docker-executor:
     docker:
-      - image: circleci/python:3.8-node-browsers 
+      - image: circleci/python:3.8-node-browsers
 
 jobs:
   build:
@@ -33,13 +33,13 @@ jobs:
           command: curl https://cli-assets.heroku.com/install.sh | sh
       - run:
           name: Login to Heroku Container Registry
-          command: HEROKU_API_KEY=${HEROKU_TOKEN} heroku container:login 
+          command: HEROKU_API_KEY=${HEROKU_TOKEN} heroku container:login
       - run:
           name: Push to Heroku Container Registry
-          command: HEROKU_API_KEY=${HEROKU_TOKEN} heroku container:push -a ${HEROKU_APP_NAME} web 
+          command: HEROKU_API_KEY=${HEROKU_TOKEN} heroku container:push -a ${HEROKU_APP_NAME} web
       - run:
           name: Release to Heroku
-          command: HEROKU_API_KEY=${HEROKU_TOKEN} heroku container:release -a ${HEROKU_APP_NAME} web 
+          command: HEROKU_API_KEY=${HEROKU_TOKEN} heroku container:release -a ${HEROKU_APP_NAME} web
       - run:
           name: Run Database Migrations on Heroku
           command: heroku run python manage.py migrate --app ${HEROKU_APP_NAME}
@@ -52,8 +52,7 @@ jobs:
       - run:
           name: Collect Static Files
           command: heroku run -a ${HEROKU_APP_NAME} python manage.py collectstatic --noinput
-          # Debugging directory contents
-       - run:
+      - run:
           name: Debug Directory Contents
           command: ls -l /app 
 
