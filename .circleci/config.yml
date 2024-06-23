@@ -16,6 +16,9 @@ jobs:
           name: Build Docker Image
           command: docker-compose build
       - run:
+          name: List Root Directory Contents
+          command: ls -la /app 
+      - run:
           name: List Test Files
           command: ls -la /app/tests 
       - run:
