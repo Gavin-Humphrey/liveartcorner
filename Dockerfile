@@ -17,11 +17,8 @@ RUN pip install --no-cache-dir -r requirements.txt
 # Copy the rest of the application code to the working directory
 COPY . .
 
-# Create the staticfiles directory if it doesn't exist
-RUN mkdir -p /app/staticfiles
-
 # Collect static files
-RUN python manage.py collectstatic --noinput
+COPY staticfiles /app/staticfiles
 
 # Ensure permissions for /app/media
 RUN chmod -R 777 /app/media
