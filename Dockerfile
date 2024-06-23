@@ -9,7 +9,9 @@ WORKDIR /app
 
 # Copy the requirements file to the working directory
 COPY requirements.txt /app/
-COPY manage.py /app/
+
+COPY ./manage.py .
+
 
 # Install dependencies
 RUN pip install --no-cache-dir -r requirements.txt
@@ -18,10 +20,10 @@ RUN pip install --no-cache-dir -r requirements.txt
 COPY . .
 
 # Collect static files
-COPY staticfiles /app/staticfiles
-
-# Ensure permissions for /app/media
+#COPY staticfiles /app/staticfiles
+#RUN chmod -R 755 /app/staticfiles
 RUN chmod -R 777 /app/media
 
 # Command to run the application with Gunicorn
 CMD gunicorn liveartcorner.wsgi:application --bind 0.0.0.0:${PORT} --timeout 300 --log-level debug
+
