@@ -176,9 +176,9 @@ MEDIA_ROOT = BASE_DIR / 'media'
 
 # Configure Cloudinary using the CLOUDINARY_URL environment variable
 cloudinary.config(
-    cloud_name=config("APP_CLOUDINARY_CLOUD_NAME", "default_value"),
-    api_key=config("APP_CLOUDINARY_API_KEY", "default_value"),
-    api_secret=config("APP_CLOUDINARY_API_SECRET", "default_value"),
+    cloud_name=config("CLOUDINARY_CLOUD_NAME", "default_value"),
+    api_key=config("CLOUDINARY_API_KEY", "default_value"),
+    api_secret=config("CLOUDINARY_API_SECRET", "default_value"),
 )
 
 #if "CI" in os.environ or DEBUG:

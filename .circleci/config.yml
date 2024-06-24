@@ -47,7 +47,7 @@ jobs:
           command: heroku run python manage.py migrate --app ${HEROKU_APP_NAME}
       - run:
           name: Set Cloudinary URL
-          command: echo "APP_CLOUDINARY_URL=$APP_CLOUDINARY_URL" >> $BASH_ENV
+          command: echo "CLOUDINARY_URL=$CLOUDINARY_URL" >> $BASH_ENV
       - run:
           name: SENTRY Credentials
           command: |
@@ -65,7 +65,7 @@ jobs:
       - run:
           name: Cloudinary Credentials
           command: |
-            echo "Cloudinary cloud name: $APP_CLOUDINARY_CLOUD_NAME"
+            echo "Cloudinary cloud name: ${CLOUDINARY_CLOUD_NAME}"
 
 workflows:
   version: 2
