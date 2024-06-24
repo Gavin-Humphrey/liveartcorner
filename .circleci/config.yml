@@ -48,7 +48,7 @@ jobs:
       - run:
           name: Set Environment Variables
           command: |
-            echo "export CLOUDINARY_URL=$APP_CLOUDINARY_URL" >> $BASH_ENV
+            echo "export APP_CLOUDINARY_URL=$APP_CLOUDINARY_URL" >> $BASH_ENV
             echo "export SENTRY_DSN=$LIVEARTCORNER_SENTRY_DSN" >> $BASH_ENV
             source $BASH_ENV
       - run:
