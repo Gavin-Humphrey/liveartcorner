@@ -23,8 +23,7 @@ jobs:
           command: docker-compose run --env-file .env web python manage.py collectstatic --noinput
       - run:
           name: Run Tests
-          command: docker-compose run web pytest
-
+          command: docker-compose run --env-file .env web pytest -v
   deploy-to-heroku:
     executor: docker-executor
     steps:
