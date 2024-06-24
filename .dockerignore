@@ -8,10 +8,10 @@ __pycache__/
 
 # Distribution / packaging
 .Python
-env/
-venv/
-ENV/
-build/
+# env/
+# venv/
+# ENV/
+# build/
 develop-eggs/
 dist/
 downloads/
@@ -42,9 +42,9 @@ MANIFEST
 .vscode/
 
 # Virtual environments
-venv/
-.venv/
-env/
+# venv/
+# .venv/
+# env/
 
 # VCS
 .git/
