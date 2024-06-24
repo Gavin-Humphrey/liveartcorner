@@ -46,17 +46,26 @@ jobs:
           name: Run Database Migrations on Heroku
           command: heroku run python manage.py migrate --app ${HEROKU_APP_NAME}
       - run:
-          name: Set Environment Variables
+          name: Set Cloudinary URL
+          command: echo "APP_CLOUDINARY_URL=$APP_CLOUDINARY_URL" >> $BASH_ENV
+      - run:
+          name: SENTRY Credentials
           command: |
-            echo "export APP_CLOUDINARY_URL=$APP_CLOUDINARY_URL" >> $BASH_ENV
-            echo "export SENTRY_DSN=$LIVEARTCORNER_SENTRY_DSN" >> $BASH_ENV
-            source $BASH_ENV
+            echo "LIVEARTCORNER_SENTRY_DSN: $LIVEARTCORNER_SENTRY_DSN"
+
+      # - run:
+      #     name: Set Environment Variables
+      #     command: |
+      #       echo "export APP_CLOUDINARY_URL=$APP_CLOUDINARY_URL" >> $BASH_ENV
+      #       echo "export SENTRY_DSN=$LIVEARTCORNER_SENTRY_DSN" >> $BASH_ENV
+      #       source $BASH_ENV
       - run:
           name: Collect Static Files
           command: heroku run -a ${HEROKU_APP_NAME} python manage.py collectstatic --noinput
       - run:
-          name: Debug Directory Contents
-          command: ls -l /app 
+          name: Cloudinary Credentials
+          command: |
+            echo "Cloudinary cloud name: $APP_CLOUDINARY_CLOUD_NAME"
 
 workflows:
   version: 2
