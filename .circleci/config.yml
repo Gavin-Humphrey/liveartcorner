@@ -49,9 +49,12 @@ jobs:
       - run:
           name: Set Cloudinary URL
           command: echo "CLOUDINARY_URL=$CLOUDINARY_URL" >> $BASH_ENV
+       - run:
+          name: Set Sentry DSN Environment Variable
+          command: echo "export SENTRY_DSN=$LIVEARTCORNER_SENTRY_DSN" >> $BASH_ENV
       - run:
-          name: SENTRY Credentials
-          command: echo "LIVEARTCORNER_SENTRY_DSN: $LIVEARTCORNER_SENTRY_DSN"
+          name: Source Environment Variables
+          command: source $BASH_ENV
       - run:
           name: Collect Static Files
           command: heroku run --exit-code --app ${HEROKU_APP_NAME} python manage.py collectstatic --noinput
