@@ -52,7 +52,7 @@ jobs:
           command: source $BASH_ENV
       - run:
           name: Collect Static Files
-          command: heroku run --exit-code --app ${HEROKU_APP_NAME} python manage.py collectstatic --noinput
+          command: HEROKU_API_KEY=${HEROKU_TOKEN} heroku run -a ${HEROKU_APP_NAME} python manage.py collectstatic --noinput
       - run:
           name: Cloudinary Credentials
           command: |
