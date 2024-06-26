@@ -36,7 +36,7 @@ jobs:
           command: curl https://cli-assets.heroku.com/install.sh | sh
       - run:
           name: Login to Heroku Container Registry
-          command: echo ${HEROKU_API_KEY} | docker login --username=_ --password-stdin registry.heroku.com
+          command: HEROKU_API_KEY=${HEROKU_TOKEN} heroku container:login
       - run:
           name: Push to Heroku Container Registry
           command: docker-compose build && docker tag your-docker-image registry.heroku.com/${HEROKU_APP_NAME}/web && docker push registry.heroku.com/${HEROKU_APP_NAME}/web
@@ -60,8 +60,7 @@ jobs:
           command: heroku run --exit-code --app ${HEROKU_APP_NAME} python manage.py collectstatic --noinput
       - run:
           name: Cloudinary Credentials
-          command: |
-            echo "Cloudinary cloud name: ${CLOUDINARY_CLOUD_NAME}"
+          command: echo "Cloudinary cloud name: ${CLOUDINARY_CLOUD_NAME}"
 
 workflows:
   version: 2
