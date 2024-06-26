@@ -46,9 +46,18 @@ DOCKERIZED = config('DOCKERIZED', default=False, cast=bool)
 
 DEBUG = config('DEBUG', default=False, cast=bool) if not DOCKERIZED else False
 
+CSRF_COOKIE_SECURE = True #####
+
 ALLOWED_HOSTS = config(
     "ALLOWED_HOSTS", default="", cast=lambda v: [s.strip() for s in v.split(",")]
 )
+
+CORS_ALLOWED_ORIGINS= config(
+    "CORS_ALLOWED_ORIGINS", default="", cast=lambda v: [s.strip() for s in v.split(",")]
+    )
+
+CSRF_TRUSTED_ORIGINS = config("CSRF_TRUSTED_ORIGINS", default="")
+
 
 # Application definition
 
