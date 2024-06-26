@@ -49,7 +49,7 @@ jobs:
       - run:
           name: Set Cloudinary URL
           command: echo "CLOUDINARY_URL=$CLOUDINARY_URL" >> $BASH_ENV
-       - run:
+      - run:
           name: Set Sentry DSN Environment Variable
           command: echo "export SENTRY_DSN=$LIVEARTCORNER_SENTRY_DSN" >> $BASH_ENV
       - run:
@@ -70,3 +70,4 @@ workflows:
       - deploy-to-heroku:
           requires:
             - build
+
