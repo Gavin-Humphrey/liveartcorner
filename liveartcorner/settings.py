@@ -213,6 +213,7 @@ sentry_sdk.init(
     send_default_pii=True,
 )
 
+
 LOGIN_REDIRECT_URL = "/base/thank_you.html"
 
 

@@ -24,6 +24,7 @@ jobs:
       - run:
           name: Run Tests
           command: docker-compose run --env-file .env web pytest -v
+
   deploy-to-heroku:
     executor: docker-executor
     steps:
@@ -35,37 +36,28 @@ jobs:
           command: curl https://cli-assets.heroku.com/install.sh | sh
       - run:
           name: Login to Heroku Container Registry
-          command: HEROKU_API_KEY=${HEROKU_TOKEN} heroku container:login
+          command: echo ${HEROKU_API_KEY} | docker login --username=_ --password-stdin registry.heroku.com
       - run:
           name: Push to Heroku Container Registry
-          command: HEROKU_API_KEY=${HEROKU_TOKEN} heroku container:push -a ${HEROKU_APP_NAME} web
+          command: docker-compose build && docker tag your-docker-image registry.heroku.com/${HEROKU_APP_NAME}/web && docker push registry.heroku.com/${HEROKU_APP_NAME}/web
       - run:
           name: Release to Heroku
-          command: HEROKU_API_KEY=${HEROKU_TOKEN} heroku container:release -a ${HEROKU_APP_NAME} web
+          command: heroku container:release web --app ${HEROKU_APP_NAME}
       - run:
           name: Run Database Migrations on Heroku
-          command: heroku run python manage.py migrate --app ${HEROKU_APP_NAME}
+          command: heroku run --exit-code --app ${HEROKU_APP_NAME} python manage.py migrate
       - run:
           name: Set Cloudinary URL
           command: echo "CLOUDINARY_URL=$CLOUDINARY_URL" >> $BASH_ENV
       - run:
           name: SENTRY Credentials
-          command: |
-            echo "LIVEARTCORNER_SENTRY_DSN: $LIVEARTCORNER_SENTRY_DSN"
-
-      # - run:
-      #     name: Set Environment Variables
-      #     command: |
-      #       echo "export APP_CLOUDINARY_URL=$APP_CLOUDINARY_URL" >> $BASH_ENV
-      #       echo "export SENTRY_DSN=$LIVEARTCORNER_SENTRY_DSN" >> $BASH_ENV
-      #       source $BASH_ENV
+          command: echo "LIVEARTCORNER_SENTRY_DSN: $LIVEARTCORNER_SENTRY_DSN"
       - run:
           name: Collect Static Files
-          command: heroku run -a ${HEROKU_APP_NAME} python manage.py collectstatic --noinput
+          command: heroku run --exit-code --app ${HEROKU_APP_NAME} python manage.py collectstatic --noinput
       - run:
           name: Cloudinary Credentials
-          command: |
-            echo "Cloudinary cloud name: ${CLOUDINARY_CLOUD_NAME}"
+          command: echo "Cloudinary cloud name: ${CLOUDINARY_CLOUD_NAME}"
 
 workflows:
   version: 2
