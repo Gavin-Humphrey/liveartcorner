@@ -46,7 +46,8 @@ DJANGO_SETTINGS_MODULE = config('DJANGO_SETTINGS_MODULE', default='liveartcorner
 # SECURITY WARNING: don't run with debug turned on in production!
 DOCKERIZED = config('DOCKERIZED', default=False, cast=bool)
 
-DEBUG = config('DEBUG', default=False, cast=bool) if not DOCKERIZED else False
+#DEBUG = config('DEBUG', default=False, cast=bool) if not DOCKERIZED else False
+DEBUG=True
 
 ALLOWED_HOSTS = config(
     "ALLOWED_HOSTS", default="", cast=lambda v: [s.strip() for s in v.split(",")]
