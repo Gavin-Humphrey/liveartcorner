@@ -32,17 +32,12 @@ jobs:
       - setup_remote_docker:
           version: 20.10.7
       - run:
-          name: Install Heroku CLI
-          command: curl https://cli-assets.heroku.com/install.sh | sh
-      - run:
-          name: Login to Heroku Container Registry
-          command: HEROKU_API_KEY=${HEROKU_TOKEN} heroku container:login
-      - run:
-          name: Push to Heroku Container Registry
-          command: docker-compose build && docker tag your-docker-image registry.heroku.com/${HEROKU_APP_NAME}/web && docker push registry.heroku.com/${HEROKU_APP_NAME}/web
-      - run:
-          name: Release to Heroku
-          command: heroku container:release web --app ${HEROKU_APP_NAME}
+          name: Build and push Docker image to Heroku
+          command: |
+            curl https://cli-assets.heroku.com/install.sh | sh
+            HEROKU_API_KEY=${HEROKU_TOKEN} heroku container:login
+            HEROKU_API_KEY=${HEROKU_TOKEN} heroku container:push -a ${HEROKU_APP_NAME} web
+            HEROKU_API_KEY=${HEROKU_TOKEN} heroku container:release -a ${HEROKU_APP_NAME} web
       - run:
           name: Run Database Migrations on Heroku
           command: HEROKU_API_KEY=${HEROKU_TOKEN} heroku run --exit-code --app ${HEROKU_APP_NAME} python manage.py migrate
