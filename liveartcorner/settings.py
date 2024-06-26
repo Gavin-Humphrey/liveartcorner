@@ -42,8 +42,6 @@ SECRET_KEY = config("SECRET_KEY", default=get_random_secret_key())
 DJANGO_SETTINGS_MODULE = config('DJANGO_SETTINGS_MODULE', default='liveartcorner.settings')
 
 
-
-# SECURITY WARNING: don't run with debug turned on in production!
 DOCKERIZED = config('DOCKERIZED', default=False, cast=bool)
 
 DEBUG = config('DEBUG', default=False, cast=bool) if not DOCKERIZED else False
@@ -125,9 +123,8 @@ if DEBUG:
 else:
     # Production settings
     DATABASES = {
-    'default': dj_database_url.config(default=os.getenv('DATABASE_URL'))
+        'default': dj_database_url.config(default=os.getenv('DATABASE_URL'))
     }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators
