@@ -60,7 +60,8 @@ jobs:
           command: heroku run --exit-code --app ${HEROKU_APP_NAME} python manage.py collectstatic --noinput
       - run:
           name: Cloudinary Credentials
-          command: echo "Cloudinary cloud name: ${CLOUDINARY_CLOUD_NAME}"
+          command: |
+            echo "Cloudinary cloud name: ${CLOUDINARY_CLOUD_NAME}"
 
 workflows:
   version: 2
