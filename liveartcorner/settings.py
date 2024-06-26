@@ -13,7 +13,7 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 from pathlib import Path
 import os
 from django.core.management.utils import get_random_secret_key
-from decouple import config
+from decouple import config, Csv
 from liveartcornerEmailApp.backends.email_backend import EmailBackend
 import sentry_sdk
 from sentry_sdk.integrations.django import DjangoIntegration 
@@ -44,20 +44,28 @@ DJANGO_SETTINGS_MODULE = config('DJANGO_SETTINGS_MODULE', default='liveartcorner
 
 DOCKERIZED = config('DOCKERIZED', default=False, cast=bool)
 
-#DEBUG = config('DEBUG', default=False, cast=bool) if not DOCKERIZED else False
-DEBUG = True
+DEBUG = config('DEBUG', default=False, cast=bool) if not DOCKERIZED else False
 
 CSRF_COOKIE_SECURE = True #####
 
-ALLOWED_HOSTS = config(
-    "ALLOWED_HOSTS", default="", cast=lambda v: [s.strip() for s in v.split(",")]
-)
+# ALLOWED_HOSTS = config(
+#     "ALLOWED_HOSTS", default="", cast=lambda v: [s.strip() for s in v.split(",")]
+# )
 
-CORS_ALLOWED_ORIGINS= config(
-    "CORS_ALLOWED_ORIGINS", default="", cast=lambda v: [s.strip() for s in v.split(",")]
-    )
+# CORS_ALLOWED_ORIGINS= config(
+#     "CORS_ALLOWED_ORIGINS", default="", cast=lambda v: [s.strip() for s in v.split(",")]
+#     )
 
-CSRF_TRUSTED_ORIGINS = config("CSRF_TRUSTED_ORIGINS", default="")
+# CSRF_TRUSTED_ORIGINS = config("CSRF_TRUSTED_ORIGINS", default="")
+
+# Allowed hosts
+ALLOWED_HOSTS = config("ALLOWED_HOSTS", default="", cast=Csv())
+
+# CORS allowed origins
+CORS_ALLOWED_ORIGINS = config("CORS_ALLOWED_ORIGINS", default="", cast=Csv())
+
+# CSRF trusted origins
+CSRF_TRUSTED_ORIGINS = config("CSRF_TRUSTED_ORIGINS", default="", cast=Csv())
 
 
 # Application definition
