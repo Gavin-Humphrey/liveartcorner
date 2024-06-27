@@ -3,11 +3,9 @@
 {% block content %}
 
 <body>
-    
-    <div class="dashboard">
+    <div class="dashboard">        
         <span class="hamburger" id="hamburger">&#9776;</span>  
-
-        <div class="sidebar" id="sidebar"> 
+        <div class="sidebar" id="sidebar">             
             <h2>Dashboard</h2>
             <ul>
                 <li><a href="{% url 'home' %}">Home</a></li>
@@ -50,7 +48,9 @@
         </div> 
         <div class="main-content">
             <div class="top-bar">
-                
+                <div class="dashboard-header">
+                    <a href="{{ request.META.HTTP_REFERER }}" class="btn btn-secondary">Go Back</a>
+                </div>
                 <h1>Welcome, {{ user }}!</h1>
                 <div class="dashboard-user-info">
                     <span></span>

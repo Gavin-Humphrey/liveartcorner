@@ -40,20 +40,27 @@
 
   {% block content %}
   {% endblock content %}
+
+<!-- footer -->
+{% include "base/footer.html" %}
+
+<!-- end footer -->
+
   <script src="{% static '/js/script.js' %}"></script> 
   
-  <script>
+<script>
 
-document.addEventListener("DOMContentLoaded", function() {
-    const carousels = document.querySelectorAll('.carousel');
+  document.addEventListener("DOMContentLoaded", function() {
+      const carousels = document.querySelectorAll('.carousel');
 
-    carousels.forEach(carousel => {
-        new bootstrap.Carousel(carousel, {
-            interval: false
-        });
-    });
-});
-  </script> 
+      carousels.forEach(carousel => {
+          new bootstrap.Carousel(carousel, {
+              interval: false
+          });
+      });
+  });
+
+</script> 
 </body>
 
 </html>
