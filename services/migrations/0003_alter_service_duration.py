@@ -11,6 +11,8 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.AlterField(
-            model_name="service", name="duration", field=models.IntegerField(),
+            model_name="service",
+            name="duration",
+            field=models.IntegerField(),
         ),
     ]

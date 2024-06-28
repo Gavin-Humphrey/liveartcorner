@@ -11,6 +11,8 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.AlterField(
-            model_name="item", name="image", field=models.ImageField(upload_to="img"),
+            model_name="item",
+            name="image",
+            field=models.ImageField(upload_to="img"),
         ),
     ]

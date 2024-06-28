@@ -1,18 +1,27 @@
 import logging
 from django.shortcuts import render, redirect, get_object_or_404
-#from django.contrib.auth import authenticate, login, logout, get_user_model
+
+# from django.contrib.auth import authenticate, login, logout, get_user_model
 from django.contrib.auth.decorators import login_required
-#from django.contrib.auth.forms import AuthenticationForm
+
+# from django.contrib.auth.forms import AuthenticationForm
 from django.contrib import messages
 
-from .forms import RegisterForm, ArtistProfileForm, UserProfileForm,  ItemForm, ContactForm
+from .forms import (
+    RegisterForm,
+    ArtistProfileForm,
+    UserProfileForm,
+    ItemForm,
+    ContactForm,
+)
 from django.core.mail import send_mail
 from decouple import config
 
 from item.models import CardItems, Item
-from cart.shopping_cart import CartHandler 
-#from wishlist.views import get_wishlist_items, get_wishlist_items_count
-from wishlist.views import my_wishlist,  get_wishlist_items_count
+from cart.shopping_cart import CartHandler
+
+# from wishlist.views import get_wishlist_items, get_wishlist_items_count
+from wishlist.views import my_wishlist, get_wishlist_items_count
 
 
 logger = logging.getLogger(__name__)
@@ -25,9 +34,13 @@ def home(request):
     cart_items_count = cart.get_cart_items_count()
     wishlist_items_count = get_wishlist_items_count(request)
     popular_items = Item.objects.filter(popularity=5)[:4]
-    context = {"card_items": card_items, 'cart_items_count': cart_items_count, 'wishlist_items_count': wishlist_items_count, 'popular_items': popular_items}# 
+    context = {
+        "card_items": card_items,
+        "cart_items_count": cart_items_count,
+        "wishlist_items_count": wishlist_items_count,
+        "popular_items": popular_items,
+    }  #
     return render(request, "base/home.html", context)
-
 
 
 # Contact to become a seller

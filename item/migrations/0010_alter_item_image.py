@@ -7,13 +7,13 @@ from django.db import migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('item', '0009_alter_item_image'),
+        ("item", "0009_alter_item_image"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='item',
-            name='image',
-            field=cloudinary.models.CloudinaryField(max_length=255, verbose_name='img'),
+            model_name="item",
+            name="image",
+            field=cloudinary.models.CloudinaryField(max_length=255, verbose_name="img"),
         ),
     ]

@@ -20,9 +20,10 @@
 
 from django.db import migrations, models
 
+
 # Function to convert duration from interval to numeric
 def convert_duration_to_numeric(apps, schema_editor):
-    Service = apps.get_model('services', 'Service')
+    Service = apps.get_model("services", "Service")
     for service in Service.objects.all():
         duration_seconds = service.duration.total_seconds()
         service.duration_numeric = duration_seconds
@@ -30,38 +31,35 @@ def convert_duration_to_numeric(apps, schema_editor):
 
 
 def reverse_convert_duration_to_numeric(apps, schema_editor):
-    Service = apps.get_model('services', 'Service')
+    Service = apps.get_model("services", "Service")
     for service in Service.objects.all():
-        service.duration = None  
+        service.duration = None
         service.save()
+
 
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('services', '0001_initial'),
+        ("services", "0001_initial"),
     ]
 
     operations = [
-        
         migrations.AddField(
-            model_name='service',
-            name='duration_numeric',
-            field=models.DecimalField(decimal_places=0, max_digits=10, default=0),  
+            model_name="service",
+            name="duration_numeric",
+            field=models.DecimalField(decimal_places=0, max_digits=10, default=0),
         ),
-
-        migrations.RunPython(convert_duration_to_numeric, reverse_code=reverse_convert_duration_to_numeric),
-
+        migrations.RunPython(
+            convert_duration_to_numeric,
+            reverse_code=reverse_convert_duration_to_numeric,
+        ),
         migrations.RemoveField(
-            model_name='service',
-            name='duration',
+            model_name="service",
+            name="duration",
         ),
-
         migrations.RenameField(
-            model_name='service',
-            old_name='duration_numeric',
-            new_name='duration',
+            model_name="service",
+            old_name="duration_numeric",
+            new_name="duration",
         ),
     ]
-
-
-

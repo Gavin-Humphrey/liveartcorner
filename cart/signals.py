@@ -3,6 +3,7 @@ from django.dispatch import receiver
 from django.contrib.auth.models import User
 from .models import Cart
 
+
 @receiver(post_save, sender=User)
 def create_shopping_cart(sender, instance, created, **kwargs):
     if created:

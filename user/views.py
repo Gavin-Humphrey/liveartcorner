@@ -3,7 +3,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login, logout, get_user_model
 from django.contrib import messages
-from django.core.mail import send_mail # Later
+from django.core.mail import send_mail  # Later
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.contrib.sites.shortcuts import get_current_site
 from .tokens import account_activation_token
@@ -15,9 +15,7 @@ from django.contrib.auth.forms import AuthenticationForm
 from .models import User, ArtistProfile
 
 
-
 logger = logging.getLogger(__name__)
-
 
 
 def registerUser(request):
@@ -25,8 +23,10 @@ def registerUser(request):
         form = RegisterForm(request.POST)
         if form.is_valid():
             user = form.save(commit=False)
-            user.is_artist = form.cleaned_data.get('is_artist')
-            user.is_active = False  # Set is_active to False until the user activates their account
+            user.is_artist = form.cleaned_data.get("is_artist")
+            user.is_active = (
+                False  # Set is_active to False until the user activates their account
+            )
             user.save()
             activateEmail(request, user, form.cleaned_data.get("email"))
             return redirect("login")
@@ -41,7 +41,7 @@ def registerUser(request):
     return render(
         request=request, template_name="user/login_signup.html", context={"form": form}
     )
-    
+
 
 def activate(request, uidb64, token):
     try:
@@ -126,14 +126,18 @@ def artist_profile_view(request, user_id):
     except ArtistProfile.DoesNotExist:
         artist_profile = None
 
-    artist_profile_form_data = {
-        "Bio": artist_profile.bio,
-        "Portfolio URL": artist_profile.portfolio_url,
-        "Phone Number": artist_profile.phone_number,
-        "Location": artist_profile.location,
-        "Artistic Medium": artist_profile.artistic_medium,
-        "Experience Education": artist_profile.experience_education,
-    } if artist_profile else {}
+    artist_profile_form_data = (
+        {
+            "Bio": artist_profile.bio,
+            "Portfolio URL": artist_profile.portfolio_url,
+            "Phone Number": artist_profile.phone_number,
+            "Location": artist_profile.location,
+            "Artistic Medium": artist_profile.artistic_medium,
+            "Experience Education": artist_profile.experience_education,
+        }
+        if artist_profile
+        else {}
+    )
 
     context = {
         "user": profile_user,
@@ -157,10 +161,12 @@ def update_artist_profile(request):
     if request.method == "POST":
         logger.debug("POST data: %s", request.POST)
         logger.debug("FILES data: %s", request.FILES)
-        
+
         user_form = UserProfileForm(request.POST, instance=user)
-        profile_form = ArtistProfileForm(request.POST, request.FILES, instance=artist_profile)
-        
+        profile_form = ArtistProfileForm(
+            request.POST, request.FILES, instance=artist_profile
+        )
+
         if user_form.is_valid() and profile_form.is_valid():
             user_form.save()
             profile_form.save()
@@ -178,7 +184,7 @@ def update_artist_profile(request):
         "user_form": user_form,
         "profile_form": profile_form,
         "form_title": "Update Your Profile",
-        "button_text": "Save Changes"
+        "button_text": "Save Changes",
     }
     return render(request, "user/update_artist_profile.html", context)
 
@@ -186,4 +192,3 @@ def update_artist_profile(request):
 def logout_view(request):
     logout(request)
     return redirect("home")
-

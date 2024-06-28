@@ -50,5 +50,7 @@ class Migration(migrations.Migration):
                 ),
             ],
         ),
-        migrations.DeleteModel(name="Event",),
+        migrations.DeleteModel(
+            name="Event",
+        ),
     ]

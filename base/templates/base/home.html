@@ -105,26 +105,32 @@
             });
         });
 
+        // OFFCANVASS ANIMATION   
 
+        document.addEventListener("DOMContentLoaded", function() {
+            var scrollContent = document.querySelector(".popular-items-container");
+            var items = scrollContent.innerHTML; // Original items
+            var itemElements = document.querySelectorAll(".popular-item");
+            var itemWidth = itemElements[0].offsetWidth; // Width of a single item
+            var itemCount = itemElements.length; // Total number of items
 
-    // OFFCANVASS ANIMATION   
+            scrollContent.innerHTML += items; // Duplicate the items
 
-    document.addEventListener("DOMContentLoaded", function() {
-        var scrollContent = document.querySelector(".scroll-content");
-        var items = scrollContent.innerHTML;
-        scrollContent.innerHTML += items; // Duplicate the items
+            var totalWidth = itemWidth * itemCount * 2; // Total width considering the duplication
 
-        // Adjust the duration of the animation based on the number of items
-        var itemWidth = document.querySelector(".popular-item").offsetWidth;
-        var itemCount = document.querySelectorAll(".popular-item").length;
-        var totalWidth = itemWidth * itemCount;
-        var scrollDuration = totalWidth / 50; // I'm leaving the speed at this, for the moment.
+            // Set the container width to accommodate all items
+            scrollContent.style.width = `${totalWidth}px`;
 
-        // Update the animation duration
-        document.styleSheets[0].insertRule(`@keyframes scroll-left { 0% { transform: translateX(0); } 100% { transform: translateX(-${totalWidth / 2}px); } }`, 0);
-        scrollContent.style.animationDuration = `${scrollDuration}s`;
+            // Add animation event listener to reset the scroll position
+            scrollContent.addEventListener('animationiteration', function() {
+                scrollContent.style.animation = 'none';
+                scrollContent.offsetHeight; // Trigger reflow
+                scrollContent.style.animation = `scroll-left ${totalWidth / 50}s linear infinite`;
+            });
 
-    });
+            // Set initial animation
+            scrollContent.style.animation = `scroll-left ${totalWidth / 50}s linear infinite`;
+        });
 
     </script> 
     
@@ -132,4 +138,3 @@
   
 {% endblock %}
      
-
