@@ -250,13 +250,55 @@ body, html {
 .item-detail-wishlist-icon-img {
   height: 1.8rem;
   width: 1.8rem;
-  background-color: #535151;
   border: none;
-  padding: 0;
-  border-radius:  5px;
+  padding-left: 0.08rem;
 }
 
-/* ========= */
+.wishlist-form {
+  position: relative;
+  display: inline-block;
+}
+
+.wishlist-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  position: relative;
+}
+
+.tooltip-text {
+  visibility: hidden;
+  width: 120px;
+  background-color: var(--main-dark);
+  color: var(--main-light);
+  text-align: center;
+  border-radius: 5px;
+  padding: 5px 0;
+  position: absolute;
+  z-index: 1;
+  bottom: 125%; 
+  left: 50%;
+  margin-left: -60px; 
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.tooltip-text::after {
+  content: '';
+  position: absolute;
+  top: 100%; 
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: var(--main-dark) transparent transparent transparent;   
+}
+
+.wishlist-button:hover .tooltip-text {
+  visibility: visible;
+  opacity: 1;
+}
+
 
 .wishlist-container {
   position: relative;
@@ -772,7 +814,7 @@ body, html {
 .btn-tertiary {
   font-size: 0.875rem !important; 
   font-weight: bold !important;
-  background-color: #4b4848 !important;
+  background-color: var(--main-dark) !important;
   color: var(--main-light) !important;
   border-radius: 0.3125rem !important; 
   cursor: pointer;
@@ -833,8 +875,6 @@ body, html {
     max-width: 67.5vw; 
   }
 }
-
-
 
 /* Style for the three-dot button */
 
@@ -2155,6 +2195,7 @@ h1 {
   background: var(--footer-dark);
   color: var(--main-light);
   padding: 2rem 0;
+  margin-top: 1rem;
 }
 
 .footer-container {
