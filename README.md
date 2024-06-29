@@ -5,16 +5,13 @@
 <details>
 <summary><strong>Table of Contents</strong></summary>
 
-- [LIVE-ART-CORNER](#live-art-corner)
+ - [LIVE-ART-CORNER](#live-art-corner)
   - [Features](#features)
   - [Prerequisites](#prerequisites)
   - [Installation and Launch](#installation-and-launch)
   - [Production](#production)
-- [LIVE-ART-CORNER fr](#live-art-corner-fr)
-  - [Fonctionnalités](#fonctionnalités)
-  - [Prérequis](#prérequis)
-  - [Installation et lancement](#installation-et-lancement)
-  - [Production fr](#production-fr)
+  - [Deployment](#deployment)
+  - [Author](#author)
 
 </details>
 
@@ -122,11 +119,13 @@ Cloudinary credentials in your Django application:
 </details>
 </details><br>
 
-<strong>Deployment</strong><br>
+### Deployment 
+<br>
 
 This app is deployed on Heroku at https://liveartcorner-5afce0fdefed.herokuapp.com/
 
-<strong>Author</strong>
+
+#### Author
 Gavin Humphrey
 
 <small>&copy; All rights reserved.</small><br><br>
@@ -136,16 +135,13 @@ Gavin Humphrey
 <details>
 <summary><strong>Table des matières</strong></summary>
 
-- [LIVE-ART-CORNER](#live-art-corner)
-  - [Features](#features)
-  - [Prerequisites](#prerequisites)
-  - [Installation and Launch](#installation-and-launch)
-  - [Production](#production)
-- [LIVE-ART-CORNER fr](#live-art-corner-fr)
+- - [LIVE-ART-CORNER fr](#live-art-corner-fr)
   - [Fonctionnalités](#fonctionnalités)
-  - [Prérequis](#prérequis)
+  - [Prerequis](#prerequis)
   - [Installation et lancement](#installation-et-lancement)
   - [Production fr](#production-fr)
+  - [Deploiement](#deploiement)
+  - [Auteur](#auteur)
 
 </details>
 
@@ -162,7 +158,7 @@ LIVE-ART-CORNER est une application Python/Django où les artistes peuvent affic
 - Articles affichés dans des cartes, chacune représentant la boutique d'un artiste.
 - Vue détaillée des articles lorsqu'ils sont cliqués.
 
-### Prérequis
+### Prerequis
 Avant de commencer, assurez-vous d'avoir installé les éléments suivants :
 
 - [Git](https://git-scm.com/)
@@ -247,10 +243,12 @@ CLOUDINARY_API_KEY : Votre clé API Cloudinary
 CLOUDINARY_API_SECRET : Votre secret API Cloudinary
 
 </details><br>
-<strong>Déploiement<strong><br>
+
+### Deploiement
+<br>
 Le projet est déployé sur Heroku à l'adresse https://liveartcorner-5afce0fdefed.herokuapp.com/
 
-<strong>Auteur</strong>
+#### Auteur
 Gavin Humphrey
 
 <small>&copy; Tous droits réservés.</small>
