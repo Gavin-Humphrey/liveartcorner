@@ -44,8 +44,7 @@ DJANGO_SETTINGS_MODULE = config('DJANGO_SETTINGS_MODULE', default='liveartcorner
 
 DOCKERIZED = config('DOCKERIZED', default=False, cast=bool)
 
-#DEBUG = config('DEBUG', default=False, cast=bool) if not DOCKERIZED else False
-DEBUG=True  ###
+DEBUG = config('DEBUG', default=False, cast=bool) if not DOCKERIZED else False
 
 CSRF_COOKIE_SECURE = True
 
