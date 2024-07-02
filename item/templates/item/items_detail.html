@@ -22,7 +22,7 @@
                         </div>
                     </div>
                 {% elif request.user.is_superuser %}
-                    <button class="item-detail-dropbtn">...</button>
+                    <button class="item-detail-dropbtn">Setting</button>
                     <div class="item-detail-dropdown-content">
                         <div class="item-detail-delete-form service-delete">
                             <a href="{% url 'delete-item' item.id %}" class="item-detail-delete-button">Remove</a>
