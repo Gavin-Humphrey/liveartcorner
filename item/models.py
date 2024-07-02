@@ -39,28 +39,11 @@ class Item(models.Model):
     def user(self):
         return self.card.user
 
-    # def save(self, *args, **kwargs):
-    #     # Check if image field is not None
-    #     if self.image:
-    #         # Check if image has been modified
-    #         if (
-    #             hasattr(self, "_original_image")
-    #             and self.image.name != self._original_image
-    #         ):
-    #             img = Image.open(self.image.path)
-    #             img.save(self.image.path)
-    #
-    #         # Store the original image filename after the save
-    #         self._original_image = self.image.name  # Store filename
-    #
-    #     # Call the parent save method to save other fields
-    #     super().save(*args, **kwargs)
-
     def save(self, *args, **kwargs):
-        if self.image and settings.DEBUG:  # Only process images if in DEBUG mode
+        if self.image and settings.DEBUG:
             if hasattr(self, "_original_image") and self.image.name != self._original_image:
                 img = Image.open(self.image.path)
                 img.save(self.image.path)
             self._original_image = self.image.name
-        super().save(*args, **kwargs)
 
+        super().save(*args, **kwargs)

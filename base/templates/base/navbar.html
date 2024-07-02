@@ -69,12 +69,15 @@
                                 <span class="wishlist-count">{{ wishlist_items_count }}</span>
                             </a>
                         {% else %}
-                            <a href="{% url 'login' %}">
+                            <button type="button" class="wishlist-button" onclick="showWishlistPrompt()">
                                 <img src="{% static 'img/heart.png' %}" alt="wishlist icon" class="icon-img">
-                            </a>
+                            </button>
                         {% endif %}
-
-
+                        <!-- Custom alert message for login/register prompt -->
+                        <div id="custom-alert-nav" class="custom-alert">
+                            <button class="remove-alert" onclick="removeCustomAlert()">X</button>
+                            <p>Only <a href="{% url 'login' %}">logged in</a> or <a href="{% url 'register-user' %}">registered</a> users.</p>
+                        </div>
                     </div>
                     <!-- Shopping Cart Icon -->
                     <div class="nav-link cart-link">
@@ -133,5 +136,18 @@
         </ul>
     </div>
 </div>
+<script>
+    //function showWishlistPrompt() {
+        //alert("Only registered users.");
+    //}
 
-{% endblock content %} 
+
+    function showWishlistPrompt() {
+        document.getElementById('custom-alert-nav').style.display = 'block';
+    }
+    function removeCustomAlert() {
+        document.getElementById('custom-alert-nav').style.display = 'none';
+    }
+
+</script>
+{% endblock content %}

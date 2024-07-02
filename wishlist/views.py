@@ -53,4 +53,4 @@ def remove_from_wishlist(request, item_id):
     wishlist = get_object_or_404(WishList, user=request.user)
     wishlist_item = get_object_or_404(WishListItem, wishlist=wishlist, item=item)
     wishlist_item.delete()
-    return redirect("view_wishlist")
+    return redirect("my-wishlist")

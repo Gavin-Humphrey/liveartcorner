@@ -56,13 +56,19 @@
                             </svg>
                             <span class="tooltip-text">Add to wishlist</span>
                           </button>
-                          
                     </form>
                 {% else %}
-                    <a href="{% url 'login' %}">
-                        <img src="{% static 'img/item-detail-wishlist-heart.png' %}" alt="wishlist icon" class="item-detail-wishlist-icon-img">
-                    </a>
-                {% endif %}   
+                <button type="button" class="wishlist-button" onclick="showLoginPrompt()">
+                    <img src="{% static 'img/item-detail-wishlist-heart.png' %}" alt="wishlist icon" class="item-detail-wishlist-icon-img">
+                </button>
+
+                {% endif %}
+                <!-- Custom alert message for login/register prompt -->
+                <div id="custom-alert" class="custom-alert">
+                    <button class="remove-alert" onclick="removeCustomAlert()">X</button>
+                    <p>You need to <a href="{% url 'login' %}">log in</a> or <a href="{% url 'register-user' %}">register</a> to add items to your wishlist.</p>
+                </div>
+
             </div>
         </div>
         <div class="item-detail-description-card">
@@ -78,4 +84,14 @@
 
 
 </main>
+
+<script>
+    function showLoginPrompt() {
+        document.getElementById('custom-alert').style.display = 'block';
+    }
+    function removeCustomAlert() {
+        document.getElementById('custom-alert').style.display = 'none';
+        document.getElementById('custom-alert-nav').style.display = 'none';
+    }
+</script>
 {% endblock content %}

@@ -954,6 +954,41 @@ body, html {
   max-width: 50rem;
 }
 
+/* =====WishList Custom Alert===== */
+.custom-alert {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: var(--danger-main);
+    color: white;
+    padding: 1.25rem;
+    border-radius: 0.3125rem;
+    text-align: center;
+    z-index: 1000;
+}
+
+.custom-alert p {
+    margin: 0;
+}
+
+.custom-alert a {
+    color: white;
+    text-decoration: underline;
+    font-weight: bold;
+}
+
+.remove-alert {
+    position: absolute;
+    top: 0px;
+    right: 0.625rem;
+    background: none;
+    border: none;
+    color: white;
+    cursor: pointer;
+}
+
 /* Media query for responsive layout */
 @media screen and (max-width: 768px) { 
   .row-grid-row {
