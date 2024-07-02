@@ -14,7 +14,7 @@
             </div>
             <div class="item-detail-dropdown">
                 {% if request.user == item.user %}
-                    <button class="item-detail-dropbtn">...</button>
+                    <button class="item-detail-dropbtn">Setting</button>
                     <div class="item-detail-dropdown-content">
                         <a href="{% url 'update-item' item.id %}" class="item-detail-update-button">Update</a>
                         <div class="item-detail-delete-form ">
@@ -34,7 +34,7 @@
                 {% if user.id %}
                 <p>Artist: <a href="{% url 'artist-profile' item.user.id %}">{{ item.user }}</a></p>
                 {% endif %}
-                <p>Dimension:{{ item.length}}cm x {{ item.width }}cm</p>
+                <p>Dimension: {{ item.length}}cm x {{ item.width }}cm</p>
                 <p>Price: ${{ item.price }}</p>
                 <p>ID: {{ item.id }}</p>               
             </div>
@@ -66,7 +66,7 @@
                 <!-- Custom alert message for login/register prompt -->
                 <div id="custom-alert" class="custom-alert">
                     <button class="remove-alert" onclick="removeCustomAlert()">X</button>
-                    <p>You need to <a href="{% url 'login' %}">log in</a> or <a href="{% url 'register-user' %}">register</a> to add items to your wishlist.</p>
+                    <p>You need to  <a href="{% url 'register-user' %}">register</a> and <a href="{% url 'login' %}">log in</a> to add items to your wishlist.</p>
                 </div>
 
             </div>

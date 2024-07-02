@@ -794,6 +794,12 @@ body, html {
   display: inline-block;
 }
 
+.item-detail-info a {
+    color: var(--danger-light);
+    text-decoration: none;
+}
+
+
 @media (max-width: 526px) {
   .item-detail-img-card {
     width: 98vw;
@@ -870,7 +876,7 @@ body, html {
     min-width: 60vw;
   }
   
-  .item-detail-description {
+  .item-detail-description {  /*======Seems Duplicated=======*/
     max-height: 60vw;
     max-width: 67.5vw; 
   }
@@ -880,7 +886,8 @@ body, html {
 
 .item-detail-dropbtn {
   position: absolute;
-  background-color: var(--primary-blue-light);
+  background-color: var(--danger-light);
+  /*background-color: var(--primary-blue-light);*/
   color: var(--main-light);
   padding: 0.625rem;
   font-size: 1rem;
