@@ -1346,6 +1346,7 @@ h5 {
   background-color: #f0f0f0;
   color: #333;
   border: 1px solid var(--primary-color-light-border);
+  margin-left: 0.5rem;
   padding: 0.625rem 1.25rem;
   text-decoration: none;
   border-radius: 0.3125rem;

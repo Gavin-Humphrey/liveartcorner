@@ -2,10 +2,10 @@
 {% load static %}
 {% block content %}
 <main>
-    <div class="dashboard-header dashboard-manage">
-        <a href="{% url 'home' %}" class="btn btn-secondary">Back to Home</a>
-    </div>
 <div class="item-detail-container">
+    <div class="dashboard-header">
+        <a href="{{ request.META.HTTP_REFERER }}" class="btn btn-secondary">Go Back</a>
+    </div>
     <h1>{{ item.title }}</h1> 
     <div class="item-detail-card">
         <div class="item-detail-card-left">             

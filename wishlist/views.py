@@ -24,7 +24,7 @@ def my_wishlist(request):
         wishlist = WishList.objects.get(user=request.user)
         wishlist_items = wishlist.wishlist_items.all()
         if not wishlist_items:
-            messages.info(request, "Your Wishlist Is Empty")
+            #messages.success(request, "Your Wishlist Is Empty.")
             return redirect("home")
     except WishList.DoesNotExist:
         wishlist = None
