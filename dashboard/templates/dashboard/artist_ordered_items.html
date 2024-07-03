@@ -9,7 +9,7 @@
     <h1>Your Ordered Items</h1>
     <div class="manage-item-list-container">
       
-        <table class="manage-item-list">
+        <table class="manage-item-list manage-item-list-order">
             <thead>
                 <tr>
                     <th>Title</th>
@@ -31,7 +31,7 @@
                     <td>{{ order_item.get_total_cost }}</td>
                     <td>
                         {% if order_item.item.image %}
-                        <img src="{{ order_item.item.image.url }}" alt="{{ order_item.item.title }}" width="50">
+                        <img src="{{ order_item.item.image.url }}" alt="{{ order_item.item.title }}" class="manage-item-list-image">
                         {% else %}
                         No image
                         {% endif %}

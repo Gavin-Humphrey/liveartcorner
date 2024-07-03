@@ -1346,7 +1346,7 @@ h5 {
   background-color: #f0f0f0;
   color: #333;
   border: 1px solid var(--primary-color-light-border);
-  margin-left: 0.5rem;
+  margin-left: 0.5rem;dashboard-artist-booking
   padding: 0.625rem 1.25rem;
   text-decoration: none;
   border-radius: 0.3125rem;
@@ -1469,28 +1469,107 @@ h1 {
   background-color: var(--main-dark);
   color: var(--main-light);
 }
-@media (max-width: 768px) {
-  .manage-item-list input[type="number"] {
-      width: 2.5rem;
-  }
+
+.manage-item-list-image {
+    width: 40px;
+    height: 40px;
+    object-fit: cover;
+    border-radius: 0.25rem;
 }
 
-@media (max-width: 768px) {
-  .manage-item-list th, .manage-item-list td {
-      padding: 0.75rem;
-      font-size: 0.9rem;
-  }
+@media (max-width: 760px) {
+    .manage-item-list,
+    .manage-item-list thead,
+    .manage-item-list tbody,
+    .manage-item-list th,
+    .manage-item-list td,
+    .manage-item-list tr {
+        display: block;
+    }
+
+    .manage-item-list thead tr {
+        position: absolute;
+        top: -9999px;
+        left: -9999px;
+    }
+
+    .manage-item-list tr {
+        margin: 0 0 1.25rem 0;
+    }
+
+    .manage-item-list td {
+        border: none;
+        border-bottom: 1px solid var(--primary-color-light-border);
+        position: relative;
+        padding-left: 50%;
+        text-align: right;
+    }
+
+    .manage-item-list td::before {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 45%;
+        padding-right: 10px;
+        white-space: nowrap;
+        text-align: left;
+        font-weight: bold;
+    }
+
+    .manage-item-list td:nth-of-type(1)::before { content: "Title"; }
+    .manage-item-list td:nth-of-type(2)::before { content: "Dimension(cm)"; }
+    .manage-item-list td:nth-of-type(3)::before { content: "Quantity"; }
+    .manage-item-list td:nth-of-type(4)::before { content: "image"; }
+    .manage-item-list td:nth-of-type(5)::before { content: "Remove"; }
+
+    /*========Order=======*/
+    .manage-item-list-order td:nth-of-type(1)::before { content: "Title"; }
+    .manage-item-list-order td:nth-of-type(2)::before { content: "Dimension(cm)"; }
+    .manage-item-list-order td:nth-of-type(3)::before { content: "Quantity"; }
+    .manage-item-list-order td:nth-of-type(4)::before { content: "price"; }
+    .manage-item-list-order td:nth-of-type(5)::before { content: "total"; }
+    .manage-item-list-order td:nth-of-type(6)::before { content: "Image"; }
+    .manage-item-list-order td:nth-of-type(7)::before { content: "Order#"; }
 }
 
-@media (max-width: 480px) {
-  .manage-item-list th, .manage-item-list td {
-      padding: 0.625rem;
-      font-size: 0.8rem;
-  }
+@media (max-width: 460px) {
+    .main-content {
+        margin-top: -7rem !important;  /*======COME BACK TO SORT OUT THE NEGATIVE VALUE======*/
+    }
+    .manage-item-list-container {
+        padding: 0.625rem;
+    }
 
-  .manage-item-list img {
-      width: 2.5rem;
-  }
+    .manage-item-list td {
+        padding: 0.625rem;
+        font-size: 0.75rem;
+    }
+
+    .manage-item-list tr {
+        margin-bottom: 0.5rem;
+    }
+
+    .items-detail-update-qty button {
+        padding: 0.4rem;
+        font-size: 0.75rem;
+    }
+
+    .dashboard-header {
+        padding: 0.5rem;
+        margin-left: 2.5rem;
+      }
+
+    .dashboard-header-booking {
+        padding: 0.5rem;
+         margin-left: 0;
+      }
+
+    .dashboard-header .btn {
+        padding: 0.4rem;
+        /*font-size: 0.875rem;*/
+        font-size: small;
+        margin-left: 0;
+        }
 }
 
 /* ========DASHBOARD MANAGE ITEM AVAILABILITY DISPLAY========= */
@@ -1516,6 +1595,12 @@ h1 {
 }
 h1 {
   text-align: center;
+}
+
+@media (max-width: 760px) {
+    .dashboard-artist-availability-p {
+        text-align: center;
+    }
 }
 
 /* ========DASHBOARD SERVICES DISPLAY ======== */
@@ -1786,6 +1871,81 @@ h1 {
   height: 1.125rem;
   cursor: not-allowed;
 }
+
+
+@media (max-width: 760px) {
+    .dashboard-artist-booking table,
+    .dashboard-artist-booking thead,
+    .dashboard-artist-booking tbody,
+    .dashboard-artist-booking th,
+    .dashboard-artist-booking td,
+    .dashboard-artist-booking tr {
+        display: block;
+    }
+
+    .dashboard-artist-booking thead tr {
+        position: absolute;
+        top: -9999px;
+        left: -9999px;
+    }
+
+    .dashboard-artist-booking tr {
+        margin: 0 0 1.25rem 0;
+    }
+
+    .dashboard-artist-booking td {
+        border: none;
+        border-bottom: 1px solid var(--primary-color-light-border);
+        position: relative;
+        padding-left: 50%;
+        text-align: right;
+    }
+
+    .dashboard-artist-booking td::before {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 45%;
+        padding-right: 10px;
+        white-space: nowrap;
+        text-align: left;
+        font-weight: bold;
+    }
+
+    .dashboard-artist-booking td:nth-of-type(1)::before { content: "Customer"; }
+    .dashboard-artist-booking td:nth-of-type(2)::before { content: "Service"; }
+    .dashboard-artist-booking td:nth-of-type(3)::before { content: "Date"; }
+    .dashboard-artist-booking td:nth-of-type(4)::before { content: "Time"; }
+    .dashboard-artist-booking td:nth-of-type(5)::before { content: "Booked/Not Booked"; }
+}
+
+
+@media (max-width: 460px) {
+    .dashboard-main .btn-secondary {
+        font-size: x-small;
+        margin-left: -3.5rem;  /*COME BACK HERE FOR RECTIFICATION*/
+        margin-top: 1.5rem;
+    }
+
+    .dashboard-artist-booking {
+        margin: 0.625rem;
+    }
+
+    .dashboard-artist-booking h2 {
+        font-size: 1.25rem;
+        margin-bottom: 0.625rem;
+    }
+
+    .dashboard-artist-booking td {
+        padding: 0.625rem;
+        font-size: 0.75rem;
+    }
+
+    .dashboard-artist-booking tr {
+        margin-bottom: 0.5rem;
+    }
+}
+
 
 /* ======DASHBOARD======== */
 
@@ -2161,7 +2321,7 @@ h1 {
 
   .items-detail-update-qty {
     text-align: center;
-    margin: 0.625rem 0; 
+    margin: 0.625rem 0;
   }
 }
 
