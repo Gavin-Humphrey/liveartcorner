@@ -34,14 +34,28 @@ body, html {
 
 
 /* =======NAVBAR======== */
+/*.navbar-container {
+    width: 100% !important;
+    position: fixed;
+    z-index: 1000;
+}*/
 
 .navbar {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background-color: var(--primary-color-light);
-  padding: 1.5rem 0 1.5rem 0 !important;
-  padding-bottom: 3rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: var(--primary-color-light);
+    padding: 1.5rem 0 1.5rem 0 !important;
+    padding-bottom: 3rem;
+
+
+    width: 100% !important;
+    position: fixed;
+    z-index: 1000;
+}
+.navbar-brand {
+    font-weight: bold;
+    color: var(--danger-light) !important;
 }
 
 .nav-left input {

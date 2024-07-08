@@ -27,11 +27,15 @@
     </div>
     <div class="offcanvas-get-verified"><a href="{% url 'contact' %}">Get Verified</a>
     </div>
-</div> 
+</div>
+
+<!--<nav class="navbar-container">-->
 <header>
-    <nav class="navbar navbar-expand-lg"> <!--bg-body-tertiary">-->
+
+    <nav class="navbar-container">
+      <div class="navbar navbar-expand-lg">
         <div class="container-fluid">
-            <a class="navbar-brand" href="{% url 'home' %}">Live-Art Corner</a>
+            <a class="navbar-brand" href="{% url 'home' %}">Live-Art Corner&copy;</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -55,10 +59,10 @@
                 <form class="d-flex search-form" role="search">
                     <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
                     <!-- <button class="btn btn-outline-success" type="submit">Search</button> -->
-                    <button class="btn-search" type="submit">Search</button>   
-                    
+                    <button class="btn-search" type="submit">Search</button>
+
                 </form>
-                
+
                 <!-- Icons container with ms-auto class -->
                 <div class="icons-container ms-auto">
                     <!-- Favorite Icon -->
@@ -81,61 +85,82 @@
                     </div>
                     <!-- Shopping Cart Icon -->
                     <div class="nav-link cart-link">
-                       
+
                         <a href=" {% if cart_items_count > 0 %} {% url 'view-cart' %}{% endif %}">
-                            
+
                             <img src="{% static 'img/add-cart.png' %}" alt="cart icon" class="icon-img cart-icon-container">
                             <span class="cart-count">{{ cart_items_count }}</span>
                         </a>
                     </div>
-                                           
+
                     <!-- Login Icon -->
                     <div class="nav-link">
-                        
+
                         <div href="#" data-bs-toggle="dropdown">
                             <img src="{% static 'img/user.png' %}" alt="User Icon" class="icon-img" style="cursor: pointer;">
                         </div>
                         <ul class="dropdown-menu user-dropdown-menu">
                         {% if user.is_authenticated %}
-                            <li><a href="{% url 'logout' %}" class="dropdown-item">Logout</a></li>                            
+                            <li><a href="{% url 'logout' %}" class="dropdown-item">Logout</a></li>
                             {% if user.is_artist %}
                             <li><a href="{% url 'artist-profile' user.id %}" class="dropdown-item">Profile</a></li>
                             <li><a href="{% url 'artist-dashboard' user.id %}" class="dropdown-item">Artist Dashboard</a></li>
-                            
-                            <li><a href="{% url 'upload-item' %}" class="dropdown-item">Upload Product</a></li> 
-                            
+
+                            <li><a href="{% url 'upload-item' %}" class="dropdown-item">Upload Product</a></li>
+
                             {% endif %}
-                            <li> <a href="{% url 'contact' %}" class="dropdown-item">Contact</a></li> 
-                            <li> <div class="Verification-offcanvas"  data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight"><p>Get Verified</p></div></li> 
+                            <li> <a href="{% url 'contact' %}" class="dropdown-item">Contact</a></li>
+                            <li> <div class="Verification-offcanvas"  data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight"><p>Get Verified</p></div></li>
                         {% else%}
-                            <li><a href="{% url 'login' %}" class="dropdown-item">Login</a></li>  
+                            <li><a href="{% url 'login' %}" class="dropdown-item">Login</a></li>
                         {% endif %}
-                        </ul>                       
-                       
+                        </ul>
+
                     </div>
                 </div>
             </div>
         </div>
+<!--    </nav>-->
+    </div>
+    <div class="navbar-lower">
+        <a href="{% url 'home' %}">Home</a>
+        <a href="#">Products</a>
+        <div class="dropdown">
+            <a href="#">Terms</a>
+        </div>
+        <div class="nav-item dropdown">
+            <a class="nav-link dropdown" href="#" role="button" aria-expanded="false">
+                Services
+            </a>
+            <ul class="dropdown-menu">
+                <li><a class="dropdown-item center-dropdown-menu" href="#">Services by Artists</a></li>
+                <li><a class="dropdown-item center-dropdown-menu" href="#">Report</a></li>
+                <!-- <li><a class="dropdown-divider"></a></li> -->
+                <li><a class="dropdown-item center-dropdown-menu" href="{% url 'contact' %}">Get Verified</a></li>
+            </ul>
+        </div>
+    </div>
     </nav>
 </header>
-<div class="navbar-lower">
-    <a href="{% url 'home' %}">Home</a>
-    <a href="#">Products</a>
-    <div class="dropdown">
-        <a href="#">Terms</a>
-    </div>
-    <div class="nav-item dropdown">
-        <a class="nav-link dropdown" href="#" role="button" aria-expanded="false">
-            Services
-        </a>
-        <ul class="dropdown-menu">
-            <li><a class="dropdown-item center-dropdown-menu" href="#">Services by Artists</a></li>
-            <li><a class="dropdown-item center-dropdown-menu" href="#">Report</a></li>
-            <!-- <li><a class="dropdown-divider"></a></li> -->
-            <li><a class="dropdown-item center-dropdown-menu" href="{% url 'contact' %}">Get Verified</a></li>
-        </ul>
-    </div>
-</div>
+<!--<div class="navbar-lower">-->
+<!--    <a href="{% url 'home' %}">Home</a>-->
+<!--    <a href="#">Products</a>-->
+<!--    <div class="dropdown">-->
+<!--        <a href="#">Terms</a>-->
+<!--    </div>-->
+<!--    <div class="nav-item dropdown">-->
+<!--        <a class="nav-link dropdown" href="#" role="button" aria-expanded="false">-->
+<!--            Services-->
+<!--        </a>-->
+<!--        <ul class="dropdown-menu">-->
+<!--            <li><a class="dropdown-item center-dropdown-menu" href="#">Services by Artists</a></li>-->
+<!--            <li><a class="dropdown-item center-dropdown-menu" href="#">Report</a></li>-->
+<!--            &lt;!&ndash; <li><a class="dropdown-divider"></a></li> &ndash;&gt;-->
+<!--            <li><a class="dropdown-item center-dropdown-menu" href="{% url 'contact' %}">Get Verified</a></li>-->
+<!--        </ul>-->
+<!--    </div>-->
+<!--</div>-->
+<!--</nav>-->
 <script>
     //function showWishlistPrompt() {
         //alert("Only registered users.");
