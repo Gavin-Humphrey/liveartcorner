@@ -25,6 +25,9 @@ from liveartcorner.storage import CloudinaryMediaStorage
 import cloudinary
 import cloudinary_storage
 
+from chatterbot import ChatBot
+from chatterbot.trainers import ChatterBotCorpusTrainer
+
 
 
 load_dotenv()
@@ -88,6 +91,7 @@ INSTALLED_APPS = [
     "order.apps.OrderConfig",
     "wishlist.apps.WishlistConfig",
     "services.apps.ServicesConfig",
+    'chatbot',
 ]
 
 AUTH_USER_MODEL = 'user.User'
@@ -123,6 +127,7 @@ TEMPLATES = [
     },
 ]
 
+
 WSGI_APPLICATION = "liveartcorner.wsgi.application"
 
 
@@ -143,6 +148,15 @@ else:
     DATABASES = {
         'default': dj_database_url.config(default=os.getenv('DATABASE_URL'))
     }
+
+
+chatbot = ChatBot(
+    'ChatBot',
+    storage_adapter='chatterbot.storage.SQLStorageAdapter',
+    #database_uri='postgres://postgres:Prod123@db:5432/LiveArtCorner'
+    database_uri=config('DATABASE_URL')
+)
+
 
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators
@@ -176,7 +190,7 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 # Absolute path to the directory static files should be collected to
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles') ####
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles') 
 
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static'),
@@ -273,7 +287,6 @@ PAYMENT_CANCEL_URL = config("PAYMENT_CANCEL_URL")
 #         },
 #     },
 # }
-
 
 
 

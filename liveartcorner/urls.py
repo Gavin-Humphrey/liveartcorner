@@ -34,6 +34,7 @@ urlpatterns = [
     path("", include("wishlist.urls")),
     path("", include("order.urls")),
     path("", include("services.urls")),
+    path("chatbot/", include("chatbot.urls")),
    
 ]
 if settings.DEBUG:
