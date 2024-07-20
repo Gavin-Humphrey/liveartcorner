@@ -9,8 +9,7 @@ RUN apt-get update && \
     build-essential \
     libffi-dev \
     libssl-dev && \
-    apt-get clean && \
-    rm -rf /var/lib/apt/lists/*
+    rm -rf /var/lib/apt/lists/* /var/cache/apt/*
 
 # Install Python dependencies
 COPY requirements.txt /app/
@@ -35,4 +34,3 @@ EXPOSE ${PORT}
 
 # Start your application
 CMD gunicorn liveartcorner.wsgi:application --bind 0.0.0.0:${PORT} --timeout 300 --log-level debug
-
