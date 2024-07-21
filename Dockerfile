@@ -2,6 +2,7 @@ FROM python:3.10-slim
 
 WORKDIR /app
 
+# Install curl
 RUN apt-get update && apt-get install -y curl
 
 # Copy application code
