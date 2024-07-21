@@ -1,10 +1,12 @@
 FROM python:3.10-slim
 
-# Set the working directory in the container
 WORKDIR /app
 
-# Install curl and other dependencies
-RUN apt-get update && \
+# Ensure sources list is present and update apt-get
+RUN echo "deb http://deb.debian.org/debian bookworm main" > /etc/apt/sources.list && \
+    echo "deb http://deb.debian.org/debian bookworm-updates main" >> /etc/apt/sources.list && \
+    echo "deb http://deb.debian.org/debian-security bookworm-security main" >> /etc/apt/sources.list && \
+    apt-get update && \
     apt-get install -y curl && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
