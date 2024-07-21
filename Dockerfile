@@ -8,7 +8,10 @@ ENV SENTRY_DSN="${LIVEARTCORNER_SENTRY_DSN}"
 WORKDIR /app
 
 # Disable problematic APT::Update::Post-Invoke-Success scripts
-RUN echo 'APT::Update::Post-Invoke-Success {"rm -f /var/cache/apt/archives/*.deb /var/cache/apt/archives/partial/*.deb /var/cache/apt/*.bin || true";};' > /etc/apt/apt.conf.d/no-cache-cleanup
+RUN rm -f /etc/apt/apt.conf.d/docker-clean
+
+# Ensure the dpkg database is not in a broken state
+RUN dpkg --configure -a
 
 # Install necessary system dependencies
 RUN apt-get update && apt-get install -y \
