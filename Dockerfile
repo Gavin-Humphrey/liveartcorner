@@ -10,19 +10,25 @@ WORKDIR /app
 # Disable problematic APT::Update::Post-Invoke-Success scripts
 RUN rm -f /etc/apt/apt.conf.d/docker-clean
 
-# Ensure the dpkg database is not in a broken state
-RUN dpkg --configure -a
-
-# Install necessary system dependencies
-RUN apt-get update && apt-get install -y \
+# Install basic dependencies first
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends \
     build-essential \
+    && apt-get clean && \
+    rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+
+# Install additional dependencies
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends \
     libffi-dev \
-    libssl-dev
+    libssl-dev \
+    && apt-get clean && \
+    rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 # Install Python dependencies
 COPY requirements.txt /app/
-RUN pip install --upgrade pip \
-    && pip install --no-cache-dir -r requirements.txt
+RUN pip install --upgrade pip && \
+    pip install --no-cache-dir -r requirements.txt
 
 # Download and install spaCy model
 RUN python -m spacy download en_core_web_sm
