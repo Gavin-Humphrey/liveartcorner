@@ -9,6 +9,7 @@ COPY requirements.txt /app/
 # Install system dependencies for psycopg2 and any other dependencies
 RUN apt-get update && \
     apt-get install -y gcc libpq-dev && \
+    apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
 # Install Python dependencies without upgrading pip
