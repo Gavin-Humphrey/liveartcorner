@@ -1,12 +1,14 @@
 FROM python:3.10-slim
 
-# Set the working directory in the container
+# Working directory in the container
 WORKDIR /app
 
-# Install Python dependencies
+ENV PYTHONWARNINGS "ignore::UserWarning"
+
+# Install Python dependencies without upgrading pip
 COPY requirements.txt /app/
-RUN pip install --no-cache-dir --upgrade pip setuptools wheel
-RUN pip install --no-cache-dir --progress-bar off --no-build-isolation -r requirements.txt
+RUN pip install --no-cache-dir --disable-pip-version-check setuptools wheel
+RUN pip install --no-cache-dir --disable-pip-version-check --no-build-isolation -r requirements.txt
 
 # Download and install spaCy model
 RUN python -m spacy download en_core_web_sm
