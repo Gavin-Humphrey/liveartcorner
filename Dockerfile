@@ -6,11 +6,9 @@ WORKDIR /app
 # Copy requirements.txt before the rest of the application
 COPY requirements.txt /app/
 
-# Install system dependencies for psycopg2 and any other dependencies
+# Install system dependencies for psycopg2 and other dependencies
 RUN apt-get update && \
-    apt-get install -y gcc libpq-dev && \
-    apt-get clean && \
-    rm -rf /var/lib/apt/lists/*
+    apt-get install -y gcc libpq-dev
 
 # Install Python dependencies without upgrading pip
 RUN pip install --no-cache-dir --disable-pip-version-check setuptools wheel \
