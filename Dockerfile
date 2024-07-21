@@ -1,35 +1,37 @@
 FROM python:3.10-slim
 
+# # Set environment variables
+ENV PYTHONUNBUFFERED=1
+
+ENV SENTRY_DSN="${LIVEARTCORNER_SENTRY_DSN}"
+
+# Set the working directory in the container
 WORKDIR /app
 
-# Install curl
-RUN apt-get update && apt-get install -y curl
-
-# Copy application code
-COPY . .
-
-# Copy requirements.txt before the rest of the application
-COPY requirements.txt /app/
+# Install necessary system dependencies
+RUN apt-get update && apt-get install -y \
+    build-essential \
+    libffi-dev \
+    libssl-dev \
+    && rm -rf /var/lib/apt/lists/*
 
 # Install Python dependencies
-RUN pip install --no-cache-dir --disable-pip-version-check setuptools wheel \
-    && pip install --no-cache-dir --disable-pip-version-check -r requirements.txt
+COPY requirements.txt /app/
+RUN pip install --upgrade pip
+RUN pip install --no-cache-dir -r requirements.txt
 
-# Download the spaCy model wheel file
-RUN curl -L -o en_core_web_sm-3.7.1-py3-none-any.whl https://github.com/explosion/spacy-models/releases/download/en_core_web_sm-3.7.1/en_core_web_sm-3.7.1-py3-none-any.whl
-
-# Install the spaCy model wheel file
-RUN pip install en_core_web_sm-3.7.1-py3-none-any.whl \
-    && python -m spacy link en_core_web_sm en
+# Download and install spaCy model
+RUN python -m spacy download en_core_web_sm
 
 # Copy the rest of your application code
 COPY . /app/
 
+# Copy static files
+COPY staticfiles /app/staticfiles
+RUN chmod -R 755 /app/staticfiles
+
 # Ensure media directory has the right permissions
-RUN mkdir -p /app/media && chmod -R 777 /app/media
+RUN chmod -R 777 /app/media
 
-# Expose the port your app runs on
-EXPOSE ${PORT}
-
-# Command to run the application with Gunicorn
+# Start your application
 CMD gunicorn liveartcorner.wsgi:application --bind 0.0.0.0:${PORT} --timeout 300 --log-level debug
