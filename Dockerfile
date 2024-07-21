@@ -7,13 +7,14 @@ ENV SENTRY_DSN="${LIVEARTCORNER_SENTRY_DSN}"
 # Set the working directory in the container
 WORKDIR /app
 
+# Disable problematic APT::Update::Post-Invoke-Success scripts
+RUN echo 'APT::Update::Post-Invoke-Success {"rm -f /var/cache/apt/archives/*.deb /var/cache/apt/archives/partial/*.deb /var/cache/apt/*.bin || true";};' > /etc/apt/apt.conf.d/no-cache-cleanup
+
 # Install necessary system dependencies
 RUN apt-get update && apt-get install -y \
     build-essential \
     libffi-dev \
-    libssl-dev 
-    #\
-    #&& rm -rf /var/lib/apt/lists/*
+    libssl-dev
 
 # Install Python dependencies
 COPY requirements.txt /app/
