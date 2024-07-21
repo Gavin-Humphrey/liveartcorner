@@ -3,13 +3,20 @@ version: 2.1
 executors:
   docker-executor:
     docker:
-      - image: circleci/python:3.8-node-browsers
+      #- image: circleci/python:3.8-node-browsers
+      - image: circleci/python:3.10-node-browsers
 
 jobs:
   build:
     executor: docker-executor
     steps:
       - checkout
+      ####
+      - run:
+          name: Debug APT Issues
+          command: |
+            docker run --rm -it circleci/python:3.10-slim /bin/bash -c "apt-get update && apt-get install -y curl && apt-get clean"
+      #####
       - setup_remote_docker:
           version: 20.10.7
       - run:
