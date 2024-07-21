@@ -2,14 +2,22 @@ FROM python:3.10-slim
 
 WORKDIR /app
 
-# Ensure sources list is present and update apt-get
-RUN echo "deb http://deb.debian.org/debian bookworm main" > /etc/apt/sources.list && \
-    echo "deb http://deb.debian.org/debian bookworm-updates main" >> /etc/apt/sources.list && \
-    echo "deb http://deb.debian.org/debian-security bookworm-security main" >> /etc/apt/sources.list && \
+# Update the sources list only if it's missing or corrupted
+RUN if [ ! -f /etc/apt/sources.list ]; then \
+        echo "deb http://deb.debian.org/debian bookworm main" > /etc/apt/sources.list && \
+        echo "deb http://deb.debian.org/debian bookworm-updates main" >> /etc/apt/sources.list && \
+        echo "deb http://deb.debian.org/debian-security bookworm-security main" >> /etc/apt/sources.list; \
+    fi
+
+# Fix any issues with the APT::Update::Post-Invoke script
+RUN apt-get clean && rm -rf /var/lib/apt/lists/* /etc/apt/sources.list.d/debian.sources && \
     apt-get update && \
     apt-get install -y curl && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
+
+# Copy the rest of your application code
+COPY . .
 
 # Copy requirements.txt before the rest of the application
 COPY requirements.txt /app/
