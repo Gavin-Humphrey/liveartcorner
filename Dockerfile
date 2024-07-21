@@ -3,6 +3,11 @@ FROM python:3.10-slim
 # Set the working directory in the container
 WORKDIR /app
 
+# Install curl and other dependencies
+RUN apt-get update && apt-get install -y \
+    curl \
+    && rm -rf /var/lib/apt/lists/*
+
 # Copy requirements.txt before the rest of the application
 COPY requirements.txt /app/
 
@@ -11,10 +16,10 @@ RUN pip install --no-cache-dir --disable-pip-version-check setuptools wheel \
     && pip install --no-cache-dir --disable-pip-version-check -r requirements.txt
 
 # Download the spaCy model wheel file
-ADD https://github.com/explosion/spacy-models/releases/download/en_core_web_sm-3.7.1/en_core_web_sm-3.7.1-py3-none-any.whl /app/
+RUN curl -L -o en_core_web_sm-3.7.1-py3-none-any.whl https://github.com/explosion/spacy-models/releases/download/en_core_web_sm-3.7.1/en_core_web_sm-3.7.1-py3-none-any.whl
 
 # Install the spaCy model wheel file
-RUN pip install /app/en_core_web_sm-3.7.1-py3-none-any.whl \
+RUN pip install en_core_web_sm-3.7.1-py3-none-any.whl \
     && python -m spacy link en_core_web_sm en
 
 # Copy the rest of your application code
