@@ -5,7 +5,8 @@ WORKDIR /app
 
 # Install Python dependencies
 COPY requirements.txt /app/
-RUN pip install --no-cache-dir --progress-bar off -r requirements.txt
+RUN pip install --no-cache-dir --upgrade pip setuptools wheel
+RUN pip install --no-cache-dir --progress-bar off --no-build-isolation -r requirements.txt
 
 # Download and install spaCy model
 RUN python -m spacy download en_core_web_sm
@@ -23,5 +24,5 @@ RUN mkdir -p /app/media && chmod -R 777 /app/media
 # Expose the port your app runs on
 EXPOSE ${PORT}
 
-# Start your application
+# Command to run the application with Gunicorn
 CMD gunicorn liveartcorner.wsgi:application --bind 0.0.0.0:${PORT} --timeout 300 --log-level debug
