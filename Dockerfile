@@ -5,8 +5,7 @@ WORKDIR /app
 
 # Install Python dependencies
 COPY requirements.txt /app/
-
-RUN pip install --no-cache-dir -r requirements.txt
+RUN pip install --no-cache-dir --progress-bar off -r requirements.txt
 
 # Download and install spaCy model
 RUN python -m spacy download en_core_web_sm
