@@ -1,8 +1,7 @@
 FROM python:3.10-slim
 
-# # Set environment variables
+# Set environment variables
 ENV PYTHONUNBUFFERED=1
-
 ENV SENTRY_DSN="${LIVEARTCORNER_SENTRY_DSN}"
 
 # Set the working directory in the container
@@ -17,8 +16,8 @@ RUN apt-get update && apt-get install -y \
 
 # Install Python dependencies
 COPY requirements.txt /app/
-RUN pip install --upgrade pip
-RUN pip install --no-cache-dir -r requirements.txt
+RUN pip install --upgrade pip \
+    && pip install --no-cache-dir -r requirements.txt
 
 # Download and install spaCy model
 RUN python -m spacy download en_core_web_sm
@@ -26,7 +25,7 @@ RUN python -m spacy download en_core_web_sm
 # Copy the rest of your application code
 COPY . /app/
 
-# Copy static files
+# Copy static files and set permissions
 COPY staticfiles /app/staticfiles
 RUN chmod -R 755 /app/staticfiles
 
