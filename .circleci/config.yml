@@ -3,22 +3,37 @@ version: 2.1
 executors:
   docker-executor:
     docker:
-      - image: circleci/python:3.10
+      - image: circleci/python:3.10-node-browsers
 
 jobs:
   build:
     executor: docker-executor
     steps:
       - checkout
+      - setup_remote_docker:
+          version: 20.10.7
+          docker_layer_caching: true
+
+      - run:
+          name: Check Docker Version
+          command: docker --version
+
+      - run:
+          name: Check Docker Daemon
+          command: docker info
+
       - run:
           name: Build Docker Image
-          command: docker-compose build
+          command: docker-compose build --no-cache
+
       - run:
           name: Run Database Migrations
           command: docker-compose run --env-file env django python manage.py migrate
+
       - run:
           name: Collect Static Files
           command: docker-compose run --env-file .env web python manage.py collectstatic --noinput
+
       - run:
           name: Run Tests
           command: docker-compose run --env-file .env web pytest -v
@@ -29,6 +44,7 @@ jobs:
       - checkout
       - setup_remote_docker:
           version: 20.10.7
+
       - run:
           name: Build and push Docker image to Heroku
           command: |
@@ -36,21 +52,27 @@ jobs:
             HEROKU_API_KEY=${HEROKU_TOKEN} heroku container:login
             HEROKU_API_KEY=${HEROKU_TOKEN} heroku container:push -a ${HEROKU_APP_NAME} web
             HEROKU_API_KEY=${HEROKU_TOKEN} heroku container:release -a ${HEROKU_APP_NAME} web
+
       - run:
           name: Run Database Migrations on Heroku
           command: HEROKU_API_KEY=${HEROKU_TOKEN} heroku run --exit-code --app ${HEROKU_APP_NAME} python manage.py migrate
+
       - run:
           name: Set Cloudinary URL
           command: echo "CLOUDINARY_URL=$CLOUDINARY_URL" >> $BASH_ENV
+
       - run:
           name: Set Sentry DSN Environment Variable
           command: echo "export SENTRY_DSN=$LIVEARTCORNER_SENTRY_DSN" >> $BASH_ENV
+
       - run:
           name: Source Environment Variables
           command: source $BASH_ENV
+
       - run:
           name: Collect Static Files
           command: HEROKU_API_KEY=${HEROKU_TOKEN} heroku run -a ${HEROKU_APP_NAME} python manage.py collectstatic --noinput
+
       - run:
           name: Cloudinary Credentials
           command: |
