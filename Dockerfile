@@ -3,14 +3,6 @@ FROM python:3.10-slim
 # Set the working directory in the container
 WORKDIR /app
 
-# Install necessary system dependencies
-RUN apt-get update && \
-    DEBIAN_FRONTEND=noninteractive apt-get install -y \
-    build-essential \
-    libffi-dev \
-    libssl-dev && \
-    rm -rf /var/lib/apt/lists/*
-
 # Install Python dependencies
 COPY requirements.txt /app/
 RUN pip install --upgrade pip && \
