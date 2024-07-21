@@ -6,6 +6,7 @@ WORKDIR /app
 # Install curl and other dependencies
 RUN apt-get update && \
     apt-get install -y curl && \
+    apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
 # Copy requirements.txt before the rest of the application
