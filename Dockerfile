@@ -1,17 +1,22 @@
 FROM python:3.10-slim
 
-# Working directory in the container
+# Set the working directory in the container
 WORKDIR /app
 
-ENV PYTHONWARNINGS "ignore::UserWarning"
+# Copy requirements.txt before the rest of the application
+COPY requirements.txt /app/
+
+# Install system dependencies for psycopg2 and any other dependencies
+RUN apt-get update && \
+    apt-get install -y gcc libpq-dev && \
+    rm -rf /var/lib/apt/lists/*
 
 # Install Python dependencies without upgrading pip
-COPY requirements.txt /app/
-RUN pip install --no-cache-dir --disable-pip-version-check setuptools wheel
-RUN pip install --no-cache-dir --disable-pip-version-check --no-build-isolation -r requirements.txt
+RUN pip install --no-cache-dir --disable-pip-version-check setuptools wheel \
+    && pip install --no-cache-dir --disable-pip-version-check -r requirements.txt
 
-# Download and install spaCy model
-RUN python -m spacy download en_core_web_sm
+# Download and install spaCy model separately
+RUN pip install --no-cache-dir https://github.com/explosion/spacy-models/releases/download/en_core_web_sm-3.7.1/en_core_web_sm-3.7.1-py3-none-any.whl
 
 # Copy the rest of your application code
 COPY . /app/
