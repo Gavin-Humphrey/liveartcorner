@@ -3,8 +3,7 @@ version: 2.1
 executors:
   docker-executor:
     docker:
-      - image: circleci/python:3.10-node-browsers
-
+      - image: circleci/python:3.8-node-browsers
 jobs:
   build:
     executor: docker-executor
@@ -12,16 +11,9 @@ jobs:
       - checkout
       - setup_remote_docker:
           version: 20.10.7
-          docker_layer_caching: true
-      - run:
-          name: Check Docker Version
-          command: docker --version
-      - run:
-          name: Check Docker Daemon
-          command: docker info
       - run:
           name: Build Docker Image
-          command: docker-compose build --no-cache
+          command: docker-compose build
       - run:
           name: Run Database Migrations
           command: docker-compose run --env-file env django python manage.py migrate
