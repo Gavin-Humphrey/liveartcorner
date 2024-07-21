@@ -10,11 +10,15 @@ COPY requirements.txt /app/
 RUN pip install --no-cache-dir --disable-pip-version-check setuptools wheel \
     && pip install --no-cache-dir --disable-pip-version-check -r requirements.txt
 
-# Install spaCy model separately
-RUN python -m spacy download en_core_web_sm
+# Download and install spaCy model separately
+RUN pip install --no-cache-dir https://github.com/explosion/spacy-models/releases/download/en_core_web_sm-3.7.1/en_core_web_sm-3.7.1-py3-none-any.whl
 
 # Copy the rest of your application code
 COPY . /app/
+
+# Copy static files
+COPY staticfiles /app/staticfiles
+RUN chmod -R 755 /app/staticfiles
 
 # Ensure media directory has the right permissions
 RUN mkdir -p /app/media && chmod -R 777 /app/media
