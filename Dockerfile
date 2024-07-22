@@ -8,9 +8,7 @@ RUN apt-get update && \
     apt-get install -y --no-install-recommends \
     build-essential \
     libffi-dev \
-    libssl-dev && \
-    apt-get clean && \
-    rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+    libssl-dev
 
 # Set environment variables to mitigate threading issues
 ENV PIP_NO_CACHE_DIR=1 \
