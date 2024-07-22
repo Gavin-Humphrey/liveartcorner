@@ -11,18 +11,6 @@ jobs:
       - checkout
       - setup_remote_docker:
           version: 20.10.7
-      ######
-      - run:
-          name: Install system dependencies
-          command: |
-            docker-compose run web apt-get update
-            docker-compose run web apt-get install -y build-essential libffi-dev libssl-dev gcc
-      - run:
-          name: Install Python dependencies
-          command: |
-            docker-compose run web python -m pip install --upgrade pip
-            docker-compose run web python -m pip install -r requirements.txt
-      ######
       - run:
           name: Build Docker Image
           command: docker-compose build
