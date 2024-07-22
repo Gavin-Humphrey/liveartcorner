@@ -1,39 +1,33 @@
-FROM python:3.10-slim
+FROM python:3.10-slim as builder
 
-# Set environment variables
-ENV PYTHONUNBUFFERED=1
-ENV SENTRY_DSN="${LIVEARTCORNER_SENTRY_DSN}"
-
-# Set the working directory in the container
 WORKDIR /app
 
-# Disable problematic APT::Update::Post-Invoke-Success scripts
-RUN rm -f /etc/apt/apt.conf.d/docker-clean
-
-# Install basic dependencies first
+# Install build dependencies
 RUN apt-get update && \
     apt-get install -y --no-install-recommends \
     build-essential \
-    && apt-get clean && \
-    rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
-
-# Install additional dependencies
-RUN apt-get update && \
-    apt-get install -y --no-install-recommends \
     libffi-dev \
-    libssl-dev \
-    && apt-get clean && \
-    rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+    libssl-dev && \
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* || true
 
 # Install Python dependencies
-COPY requirements.txt /app/
+COPY requirements.txt .
 RUN pip install --upgrade pip && \
     pip install --no-cache-dir -r requirements.txt
 
 # Download and install spaCy model
 RUN python -m spacy download en_core_web_sm
 
-# Copy the rest of your application code
+# Stage 2: Create the final image
+FROM python:3.10-slim
+
+WORKDIR /app
+
+# Copy installed packages from the builder stage
+COPY --from=builder /usr/local /usr/local
+
+# Copy application files
 COPY . /app/
 
 # Copy static files and set permissions
@@ -45,4 +39,3 @@ RUN chmod -R 777 /app/media
 
 # Start your application
 CMD gunicorn liveartcorner.wsgi:application --bind 0.0.0.0:${PORT} --timeout 300 --log-level debug
-
