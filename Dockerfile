@@ -1,33 +1,39 @@
-# Stage 1: Build the application
-FROM python:3.10-slim as builder
+FROM python:3.10-slim
 
+# Set environment variables
+ENV PYTHONUNBUFFERED=1
+ENV SENTRY_DSN="${LIVEARTCORNER_SENTRY_DSN}"
+
+# Set the working directory in the container
 WORKDIR /app
 
-# Install build dependencies
+# Disable problematic APT::Update::Post-Invoke-Success scripts
+RUN rm -f /etc/apt/apt.conf.d/docker-clean
+
+# Install basic dependencies first
 RUN apt-get update && \
     apt-get install -y --no-install-recommends \
     build-essential \
+    && apt-get clean && \
+    rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+
+# Install additional dependencies
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends \
     libffi-dev \
-    libssl-dev && \
-    rm -rf /var/lib/apt/lists/*
+    libssl-dev \
+    && apt-get clean && \
+    rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 # Install Python dependencies
-COPY requirements.txt .
+COPY requirements.txt /app/
 RUN pip install --upgrade pip && \
     pip install --no-cache-dir -r requirements.txt
 
 # Download and install spaCy model
 RUN python -m spacy download en_core_web_sm
 
-# Stage 2: Create the final image
-FROM python:3.10-slim
-
-WORKDIR /app
-
-# Copy installed packages from the builder stage
-COPY --from=builder /usr/local /usr/local
-
-# Copy application files
+# Copy the rest of your application code
 COPY . /app/
 
 # Copy static files and set permissions
