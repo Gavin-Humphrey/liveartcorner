@@ -13,8 +13,8 @@ RUN apt-get update && \
 
 # Install Python dependencies
 COPY requirements.txt .
-RUN pip install --upgrade pip && \
-    pip install --no-cache-dir -r requirements.txt
+RUN python -m pip install --no-cache-dir --upgrade pip==23.0.1 && \
+    python -m pip install --no-cache-dir -r requirements.txt --no-build-isolation
 
 # Download and install spaCy model
 RUN python -m spacy download en_core_web_sm
