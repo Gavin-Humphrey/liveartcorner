@@ -1,3 +1,4 @@
+# Stage 1: Build stage
 FROM python:3.10-slim as builder
 
 WORKDIR /app
@@ -9,14 +10,24 @@ RUN apt-get update && \
     libffi-dev \
     libssl-dev && \
     apt-get clean && \
-    rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* || true
+    rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+
+# Set environment variables to mitigate threading issues
+ENV PIP_NO_CACHE_DIR=1 \
+    PYTHONUNBUFFERED=1 \
+    PIP_DISABLE_PIP_VERSION_CHECK=1 \
+    PIP_PROGRESS_BAR=off
+
+# Install a specific version of pip separately
+RUN python -m pip install --no-cache-dir --upgrade pip==23.0.1
+
+# Copy requirements file
+COPY requirements.txt .
 
 # Install Python dependencies
-COPY requirements.txt .
-RUN python -m pip install --no-cache-dir --upgrade pip==23.0.1 && \
-    python -m pip install --no-cache-dir -r requirements.txt --no-build-isolation
+RUN python -m pip install --no-cache-dir -r requirements.txt --no-build-isolation
 
-# Download and install spaCy model
+# Install spaCy model separately
 RUN python -m spacy download en_core_web_sm
 
 # Stage 2: Create the final image
