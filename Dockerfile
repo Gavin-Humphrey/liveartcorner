@@ -1,16 +1,15 @@
-FROM python:3.10-slim
+FROM python:3.10-alpine
 
 # Set the working directory in the container
 WORKDIR /app
 
 # Install necessary system dependencies
-RUN apt-get update \
-    && apt-get install -y \
-       build-essential \
+RUN apk update \
+    && apk add --no-cache \
+       build-base \
        libffi-dev \
-       libssl-dev \
-    && apt-get clean \
-    && rm -rf /var/lib/apt/lists/*
+       openssl-dev \
+    && rm -rf /var/cache/apk/*
 
 # Install Python dependencies
 COPY requirements.txt /app/
