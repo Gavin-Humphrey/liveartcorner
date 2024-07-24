@@ -3,7 +3,7 @@ import collections
 collections.Hashable = collections.abc.Hashable
 
 from django.http import HttpResponse
-from django.views.decorators.csrf import csrf_exempt
+#from django.views.decorators.csrf import csrf_exempt
 from chatterbot import ChatBot
 from chatterbot.trainers import ListTrainer, ChatterBotCorpusTrainer
 from chatterbot.logic import BestMatch
