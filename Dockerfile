@@ -30,5 +30,4 @@ RUN chmod -R 755 /app/staticfiles
 RUN chmod -R 777 /app/media
 
 # Start your application
-#CMD ["python", "app.py"]
 CMD gunicorn liveartcorner.wsgi:application --bind 0.0.0.0:${PORT} --timeout 300 --log-level debug
