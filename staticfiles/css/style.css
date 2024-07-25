@@ -2608,7 +2608,6 @@ h1 {
   color: var(--danger-light);
 }
 
-
 #chatbot-input {
   width: 100%;
   padding: 0.625rem; 
@@ -2627,7 +2626,6 @@ h1 {
   border-radius: 0 0 0.625rem 0.625rem; 
   font-weight: bold;
 }
-
 
 @media (max-width: 768px) {
   #chatbot-icon {
@@ -2654,8 +2652,6 @@ h1 {
     font-size: 0.80rem;
   }
 }
-
-
 
 @media (max-width: 480px) {
   #chatbot-icon {

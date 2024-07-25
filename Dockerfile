@@ -1,5 +1,9 @@
 FROM python:3.10-alpine
 
+# # Set environment variables
+ENV PYTHONUNBUFFERED=1
+ENV SENTRY_DSN="${LIVEARTCORNER_SENTRY_DSN}"
+
 # Set the working directory in the container
 WORKDIR /app
 
