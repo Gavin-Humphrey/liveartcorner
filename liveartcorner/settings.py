@@ -148,7 +148,14 @@ else:
     DATABASES = {
         'default': dj_database_url.config(default=os.getenv('DATABASE_URL'))
     }
+###
+import ssl
+import certifi
 
+
+ssl._create_default_https_context = ssl._create_unverified_context
+ssl.get_default_verify_paths = certifi.where()
+###
 
 chatbot = ChatBot(
     'ChatBot',
