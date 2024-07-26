@@ -49,9 +49,9 @@ jobs:
       - run:
           name: Source Environment Variables
           command: source $BASH_ENV
-      - run:
-          name: Collect Static Files
-          command: HEROKU_API_KEY=${HEROKU_TOKEN} heroku run -a ${HEROKU_APP_NAME} python manage.py collectstatic 
+      # - run:
+      #     name: Collect Static Files
+      #     command: HEROKU_API_KEY=${HEROKU_TOKEN} heroku run -a ${HEROKU_APP_NAME} python manage.py collectstatic --noinput
 
           #  HEROKU_API_KEY=${HEROKU_TOKEN} heroku run -a ${HEROKU_APP_NAME} python manage.py collectstatic --noinput
       - run:
