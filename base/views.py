@@ -67,3 +67,27 @@ def contact(request):
         form = ContactForm()
 
     return render(request, "base/contact.html", {"form": form})
+
+
+# live_art_corner footer contents
+
+def faq(request):
+    return render(request, 'base/faq.html')
+
+def about_us(request):
+    return render(request, 'base/about_us.html')
+
+def terms_conditions(request):
+    return render(request, 'base/terms_conditions.html')
+
+def our_services(request):
+    return render(request, 'base/our_services.html')
+
+def privacy_policy(request):
+    return render(request, 'base/privacy_policy.html')
+
+def returns(request):
+    return render(request, 'base/returns.html')
+
+def affiliate_program(request):
+    return render(request, 'base/affiliate_program.html')

@@ -1,0 +1,83 @@
+{% extends 'base/main.html' %}
+
+{% block content %}
+
+
+<body>
+    <main>
+        <div class="dashboard-header">
+            <a href="{% url 'home' %}" class="btn btn-secondary">Back to Home</a>
+        </div>
+        <h1 class="faq-title">Frequently Asked Questions</h1>
+        <div class="footer-clicks-container">
+            <div id="general" class="faq-section">
+                <h2>General</h2>
+                <div class="faq-item">
+                    <h3 id="what-is-live-art-corner">What is LIVE-ART-CORNER?</h3>
+                    <p>LIVE-ART-CORNER is your one-stop gallery for discovering and acquiring amazing art. It's a platform where users can buy artworks and custom services provided by certified artists.</p>
+                </div>
+                <div class="faq-item">
+                    <h3 id="who-are-the-artists">Who are the artists featured on LIVE-ART-CORNER?</h3>
+                    <p>Our platform features certified artists who have been carefully selected based on their portfolio, expertise, and the quality of their work.</p>
+                </div>
+            </div>
+    
+            <div id="purchasing-art" class="faq-section">
+                <h2>Purchasing Art</h2>
+                <div class="faq-item">
+                    <h3 id="how-to-purchase-artwork">How do I purchase an artwork?</h3>
+                    <p>To purchase an artwork, simply browse our collection, select the piece you wish to buy, and follow the checkout process to complete your purchase.</p>
+                </div>
+                <div class="faq-item">
+                    <h3 id="request-custom-artwork">Can I request a custom artwork?</h3>
+                    <p>Yes, you can request custom artworks by contacting the artist directly through their profile or by using the custom services section on our platform.</p>
+                </div>
+                <div class="faq-item">
+                    <h3 id="payment-methods">What payment methods do you accept?</h3>
+                    <p>We accept various payment methods including credit/debit cards, PayPal, and other secure payment options.</p>
+                </div>
+            </div>
+    
+            <div id="shipping-delivery" class="faq-section">
+                <h2>Shipping and Delivery</h2>
+                <div class="faq-item">
+                    <h3 id="how-artwork-shipped">How is the artwork shipped?</h3>
+                    <p>Artworks are carefully packaged and shipped using reliable courier services to ensure they arrive safely at your doorstep.</p>
+                </div>
+                <div class="faq-item">
+                    <h3 id="shipping-costs">What are the shipping costs?</h3>
+                    <p>Shipping costs vary depending on the size and weight of the artwork, as well as the destination. Shipping fees will be calculated during the checkout process.</p>
+                </div>
+                <div class="faq-item">
+                    <h3 id="delivery-time">How long does delivery take?</h3>
+                    <p>Delivery times vary depending on the chosen delivery option and the shipping destination. Typically, it takes between 7 to 14 business days for your artwork to arrive.</p>
+                </div>
+            </div>
+    
+            <div id="returns-refunds" class="faq-section">
+                <h2>Returns and Refunds</h2>
+                <div class="faq-item">
+                    <h3 id="return-policy">What is your return policy?</h3>
+                    <p>If you are not satisfied with your purchase, you can return it within 14 days of delivery for a full refund, provided the artwork is in its original condition.</p>
+                </div>
+                <div class="faq-item">
+                    <h3 id="initiate-return">How do I initiate a return?</h3>
+                    <p>To initiate a return, please contact our customer service team with your order details, and they will guide you through the process.</p>
+                </div>
+                <div class="faq-item">
+                    <h3 id="refund-timing">When will I receive my refund?</h3>
+                    <p>Refunds are processed within 5-7 business days after we receive the returned artwork. The refund will be credited back to your original payment method.</p>
+                </div>
+            </div>
+    
+            <div id="support" class="faq-section">
+                <h2>Support</h2>
+                <div class="faq-item">
+                    <h3 id="contact-support">How can I contact customer support?</h3>
+                    <p>You can contact our customer support team through the contact form on our website, or by emailing us at support@live-art-corner.com.</p>
+                </div>
+            </div>
+        </div>
+    </main>
+</body>
+{% endblock content %}

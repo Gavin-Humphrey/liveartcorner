@@ -126,14 +126,14 @@
         <a href="{% url 'home' %}">Home</a>
         <a href="#">Products</a>
         <div class="dropdown">
-            <a href="#">Terms</a>
+            <a href="{% url 'terms-conditions' %}">Terms</a>
         </div>
         <div class="nav-item dropdown">
             <a class="nav-link dropdown" href="#" role="button" aria-expanded="false">
                 Services
             </a>
             <ul class="dropdown-menu">
-                <li><a class="dropdown-item center-dropdown-menu" href="#">Services by Artists</a></li>
+                <li><a class="dropdown-item center-dropdown-menu" href="{% url 'our-services' %}">Our Services</a></li>
                 <li><a class="dropdown-item center-dropdown-menu" href="#">Report</a></li>
                 <!-- <li><a class="dropdown-divider"></a></li> -->
                 <li><a class="dropdown-item center-dropdown-menu" href="{% url 'contact' %}">Get Verified</a></li>
