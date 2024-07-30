@@ -1365,12 +1365,16 @@ h5 {
   background-color: #f0f0f0;
   color: #333;
   border: 1px solid var(--primary-color-light-border);
-  margin-left: 0.5rem;dashboard-artist-booking
+  margin-top: 0.5rem;
+  margin-left: 0.5rem;
   padding: 0.625rem 1.25rem;
   text-decoration: none;
   border-radius: 0.3125rem;
   transition: background-color 0.3s ease;
 }
+
+/* dashboard-artist-booking {
+} */
 
 .dashboard-header .btn-secondary:hover {
   background-color: #333;
@@ -2598,6 +2602,7 @@ h1 {
   font-weight: 400;
   width: 100%;
   opacity: 0.7;
+  font-family: Arial, sans-serif !important;
 }
 
 .chatbot-text {
@@ -2640,7 +2645,8 @@ h1 {
     right: 0.375rem;
     width: 16rem;
     height: 18rem;
-    bottom: 3.2rem; 
+    /* bottom: 3.2rem;  */
+    bottom: 7rem;
   }
 
   #chatbot-messages {
@@ -2662,7 +2668,8 @@ h1 {
   }
 
   #chatbot-widget {
-    bottom: 3.5rem;
+    /* bottom: 3.5rem; */
+    bottom: 9rem;
     right: 1rem;
     width: 12rem;
     height: 14rem;
@@ -2676,4 +2683,65 @@ h1 {
   .chatbot-text {
     font-size: 0.75rem; 
   }
+}
+
+/* ========Footer Contents======= */
+
+/* ========FAQ======== */
+.footer-clicks-container {
+  max-width: 80vw;
+  margin-left: auto;
+  margin-right: auto;
+  border: 2px solid var(--danger-light);
+  border-radius: 0.5rem;
+  padding: 2rem;
+}
+
+.faq-title {
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+}
+.faq-section {
+  margin-bottom: 2em;
+  
+}
+
+.faq-section h2 {
+  color: var(--danger-light);
+  border-bottom: 2px solid var(--danger-light);
+  padding-bottom: 0.1em;
+  opacity: 0.7;
+}
+
+.faq-item {
+  opacity: 0.5;
+}
+
+.faq-item h3 {
+  font-size: 1.2em;
+  margin-bottom: 0.1em;
+}
+
+.faq-item p {
+  line-height: 1.6em;
+}
+
+.faq-item p strong {
+  color: var(--danger-light);
+}
+
+.footer-content-section p,  
+.footer-content-section h4, 
+.footer-content-section ul {
+  opacity: 0.5;
+}
+
+.footer-content-section h2, .footer-content-section h3{
+  border-bottom: 2px solid var(--danger-light);
+  color: var(--danger-light);
+  opacity: 0.7;
+}
+
+.footer-content-section-link {
+  color: var(--danger-light);
 }
