@@ -393,9 +393,9 @@ body, html {
   font-size: 0.875rem ; 
   font-weight: bold;
   background-color: #4b4848;
-  color: var(--main-light) ;
+  color: var(--danger-light) !important;
   cursor: pointer;
-  padding: 0.1875rem; 
+  padding: 1rem;
 } 
 
 .offcanvas-get-verified a {

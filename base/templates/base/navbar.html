@@ -139,7 +139,7 @@
                 
                     <!-- <li><a class="dropdown-item center-dropdown-menu" href="{% url 'contact' %}">Get Verified</a></li> -->
                 {% if request.user.is_authenticated %}
-                    <li> <div class="Verification-offcanvas"  data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight"><p>Get Verified</p></div></li>
+                    <li> <div class="Verification-offcanvas" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight"><p>Get Verified</p></div></li>
                 {% else %}
                     <li><a class="dropdown-item center-dropdown-menu" href="{% url 'login' %}">Get Verified</a></li>   
                 {% endif %}
