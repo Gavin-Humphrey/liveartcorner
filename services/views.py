@@ -5,8 +5,6 @@ from base.forms import ServiceForm, BookingForm
 from services.models import Service
 from user.models import ArtistAvailability
 from django.contrib.auth.decorators import login_required
-import datetime
-from datetime import timedelta
 from .models import Booking
 
 

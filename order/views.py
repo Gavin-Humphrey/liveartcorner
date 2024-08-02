@@ -1,10 +1,9 @@
-from django.shortcuts import render, redirect, get_object_or_404  ###
-from django.contrib import messages
+from django.shortcuts import render, redirect
 from base.forms import DeliveryInfoForm
-from .models import Order, OrderItem
+from .models import OrderItem
 from cart.shopping_cart import CartHandler
 from .order import create_order
-from cart.models import DeliveryMethod, DiscountCode
+from cart.models import DeliveryMethod
 import logging
 
 logger = logging.getLogger(__name__)

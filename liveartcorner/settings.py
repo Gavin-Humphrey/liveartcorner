@@ -17,17 +17,12 @@ from decouple import config, Csv
 from liveartcornerEmailApp.backends.email_backend import EmailBackend
 import sentry_sdk
 from sentry_sdk.integrations.django import DjangoIntegration 
-
 import dj_database_url
 from dotenv import load_dotenv
-
-from liveartcorner.storage import CloudinaryMediaStorage
 import cloudinary
-import cloudinary_storage
-
 from chatterbot import ChatBot
-from chatterbot.trainers import ChatterBotCorpusTrainer
-
+import ssl
+import certifi
 
 
 load_dotenv()
@@ -148,14 +143,9 @@ else:
     DATABASES = {
         'default': dj_database_url.config(default=os.getenv('DATABASE_URL'))
     }
-###
-import ssl
-import certifi
-
 
 ssl._create_default_https_context = ssl._create_unverified_context
 ssl.get_default_verify_paths = certifi.where()
-###
 
 chatbot = ChatBot(
     'ChatBot',
@@ -202,8 +192,6 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static'),
 ]
-
-#STATIC_ROOT = None
 
 
 # Media files (Uploaded files)
@@ -294,7 +282,3 @@ PAYMENT_CANCEL_URL = config("PAYMENT_CANCEL_URL")
 #         },
 #     },
 # }
-
-
-
-

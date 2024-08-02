@@ -3,9 +3,7 @@ from base.forms import ItemForm
 from django.contrib.auth.decorators import login_required
 from .models import CardItems, Item
 from cart.shopping_cart import CartHandler
-
-# from wishlist.views import get_wishlist_items, get_wishlist_items_count
-from wishlist.views import my_wishlist, get_wishlist_items_count
+from wishlist.views import my_wishlist
 from django.db.models import Q
 
 

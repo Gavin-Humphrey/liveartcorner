@@ -16,12 +16,6 @@
                     
                     <a href="{% url 'item-detail' item.id %}">
                         <img src="{{ item.image.url }}" alt="{{ item.title }}">
-     
-
-                        <!-- <div class="item-details">
-                            <p class="item-title">{{ item.title }}</p>
-                            <p class="item-price">${{ item.price }}</p>
-                        </div> -->
                     </a>
                 </div>
                 {% endif %}
@@ -63,7 +57,6 @@
         
         {% endfor %}
     </div>
-
 
     <script>
 

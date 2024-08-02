@@ -2,7 +2,6 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib import messages
 from item.models import Item
 from .models import WishList, WishListItem
-from cart.shopping_cart import CartHandler
 from django.contrib.auth.decorators import login_required
 
 
