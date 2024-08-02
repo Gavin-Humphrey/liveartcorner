@@ -1,0 +1,38 @@
+{% extends "base/main.html" %}
+
+{% block content %}
+    <div class="dashboard-header">
+        <a href="{% url 'home' %}" class="btn btn-secondary">Back to Home</a>
+    </div>
+    <h2 class="search-result-title">Search Results</h2>
+    {% if query %}
+        <p class="search-result-title-p">Results for "{{ query }}":</p>
+        {% if results %}
+            <div class="search-results-container">
+                {% for item in results %}
+                    <div class="search-card">
+                        <a href="{% url 'item-detail' item.id %}">
+                            <div class="item-detail-img-cards">
+                                <img src="{{ item.image.url }}" alt="{{ item.title }}">
+                            </div>
+                        </a>
+                        <div class="search-result-info">
+                            {% if user.is_authenticated %}
+                            <p>Artist: <a class="search-result-user-name" href="{% url 'artist-profile' item.user.id %}">{{ item.user }}</a></p>
+                            {% else %}
+                                <p>Artist: <span class="search-result-user-name">{{ item.user }}</span></p>
+                            {% endif %}
+                            <p>Dimension: {{ item.length }}cm x {{ item.width }}cm</p>
+                            <p>Price: ${{ item.price }}</p>
+                            <p>ID: 0263112{{ item.id }}</p>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <p class="search-result-title-p no-result">No results found.</p>
+        {% endif %}
+    {% else %}
+        <p class="search-result-title-p">Please enter a search term.</p>
+    {% endif %}
+{% endblock %}

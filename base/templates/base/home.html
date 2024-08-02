@@ -35,7 +35,7 @@
         {% for card in card_items %}
         <div class="card">
            
-                <div id="carousel{{ card.id }}" class="carousel carousel-light slide data-bs-ride="carousel">                      
+            <div id="carousel{{ card.id }}" class="carousel carousel-light slide data-bs-ride="carousel">                      
                 <div class="carousel-inner">
                     {% for item in card.items.all %}
                     <div class="carousel-item{% if forloop.first %} active{% endif %}">

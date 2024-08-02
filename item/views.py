@@ -6,14 +6,8 @@ from cart.shopping_cart import CartHandler
 
 # from wishlist.views import get_wishlist_items, get_wishlist_items_count
 from wishlist.views import my_wishlist, get_wishlist_items_count
+from django.db.models import Q
 
-
-# @login_required
-# def item_view(request, pk):
-#     user = request.user
-#     items = CardItems.objects.get(user, id=pk)
-#     context = {"items": items}
-#     return render(request, "items/view_items.html", context)
 
 
 @login_required
@@ -89,3 +83,20 @@ def item_detail(request, item_id):
         "wishlist_items": wishlist_items,
     }
     return render(request, "item/items_detail.html", context)
+
+
+def search_items(request):
+    query = request.GET.get('q')
+    results = []
+    if query:
+        query = query.strip()
+        if query:
+            results = Item.objects.filter(
+                Q(title__icontains=query) | 
+                Q(description__icontains=query)
+            )
+    context = {
+        'query': query,
+        'results': results,
+    }
+    return render(request, 'item/search_results.html', context)

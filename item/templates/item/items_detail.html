@@ -31,8 +31,10 @@
                 {% endif %}
             </div>
             <div class="item-detail-info">
-                {% if user.id %}
-                <p>Artist: <a href="{% url 'artist-profile' item.user.id %}">{{ item.user }}</a></p>
+                {% if user.is_authenticated %}
+                    <p>Artist: <a href="{% url 'artist-profile' item.user.id %}">{{ item.user }}</a></p>
+                    {% else %}
+                        <p>Artist: <span class="search-result-user-name">{{ item.user }}</span></p>
                 {% endif %}
                 <p>Dimension: {{ item.length}}cm x {{ item.width }}cm</p>
                 <p>Price: ${{ item.price }}</p>
