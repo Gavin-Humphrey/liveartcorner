@@ -45,7 +45,7 @@ class RegisterForm(UserCreationForm):
         required=True,
         validators=[
             MinLengthValidator(2),
-            MaxLengthValidator(50),  # Example maximum length
+            MaxLengthValidator(50),  
         ],
     )
     postal_code = forms.CharField(
@@ -61,7 +61,7 @@ class RegisterForm(UserCreationForm):
         required=True,
         validators=[
             MinLengthValidator(2),
-            MaxLengthValidator(50),  # Example maximum length
+            MaxLengthValidator(50),  
         ],
     )
 
@@ -79,7 +79,7 @@ class RegisterForm(UserCreationForm):
             "password2",
         )
 
-    # Additional validations if needed
+    # Additional validations 
     def clean_email(self):
         email = self.cleaned_data.get("email")
         if User.objects.filter(email=email).exists():
@@ -162,14 +162,6 @@ class DeliveryInfoForm(forms.Form):
 
 class PaymentForm(forms.Form):
     stripe_token = forms.CharField(widget=forms.HiddenInput())
-
-
-class ContactForm(forms.Form):
-    firstname = forms.CharField(max_length=100)
-    lastname = forms.CharField(max_length=100)
-    email = forms.EmailField()
-    subject = forms.CharField(max_length=100)
-    message = forms.CharField(widget=forms.Textarea)
 
 
 # Services

@@ -22,6 +22,9 @@ dj-database-url==2.2.0
 Django==5.0.6
 django-cloudinary-storage==0.3.0
 django-jsonfield==1.4.1
+django-ranged-response==0.2.0
+django-secure-contact-form==0.2
+django-simple-captcha==0.6.0
 django-stripe-payments==2.0.0
 djangorestframework==3.15.1
 #en-core-web-sm @ https://github.com/explosion/spacy-models/releases/download/en_core_web_sm-3.7.1/en_core_web_sm-3.7.1-py3-none-any.whl#sha256=86cc141f63942d4b2c5fcee06630fd6f904788d2f0ab005cce45aadb8fb73889
@@ -69,6 +72,7 @@ pytest-django==4.8.0
 python-dateutil==2.7.5
 python-decouple==3.8
 python-dotenv==1.0.1
+pytz==2024.1
 PyYAML==3.13
 regex==2024.5.15
 requests==2.31.0

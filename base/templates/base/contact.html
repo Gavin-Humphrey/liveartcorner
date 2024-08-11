@@ -2,17 +2,54 @@
 {% block content %}
 <main class="form-container">
   <div class="auth-form">
-    <h3>Get Verified</h3>
-    <form class="form" method="POST" action="">
+    <h3>Contact Us</h3>
+    <form method="POST" action="">
       {% csrf_token %}
-      {% for field in form %}
       <div class="form-group">
-        <label for="{{ field.id_for_label }}">{{ field.label }}</label>
-        {{ field }}
+        {{ form.name.label_tag }} {{ form.name }}
+        {% if form.name.errors %}
+          <div class="error">{{ form.name.errors }}</div>
+        {% endif %}
       </div>
-      {% endfor %}
+      <div class="form-group">
+        {{ form.email.label_tag }} {{ form.email }}
+        {% if form.email.errors %}
+          <div class="error">{{ form.email.errors }}</div>
+        {% endif %}
+      </div>
+      <div class="form-group">
+        {{ form.subject.label_tag }} {{ form.subject }}
+        {% if form.subject.errors %}
+          <div class="error">{{ form.subject.errors }}</div>
+        {% endif %}
+      </div>
+      <div class="form-group">
+        {{ form.message.label_tag }} {{ form.message }}
+        {% if form.message.errors %}
+          <div class="error">{{ form.message.errors }}</div>
+        {% endif %}
+      </div>
+      <div class="form-group">
+        {{ form.custom_field.label_tag }} {{ form.custom_field }}
+        {% if form.custom_field.errors %}
+          <div class="error">{{ form.custom_field.errors }}</div>
+        {% endif %}
+      </div>
+      <div class="form-group">
+        {{ form.captcha.label_tag }} {{ form.captcha }}
+        {% if form.captcha.errors %}
+          <div class="error">{{ form.captcha.errors }}</div>
+        {% endif %}
+      </div>
       <button class="btn btn-primary" type="submit">Submit</button>
     </form>
+    {% if form.non_field_errors %}
+      <div class="errors">
+        {% for error in form.non_field_errors %}
+          <p>{{ error }}</p>
+        {% endfor %}
+      </div> 
+    {% endif %}
   </div>
 </main>
-{% endblock content %}
+{% endblock %}

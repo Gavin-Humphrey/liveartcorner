@@ -1,6 +1,6 @@
 import logging
 from django.shortcuts import render
-from .forms import ContactForm
+from django_secure_contact_form.forms import ContactForm
 from django.core.mail import send_mail
 from decouple import config
 from item.models import CardItems, Item
@@ -27,33 +27,39 @@ def home(request):
     return render(request, "base/home.html", context)
 
 
-# Contact to become a seller
 def contact(request):
     if request.method == "POST":
         form = ContactForm(request.POST)
         if form.is_valid():
-            # Process the form data and send email
-            firstname = form.cleaned_data["firstname"]
-            lastname = form.cleaned_data["lastname"]
+            name = form.cleaned_data["name"]
             email = form.cleaned_data["email"]
             subject = form.cleaned_data["subject"]
             message = form.cleaned_data["message"]
+            custom_field = form.cleaned_data.get("custom_field", "")
 
-            send_mail(
-                f"Contact Form Submission - {subject}",
-                f"Firstame: {firstname}\nLastname: {lastname}\nEmail: {email}\nSubject: {subject}\nMessage: {message}",
-                "noreply@film.junkiez.com",
-                [config("WEBSITE_EMAIL", default="backup@example.com")],
-                fail_silently=False,
-            )
-            return render(request, "base/thank_you.html", {"firstname": firstname})
+            try:
+                send_mail(
+                    f"Contact Form Submission - {subject}",
+                    f"Full Name: {name}\nEmail: {email}\nSubject: {subject}\nMessage: {message}\nCustom Field: {custom_field}",
+                    config("WEBSITE_EMAIL", default="backup@example.com"),  
+                    [config("WEBSITE_EMAIL", default="backup@example.com")], 
+                    fail_silently=False,
+                )
+            except Exception as e:
+                # Log the error and add a form error message
+                logger = logging.getLogger(__name__)
+                logger.error(f"Failed to send email: {e}")
+                form.add_error(None, "There was a problem sending your message. Please try again later.")
+                return render(request, "base/contact.html", {"form": form})
+
+            return render(request, "base/thank_you.html", {"name": name})
     else:
         form = ContactForm()
 
     return render(request, "base/contact.html", {"form": form})
 
 
-# live_art_corner footer contents
+# footer contents
 
 def faq(request):
     return render(request, 'base/faq.html')

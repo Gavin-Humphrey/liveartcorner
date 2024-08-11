@@ -22,6 +22,8 @@ from django.urls import path, include, re_path
 #from cart import views
 from django.views.static import serve
 
+from django.shortcuts import redirect ####
+
 
 urlpatterns = [
     path("admin/", admin.site.urls),
@@ -35,6 +37,11 @@ urlpatterns = [
     path("", include("order.urls")),
     path("", include("services.urls")),
     path("chatbot/", include("chatbot.urls")),
+
+    path('contact/', include('django_secure_contact_form.urls')),  # Use plugin's URL 
+    path('captcha/', include('captcha.urls')),  # Include CAPTCHA URLs 
+    # Other URL patterns
+    path('', lambda request: redirect('contact')) 
    
 ]
 if settings.DEBUG:

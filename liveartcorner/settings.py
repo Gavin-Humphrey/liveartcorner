@@ -87,6 +87,9 @@ INSTALLED_APPS = [
     "wishlist.apps.WishlistConfig",
     "services.apps.ServicesConfig",
     'chatbot',
+
+    'django_secure_contact_form',  # plugin ####
+    'captcha',  # Required for the CAPTCHA field ####
 ]
 
 AUTH_USER_MODEL = 'user.User'
@@ -240,7 +243,6 @@ sentry_sdk.init(
 
 LOGIN_REDIRECT_URL = "/base/thank_you.html"
 
-
 EMAIL_BACKEND = "liveartcornerEmailApp.backends.email_backend.EmailBackend"
 EMAIL_HOST = "smtp.gmail.com"
 EMAIL_PORT = 587
@@ -250,8 +252,9 @@ EMAIL_FROM = config("WEBSITE_EMAIL", default="backup@example.com")
 EMAIL_HOST_USER = config("WEBSITE_EMAIL", default="backup@example.com")
 EMAIL_HOST_PASSWORD = config("WEBSITE_EMAIL_PASSWORD", default="Backuppassword")
 
-PASSWORD_RESET_TIMEOUT = 15000
+DEFAULT_FROM_EMAIL = EMAIL_FROM
 
+PASSWORD_RESET_TIMEOUT = 15000
 
 
 STRIPE_PUBLIC_KEY = config("STRIPE_PUBLIC_KEY")
@@ -262,6 +265,16 @@ BACKEND_DOMAIN = config("BACKEND_DOMAIN")
 PAYMENT_SUCCESS_URL = config("PAYMENT_SUCCESS_URL")
 PAYMENT_CANCEL_URL = config("PAYMENT_CANCEL_URL")
 
+
+
+CAPTCHA_IMAGE_SIZE = (110, 50)
+CAPTCHA_FONT_SIZE = 30
+CAPTCHA_LETTER_ROTATION = (-30, 30)
+CAPTCHA_BACKGROUND_COLOR = '#ffffff'
+CAPTCHA_NOISE_FUNCTIONS = (
+    'captcha.helpers.noise_arcs',
+    'captcha.helpers.noise_dots',
+)
 
 
 # LOGGING = {
