@@ -33,119 +33,118 @@
 <header>
 
     <nav class="navbar-container">
-      <div class="navbar navbar-expand-lg">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="{% url 'home' %}">Live-Art-Corner<span class="navbar-brand-copyright">&copy;</span></a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <div class="navbar-nav me-auto mb-2 mb-lg-0">
-                    <a class="nav-link active" aria-current="page" href="{% url 'home' %}">Home</a>
-                    <a class="nav-link" href="#">Link</a>
-                    <div class="nav-item dropdown">
-                        <a class="nav-link dropdown" href="#" role="button" aria-expanded="false">
-                            Dropdown
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="#">Action</a></li>
-                            <li><a class="dropdown-item" href="#">Another action</a></li>
-                            <li><a class="dropdown-divider"></a></li>
-                            <li><a class="dropdown-item" href="#">Something else here</a></li>
-                        </ul>
-                    </div>
-                    <a class="nav-link disabled" aria-disabled="true">Disabled</a>
-                </div>
-                <form  method="GET" action="{% url 'search-items' %}" class="d-flex search-form" role="search">
-                    <input class="form-control me-2" type="search" name="q" placeholder="Search for items" aria-label="Search">
-                    <!-- <button class="btn btn-outline-success" type="submit">Search</button> -->
-                    <button class="btn-search" type="submit">Search</button>
-
-                </form>
-
-                <!-- Icons container with ms-auto class -->
-                <div class="icons-container ms-auto">
-                    <!-- Favorite Icon -->
-                    <div class="nav-link">
-                        {% if request.user.is_authenticated %}
-                            <a href="{% if wishlist_items_count > 0 %}{% url 'my-wishlist' %}{% endif %}" class="wishlist-container">
-                                <img src="{% static 'img/heart.png' %}" alt="wishlist icon" class="icon-img">
-                                <span class="wishlist-count">{{ wishlist_items_count }}</span>
+        <div class="navbar navbar-expand-lg">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="{% url 'home' %}">Live-Art-Corner<span class="navbar-brand-copyright">&copy;</span></a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <div class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <a class="nav-link nav-link-item active" aria-current="page" href="{% url 'home' %}">Home</a>
+                        <a class="nav-link nav-link-item" href="#">Link</a>
+                        <div class="nav-item dropdown">
+                            <a class="nav-link nav-link-item dropdown" href="#" role="button" aria-expanded="false">
+                                Dropdown
                             </a>
-                        {% else %}
-                            <button type="button" class="wishlist-button" onclick="showWishlistPrompt()">
-                                <img src="{% static 'img/heart.png' %}" alt="wishlist icon" class="icon-img">
-                            </button>
-                        {% endif %}
-                        <!-- Custom alert message for login/register prompt -->
-                        <div id="custom-alert-nav" class="custom-alert">
-                            <button class="remove-alert" onclick="removeCustomAlert()">X</button>
-                            <p>Only <a href="{% url 'register-user' %}">registered</a> and <a href="{% url 'login' %}">logged in</a> users.</p>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="#">Action</a></li>
+                                <li><a class="dropdown-item" href="#">Another action</a></li>
+                                <li><a class="dropdown-divider"></a></li>
+                                <li><a class="dropdown-item" href="#">Something else here</a></li>
+                            </ul>
                         </div>
+                        <!-- <a class="nav-link nav-link-item disabled" aria-disabled="true">Disabled</a> -->
                     </div>
-                    <!-- Shopping Cart Icon -->
-                    <div class="nav-link cart-link">
+                    <form  method="GET" action="{% url 'search-items' %}" class="d-flex search-form" role="search">
+                        <input class="form-control me-2" type="search" name="q" placeholder="Search for items" aria-label="Search">
+                        <!-- <button class="btn btn-outline-success" type="submit">Search</button> -->
+                        <button class="btn-search" type="submit">Search</button>
 
-                        <a href=" {% if cart_items_count > 0 %} {% url 'view-cart' %}{% endif %}">
+                    </form>
 
-                            <img src="{% static 'img/add-cart.png' %}" alt="cart icon" class="icon-img cart-icon-container">
-                            <span class="cart-count">{{ cart_items_count }}</span>
-                        </a>
-                    </div>
-
-                    <!-- Login Icon -->
-                    <div class="nav-link">
-
-                        <div href="#" data-bs-toggle="dropdown">
-                            <img src="{% static 'img/user.png' %}" alt="User Icon" class="icon-img" style="cursor: pointer;">
-                        </div>
-                        <ul class="dropdown-menu user-dropdown-menu">
-                        {% if user.is_authenticated %}
-                            <li><a href="{% url 'logout' %}" class="dropdown-item">Logout</a></li>
-                            {% if user.is_artist %}
-                            <li><a href="{% url 'artist-profile' user.id %}" class="dropdown-item">Profile</a></li>
-                            <li><a href="{% url 'artist-dashboard' user.id %}" class="dropdown-item">Artist Dashboard</a></li>
-
-                            <li><a href="{% url 'upload-item' %}" class="dropdown-item">Upload Product</a></li>
-
+                    <!-- Icons container with ms-auto class -->
+                    <div class="icons-container ms-auto">
+                        <!-- Favorite Icon -->
+                        <div class="nav-link">
+                            {% if request.user.is_authenticated %}
+                                <a href="{% if wishlist_items_count > 0 %}{% url 'my-wishlist' %}{% endif %}" class="wishlist-container">
+                                    <img src="{% static 'img/heart.png' %}" alt="wishlist icon" class="icon-img">
+                                    <span class="wishlist-count">{{ wishlist_items_count }}</span>
+                                </a>
+                            {% else %}
+                                <button type="button" class="wishlist-button" onclick="showWishlistPrompt()">
+                                    <img src="{% static 'img/heart.png' %}" alt="wishlist icon" class="icon-img">
+                                </button>
                             {% endif %}
-                            <li> <a href="{% url 'contact' %}" class="dropdown-item">Contact</a></li>
-                            <li> <div class="Verification-offcanvas"  data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight"><p>Get Verified</p></div></li>
-                        {% else%}
-                            <li><a href="{% url 'login' %}" class="dropdown-item">Login</a></li>
-                        {% endif %}
-                        </ul>
+                            <!-- Custom alert message for login/register prompt -->
+                            <div id="custom-alert-nav" class="custom-alert">
+                                <button class="remove-alert" onclick="removeCustomAlert()">X</button>
+                                <p>Only <a href="{% url 'register-user' %}">registered</a> and <a href="{% url 'login' %}">logged in</a> users.</p>
+                            </div>
+                        </div>
+                        <!-- Shopping Cart Icon -->
+                        <div class="nav-link cart-link">
 
+                            <a href=" {% if cart_items_count > 0 %} {% url 'view-cart' %}{% endif %}">
+
+                                <img src="{% static 'img/add-cart.png' %}" alt="cart icon" class="icon-img cart-icon-container">
+                                <span class="cart-count">{{ cart_items_count }}</span>
+                            </a>
+                        </div>
+
+                        <!-- Login Icon -->
+                        <div class="nav-link">
+
+                            <div href="#" data-bs-toggle="dropdown">
+                                <img src="{% static 'img/user.png' %}" alt="User Icon" class="icon-img" style="cursor: pointer;">
+                            </div>
+                            <ul class="dropdown-menu user-dropdown-menu">
+                            {% if user.is_authenticated %}
+                                <li><a href="{% url 'logout' %}" class="dropdown-item">Logout</a></li>
+                                {% if user.is_artist %}
+                                <li><a href="{% url 'artist-profile' user.id %}" class="dropdown-item">Profile</a></li>
+                                <li><a href="{% url 'artist-dashboard' user.id %}" class="dropdown-item">Artist Dashboard</a></li>
+
+                                <li><a href="{% url 'upload-item' %}" class="dropdown-item">Upload Product</a></li>
+
+                                {% endif %}
+                                <li> <a href="{% url 'contact' %}" class="dropdown-item">Contact</a></li>
+                                <li> <div class="Verification-offcanvas"  data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight"><p>Get Verified</p></div></li>
+                            {% else%}
+                                <li><a href="{% url 'login' %}" class="dropdown-item">Login</a></li>
+                            {% endif %}
+                            </ul>
+
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-<!--    </nav>-->
-    </div>
-    <div class="navbar-lower">
-        <a href="{% url 'home' %}">Home</a>
-        <a href="#">Products</a>
-        <div class="dropdown">
-            <a href="{% url 'terms-conditions' %}">Terms</a>
+        <div class="navbar-lower">
+            <a class="nav-link-item" href="{% url 'home' %}">Home</a>
+            <a class="nav-link-item" href="#">Products</a>
+            <div class="dropdown">
+                <a class="nav-link-item terms" href="{% url 'terms-conditions' %}">Terms</a>
+            </div>
+            <div class="nav-item dropdown">
+                <a class="nav-link dropdown nav-link-item" href="#" role="button" aria-expanded="false">
+                    Services
+                </a>
+                <ul class="dropdown-menu">
+                    <li><a class="dropdown-item center-dropdown-menu" href="{% url 'our-services' %}">Our Services</a></li>
+                    <li><a class="dropdown-item center-dropdown-menu" href="#">Report</a></li>
+                    <!-- <li><a class="dropdown-divider"></a></li> -->
+                    
+                        <!-- <li><a class="dropdown-item center-dropdown-menu" href="{% url 'contact' %}">Get Verified</a></li> -->
+                    {% if request.user.is_authenticated %}
+                        <li> <div class="Verification-offcanvas" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight"><p>Get Verified</p></div></li>
+                    {% else %}
+                        <li><a class="dropdown-item center-dropdown-menu" href="{% url 'login' %}">Get Verified</a></li>   
+                    {% endif %}
+                </ul>
+            </div>
         </div>
-        <div class="nav-item dropdown">
-            <a class="nav-link dropdown" href="#" role="button" aria-expanded="false">
-                Services
-            </a>
-            <ul class="dropdown-menu">
-                <li><a class="dropdown-item center-dropdown-menu" href="{% url 'our-services' %}">Our Services</a></li>
-                <li><a class="dropdown-item center-dropdown-menu" href="#">Report</a></li>
-                <!-- <li><a class="dropdown-divider"></a></li> -->
-                
-                    <!-- <li><a class="dropdown-item center-dropdown-menu" href="{% url 'contact' %}">Get Verified</a></li> -->
-                {% if request.user.is_authenticated %}
-                    <li> <div class="Verification-offcanvas" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight"><p>Get Verified</p></div></li>
-                {% else %}
-                    <li><a class="dropdown-item center-dropdown-menu" href="{% url 'login' %}">Get Verified</a></li>   
-                {% endif %}
-            </ul>
-        </div>
-    </div>
     </nav>
 </header>
 <!--<div class="navbar-lower">-->

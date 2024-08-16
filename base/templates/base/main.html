@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="{% static 'css/style.css' %}">
+  <link rel="stylesheet" href="{% static 'css/styles.css' %}">
   <script src="https://code.jquery.com/jquery-3.7.1.min.js" 
   integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
 
@@ -41,126 +41,124 @@
   {% block content %}
   {% endblock content %}
 
-<!-- footer -->
-{% include "base/footer.html" %}
+  <!-- footer -->
+  {% include "base/footer.html" %}
 
-<!-- end footer -->
+  <!-- end footer -->
 
-<!-- Chatbot widget -->
-<div id="chatbot-icon" >
-<svg width="50" height="50" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="#e91e63"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> 
-  <path d="M3 5V20.7929C3 21.2383 3.53857 21.4614 3.85355 21.1464L7.70711 17.2929C7.89464 17.1054 8.149 17 8.41421 17H19C20.1046 17 21 16.1046 21 15V5C21 3.89543 20.1046 3 19 3H5C3.89543 3 3 3.89543 3 5Z" stroke="#e91e63" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path> 
-  <path d="M15 12C14.2005 12.6224 13.1502 13 12 13C10.8498 13 9.79952 12.6224 9 12" stroke="#e91e63" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path> 
-  <path d="M9 8.01953V8" stroke="#e91e63" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path> <path d="M15 8.01953V8" stroke="#e91e63" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path> </g>
-</svg>
-</div>
-
-<div id="chatbot-widget">
-  <div id="chatbot-header">Chatbot</div>
-  <div id="chatbot-messages">
-      <p class="chatbot-text"><strong>Chatbot:</strong> Hi there! Welcome to <br><strong>LIVE-ART-CORNER</strong>, your one-stop gallery for discovering and acquiring amazing art.</p>
+  <!-- Chatbot widget -->
+  <div id="chatbot-icon" >
+  <svg width="50" height="50" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="#e91e63"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> 
+    <path d="M3 5V20.7929C3 21.2383 3.53857 21.4614 3.85355 21.1464L7.70711 17.2929C7.89464 17.1054 8.149 17 8.41421 17H19C20.1046 17 21 16.1046 21 15V5C21 3.89543 20.1046 3 19 3H5C3.89543 3 3 3.89543 3 5Z" stroke="#e91e63" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path> 
+    <path d="M15 12C14.2005 12.6224 13.1502 13 12 13C10.8498 13 9.79952 12.6224 9 12" stroke="#e91e63" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path> 
+    <path d="M9 8.01953V8" stroke="#e91e63" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path> <path d="M15 8.01953V8" stroke="#e91e63" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path> </g>
+  </svg>
   </div>
-  <div id="userInput">
-      <input id="chatbot-input" type="text" placeholder="Type your message...">
-      <button id="send-button" class="chatbot-btn">Send</button>
+
+  <div id="chatbot-widget">
+    <div id="chatbot-header">Chatbot</div>
+    <div id="chatbot-messages">
+        <p class="chatbot-text"><strong>Chatbot:</strong> Hi there! Welcome to <br><strong>LIVE-ART-CORNER</strong>, your one-stop gallery for discovering and acquiring amazing art.</p>
+    </div>
+    <div id="userInput">
+        <input id="chatbot-input" type="text" placeholder="Type your message...">
+        <button id="send-button" class="chatbot-btn">Send</button>
+    </div>
   </div>
-</div>
 
-<script src="{% static '/js/script.js' %}"></script> 
+  <script src="{% static '/js/script.js' %}"></script> 
 
-<script>
+  <script>
 
-  document.addEventListener("DOMContentLoaded", function() {
-    const carousels = document.querySelectorAll('.carousel');
+    document.addEventListener("DOMContentLoaded", function() {
+      const carousels = document.querySelectorAll('.carousel');
 
-      carousels.forEach(carousel => {
-          new bootstrap.Carousel(carousel, {
-              interval: false
-          });
+        carousels.forEach(carousel => {
+            new bootstrap.Carousel(carousel, {
+                interval: false
+            });
+        });
       });
-    });
 
-  document.addEventListener('DOMContentLoaded', function() {
-    const chatIcon = document.getElementById('chatbot-icon');
-    const chatbotWidget = document.getElementById('chatbot-widget');
-    const chatbotHeader = document.getElementById('chatbot-header');
-    const sendButton = document.getElementById('send-button');
-    const messageLog = document.getElementById('chatbot-messages');
-    const inputElement = document.getElementById('chatbot-input');
+    document.addEventListener('DOMContentLoaded', function() {
+      const chatIcon = document.getElementById('chatbot-icon');
+      const chatbotWidget = document.getElementById('chatbot-widget');
+      const chatbotHeader = document.getElementById('chatbot-header');
+      const sendButton = document.getElementById('send-button');
+      const messageLog = document.getElementById('chatbot-messages');
+      const inputElement = document.getElementById('chatbot-input');
 
-    // Initially hide chatbot widget
-    chatbotWidget.style.display = 'none';
-
-    // Check local storage with error handling
-    let isClosed = false;
-    try {
-      isClosed = localStorage.getItem('chatbotClosed') === 'true';
-    } catch (error) {
-      console.error('Error retrieving local storage:', error);
-    }
-
-    // Initially hide chatbot widget based on local storage
-    if (isClosed) {
+      // Initially hide chatbot widget
       chatbotWidget.style.display = 'none';
-      chatIcon.style.display = 'block';
-    } else {
-      chatbotWidget.style.display = 'block';
-      chatIcon.style.display = 'none';
-    }
 
-    // Toggle chatbot widget visibility when clicking on the chat icon
-    chatIcon.addEventListener('click', function() {
-      if (chatbotWidget.style.display === 'none') {
+      // Check local storage with error handling
+      let isClosed = false;
+      try {
+        isClosed = localStorage.getItem('chatbotClosed') === 'true';
+      } catch (error) {
+        console.error('Error retrieving local storage:', error);
+      }
+
+      // Initially hide chatbot widget based on local storage
+      if (isClosed) {
+        chatbotWidget.style.display = 'none';
+        chatIcon.style.display = 'block';
+      } else {
         chatbotWidget.style.display = 'block';
         chatIcon.style.display = 'none';
-        localStorage.setItem('chatbotClosed', 'false'); // Set closed to false
-      } else {
+      }
+
+      // Toggle chatbot widget visibility when clicking on the chat icon
+      chatIcon.addEventListener('click', function() {
+        if (chatbotWidget.style.display === 'none') {
+          chatbotWidget.style.display = 'block';
+          chatIcon.style.display = 'none';
+          localStorage.setItem('chatbotClosed', 'false'); // Set closed to false
+        } else {
+          chatbotWidget.style.display = 'none';
+          chatIcon.style.display = 'block';
+          localStorage.setItem('chatbotClosed', 'true'); // Set closed to true
+        }
+      });
+
+      // Hide chatbot widget when clicking on the chatbot header
+      chatbotHeader.addEventListener('click', function() {
         chatbotWidget.style.display = 'none';
         chatIcon.style.display = 'block';
         localStorage.setItem('chatbotClosed', 'true'); // Set closed to true
-      }
-    });
+      });
 
-    // Hide chatbot widget when clicking on the chatbot header
-    chatbotHeader.addEventListener('click', function() {
-      chatbotWidget.style.display = 'none';
-      chatIcon.style.display = 'block';
-      localStorage.setItem('chatbotClosed', 'true'); // Set closed to true
-    });
-
-    // Send button click event to send message
-    sendButton.addEventListener('click', function() {
-      sendChatbotMessage();
-    });
-
-    // Allow pressing Enter to send message
-    inputElement.addEventListener('keypress', function(event) {
-      if (event.key === 'Enter') {
+      // Send button click event to send message
+      sendButton.addEventListener('click', function() {
         sendChatbotMessage();
+      });
+
+      // Allow pressing Enter to send message
+      inputElement.addEventListener('keypress', function(event) {
+        if (event.key === 'Enter') {
+          sendChatbotMessage();
+        }
+      });
+
+      function sendChatbotMessage() {
+        const userText = inputElement.value.trim();
+        if (userText) {
+          // Display the sent message in the chat log
+          messageLog.innerHTML += '<p><strong>You:</strong> ' + userText + '</p>';
+          messageLog.scrollTop = messageLog.scrollHeight; // Auto scroll to the bottom
+
+          // Clear input field
+          inputElement.value = '';
+
+          // Send message to server
+          $.get('/chatbot/chatbot-response/', { userMessage: userText }).done(function(data) {
+            var returnedMessage = "<p class='chatbot-text'><strong>Chatbot:</strong> <span>" + data + "</span></p>";
+            $('#chatbot-messages').append(returnedMessage);
+          });
+        }
       }
     });
-
-    function sendChatbotMessage() {
-      const userText = inputElement.value.trim();
-      if (userText) {
-        // Display the sent message in the chat log
-        messageLog.innerHTML += '<p><strong>You:</strong> ' + userText + '</p>';
-        messageLog.scrollTop = messageLog.scrollHeight; // Auto scroll to the bottom
-
-        // Clear input field
-        inputElement.value = '';
-
-        // Send message to server
-        $.get('/chatbot/chatbot-response/', { userMessage: userText }).done(function(data) {
-          var returnedMessage = "<p class='chatbot-text'><strong>Chatbot:</strong> <span>" + data + "</span></p>";
-          $('#chatbot-messages').append(returnedMessage);
-        });
-      }
-    }
-  });
-
-
-</script> 
+  </script> 
 </body>
 
 </html>

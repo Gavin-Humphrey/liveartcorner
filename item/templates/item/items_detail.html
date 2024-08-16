@@ -10,8 +10,8 @@
     <div class="item-detail-card">
         <div class="item-detail-card-left">             
             <div class="item-detail-img-card">            
-                <img src="{{ item.image.url }}" alt="{{ item.title }}">               
-            </div>
+                <img src="{{ item.image.url }}" alt="{{ item.title }}">   
+            </div> 
             <div class="item-detail-dropdown">
                 {% if request.user == item.user %}
                     <button class="item-detail-dropbtn">Setting</button>
