@@ -4,10 +4,10 @@
 
 
 <body>
-    <div class="dashboard-header dashboard-manage">
+    <div class="secondary-button-container dashboard-manage">
         <a href="{% url 'artist-dashboard' user.id %}" class="btn btn-secondary">Back to Dashboard</a>
     </div>
-     <h1>Manage Item Availability</h1>
+     <h1 class="manage-item-availability-title">Manage Item Availability</h1>
     <div class="manage-availability-list-container">
         <form method="post">
             {% csrf_token %}

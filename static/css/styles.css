@@ -174,7 +174,8 @@ body, html {
     display: block; 
   }
   
-  .menu.show {
+  /* Check back */
+  .menu .show {  
     display: block; 
   }
   
@@ -192,32 +193,12 @@ body, html {
   margin-left: 0 !important;
 }
 
-.center-dropdown-menu:focus, .dropdown-item:focus {
-  background-color: var(--primary-color-light) !important;
+
+.dropdown-item:focus,
+.dropdown-item:active {
+  background-color: transparent !important; 
 }
 
-/* ==========CHECK HERE 14/08/2024============ */
-/* .dropdown-content {
-  display: none;
-  position: absolute;
-  background-color: var(--main-light);
-  border: 4px  #000;
-  border-radius: 2px;
-  min-width: 60px;
-  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-  z-index: 1;
-} */
-
-/* .dropdown-content a {
-  color: var(--main-dark);
-  padding: 5px 10px;
-  display: block;
-  text-decoration: none;
-}
-
-.dropdown:hover .dropdown-content {
-  display: block;
-} */
 /* =================== */
 .nav-link,
 .dropdown-toggle {
@@ -269,7 +250,7 @@ body, html {
   text-decoration: none;
 }
 
-.nav-link-item::after {
+/* .nav-link-item::after {
   content: '';
   position: absolute;
   bottom: 0;
@@ -282,10 +263,13 @@ body, html {
 
 .nav-link-item:hover::after {
   width: 100%;
-}
+} */
+
+
 
 .nav-link-item:hover {
   color: var(--danger-light) !important;
+  border-bottom: 2px solid var(--danger-light);
 }
 
 /*  */
@@ -416,6 +400,7 @@ body, html {
   right: 0 ; 
   border: 0 !important; 
 }
+
 .Verification-offcanvas {
   
   cursor: pointer;
@@ -932,6 +917,7 @@ body, html {
   cursor: pointer;
   padding: 0.1875rem !important; 
   text-decoration: none;
+
 } 
 
 .item-detail-description-card {
@@ -1216,7 +1202,7 @@ body, html {
 }
 
 /* Responsive adjustments */
-@media (max-width: 768px) {
+@media screen and (max-width: 768px) {
   .table-header-style th, .table-header-style td {
       padding: 0.25rem; 
       font-size: 0.75rem; 
@@ -1244,7 +1230,7 @@ body, html {
   }
 }
 
-@media (max-width: 400px) {
+@media screen and (max-width: 400px) {
   .table-header-style th, .table-header-style td {
       padding: 0.125rem; 
       font-size: 0.8rem; 
@@ -1433,21 +1419,7 @@ h5 {
   padding: 1.25rem;
 }
 
-/* Dashboard header */
-.dashboard-header {
-  display: flex;
-  justify-content: space-between !important;
-  align-items: center;
-  margin-bottom: 1.25rem;
-}
-
-.dashboard-header h1 {
-  margin: 0;
-  font-size: 2rem;
-  color: #333;
-}
-
-.dashboard-header .btn-secondary {
+.secondary-button-container .btn-secondary {
   background-color: #f0f0f0;
   color: var(--main-dark);
   border: 1px solid var(--primary-color-light-border);
@@ -1459,12 +1431,10 @@ h5 {
   transition: background-color 0.3s ease;
 }
 
-/* dashboard-artist-booking {
-} */
 
-.dashboard-header .btn-secondary:hover {
+.secondary-button-container .btn-secondary:hover {
   background-color: var(--main-dark);
-}
+} 
 
 /* Dashboard content */
 .dashboard-content {
@@ -1626,7 +1596,37 @@ h1 {
   .manage-item-list-order td:nth-of-type(7)::before { content: "Order#"; }
 }
 
-@media (max-width: 460px) {
+@media screen and (max-width: 320px) {
+  .dashboard-main-btn-container .btn {
+    /* padding: small !important; */
+    font-size: 0.08rem !important;
+    /* margin-left: -1.5rem !important; */
+  } 
+
+  .top-bar {
+    margin-top: 1.5rem !important;
+  }
+
+  .top-bar h1 {
+    margin: 0;
+    font-size: 0.08 !important;
+  }
+}
+
+@media screen and (max-width: 375px) {
+  .dashboard-main-btn-container .btn {
+    /* font-size: 0.05rem !important; */
+    font-size: 0.08rem !important;
+  } 
+
+  .top-bar h1 {
+    margin: 0;
+    font-size: medium !important;
+  }
+}
+
+
+@media screen and (max-width: 460px) {
   .main-content {
     margin-top: -7rem !important;  /*======COME BACK TO SORT OUT THE NEGATIVE VALUE======*/
   }
@@ -1648,21 +1648,30 @@ h1 {
     font-size: 0.75rem;
   }
 
-  .dashboard-header {
+  .dashboard-main-btn-container {
     padding: 0.5rem;
     margin-left: 0;
   }
 
-  .dashboard-header-booking {
-    padding: 0.5rem;
-      margin-left: 0;
+  .item-detail-secondary-button-container {
+    margin-left: 2rem !important;
   }
 
-  .dashboard-header .btn {
+  .dashboard-manage-btn-container {
+    margin-left: 2rem !important;
+  }
+
+  /*.dashboard-header-booking {
+    padding: 0.5rem;
+      margin-left: 0;
+      
+  }*/
+
+  .secondary-button-container .btn {
     padding: 0.4rem;
     font-size: small;
     margin-left: -1.5rem !important;
-  }
+  } 
 }
 
 /* ========DASHBOARD MANAGE ITEM AVAILABILITY DISPLAY========= */
@@ -1673,6 +1682,43 @@ h1 {
   padding: 20px;
   box-shadow: var(--card-box-shadow);
 }
+
+@media screen and (max-width: 320px) {
+  .manage-availability-list-container {
+    padding-left: 0;
+  }
+  .manage-availability-list-container .manage-availability-list th {
+    font-size: x-small;
+  }
+  .manage-availability-list-container .manage-availability-list td {
+    font-size: x-small;
+  }
+}
+
+@media screen and (max-width: 375px) {
+  .manage-availability-list-container {
+    padding-left: 2px;
+  }
+  .manage-availability-list-container .manage-availability-list th {
+    font-size: small;
+  }
+  .manage-availability-list-container .manage-availability-list td {
+    font-size: small;
+  }
+}
+
+@media screen and (max-width: 530px) {
+  .manage-availability-list-container {
+    width: 100%;
+    margin-left: 0.7rem;
+    padding: 0;
+  }
+
+  .manage-item-availability-title {
+    font-size: medium;
+  }
+}
+
 .manage-availability-list {
   width: 100%;
   border-collapse: collapse;
@@ -1690,7 +1736,7 @@ h1 {
   text-align: center;
 }
 
-@media (max-width: 760px) {
+@media screen and (max-width: 760px) {
   .dashboard-artist-availability-p {
     text-align: center;
   }
@@ -1704,11 +1750,6 @@ h1 {
   padding: 1.25rem;
 }
 
-.dashboard-header {
-  display: flex;
-  justify-content: flex-start;
-  margin-bottom: 1.25rem;
-}
 
 .services-list {
   display: flex;
@@ -1814,7 +1855,7 @@ h1 {
   color: var(--main-light);
 }
 
-@media (max-width: 768px) {
+@media screen and (max-width: 768px) {
   .services-list {
     flex-direction: column;
     align-items: center;
@@ -1825,7 +1866,7 @@ h1 {
   }
 }
 
-@media (min-width: 769px) and (max-width: 1024px) {
+@media screen and (min-width: 769px) and (max-width: 1024px) {
   .service-card {
     width: 45%;
   }
@@ -1966,7 +2007,7 @@ h1 {
 }
 
 
-@media (max-width: 760px) {
+@media screen and (max-width: 760px) {
   .dashboard-artist-booking table,
   .dashboard-artist-booking thead,
   .dashboard-artist-booking tbody,
@@ -2014,7 +2055,7 @@ h1 {
 }
 
 
-@media (max-width: 460px) {
+@media screen and (max-width: 460px) {
   .dashboard-main .btn-secondary {
     font-size: x-small;
     margin-left: -3.5rem;  /*COME BACK HERE FOR RECTIFICATION */
@@ -2134,7 +2175,7 @@ h1 {
 }
 
 .dashboard-artist-left {
-  width: 45%;
+  width: 48%;                            
   background-color: var(--main-light);
   padding: 1.25rem;
   box-sizing: border-box;
@@ -2145,7 +2186,7 @@ h1 {
 }
 
 .side-right-small {
-  width: 35%;
+  width: 48%;
 }
 
 .dashboard-artist-left h2,
@@ -2160,6 +2201,7 @@ h1 {
   border-collapse: collapse;
   margin-bottom: 1.25rem;
 }
+
 
 @media screen and (max-width: 1024px) {
   .dashboard-artist-left tH {
@@ -2203,7 +2245,7 @@ h1 {
 }
 
 .dashboard-artist-right {
-  width: 35%;
+  width: 48%;
   background-color: var(--main-light);
   padding: 1.25rem;
   box-sizing: border-box;

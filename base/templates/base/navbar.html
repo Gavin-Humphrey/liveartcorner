@@ -133,10 +133,14 @@
                 </a>
                 <ul class="dropdown-menu">
                     <li><a class="dropdown-item center-dropdown-menu" href="{% url 'our-services' %}">Our Services</a></li>
-                    <li><a class="dropdown-item center-dropdown-menu" href="#">Report</a></li>
-                    <!-- <li><a class="dropdown-divider"></a></li> -->
-                    
-                        <!-- <li><a class="dropdown-item center-dropdown-menu" href="{% url 'contact' %}">Get Verified</a></li> -->
+                    <li>
+                        {% if user.is_authenticated %}
+                          <a class="dropdown-item center-dropdown-menu" href="{% url 'contact' %}">Report</a>
+                        {% else %}
+                          <a class="dropdown-item center-dropdown-menu" href="{% url 'login' %}">Report</a>
+                        {% endif %}
+                      </li>
+                      
                     {% if request.user.is_authenticated %}
                         <li> <div class="Verification-offcanvas" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight"><p>Get Verified</p></div></li>
                     {% else %}
