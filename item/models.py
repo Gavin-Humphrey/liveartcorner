@@ -41,7 +41,10 @@ class Item(models.Model):
 
     def save(self, *args, **kwargs):
         if self.image and settings.DEBUG:
-            if hasattr(self, "_original_image") and self.image.name != self._original_image:
+            if (
+                hasattr(self, "_original_image")
+                and self.image.name != self._original_image
+            ):
                 img = Image.open(self.image.path)
                 img.save(self.image.path)
             self._original_image = self.image.name

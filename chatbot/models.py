@@ -1,5 +1,6 @@
 from django.db import models
 
+
 class Statement(models.Model):
     text = models.CharField(max_length=1024)
     search_text = models.CharField(max_length=1024)
@@ -10,4 +11,4 @@ class Statement(models.Model):
     persona = models.CharField(max_length=1024, null=True, blank=True)
 
     class Meta:
-        db_table = 'statement'
+        db_table = "statement"

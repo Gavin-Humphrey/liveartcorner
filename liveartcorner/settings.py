@@ -16,7 +16,7 @@ from django.core.management.utils import get_random_secret_key
 from decouple import config, Csv
 from liveartcornerEmailApp.backends.email_backend import EmailBackend
 import sentry_sdk
-from sentry_sdk.integrations.django import DjangoIntegration 
+from sentry_sdk.integrations.django import DjangoIntegration
 import dj_database_url
 from dotenv import load_dotenv
 import cloudinary
@@ -37,12 +37,14 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = config("SECRET_KEY", default=get_random_secret_key())
 
-DJANGO_SETTINGS_MODULE = config('DJANGO_SETTINGS_MODULE', default='liveartcorner.settings')
+DJANGO_SETTINGS_MODULE = config(
+    "DJANGO_SETTINGS_MODULE", default="liveartcorner.settings"
+)
 
 
-DOCKERIZED = config('DOCKERIZED', default=False, cast=bool)
+DOCKERIZED = config("DOCKERIZED", default=False, cast=bool)
 
-DEBUG = config('DEBUG', default=False, cast=bool) if not DOCKERIZED else False
+DEBUG = config("DEBUG", default=False, cast=bool) if not DOCKERIZED else False
 
 CSRF_COOKIE_SECURE = True
 
@@ -81,18 +83,17 @@ INSTALLED_APPS = [
     "base.apps.BaseConfig",
     "user.apps.UserConfig",
     "dashboard.apps.DashboardConfig",
-    "item.apps.ItemConfig",    
+    "item.apps.ItemConfig",
     "cart.apps.CartConfig",
     "order.apps.OrderConfig",
     "wishlist.apps.WishlistConfig",
     "services.apps.ServicesConfig",
-    'chatbot',
-
-    'django_secure_contact_form',  # plugin ####
-    'captcha',  # Required for the CAPTCHA field ####
+    "chatbot",
+    "django_secure_contact_form",  # plugin ####
+    "captcha",  # Required for the CAPTCHA field ####
 ]
 
-AUTH_USER_MODEL = 'user.User'
+AUTH_USER_MODEL = "user.User"
 
 
 MIDDLEWARE = [
@@ -119,7 +120,7 @@ TEMPLATES = [
                 "django.template.context_processors.request",
                 "django.contrib.auth.context_processors.auth",
                 "django.contrib.messages.context_processors.messages",
-                 "liveartcorner.context_processors.website_email",
+                "liveartcorner.context_processors.website_email",
             ],
         },
     },
@@ -136,25 +137,23 @@ WSGI_APPLICATION = "liveartcorner.wsgi.application"
 if DEBUG:
     # Development settings
     DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.sqlite3',
-            'NAME': BASE_DIR / 'db.sqlite3',
+        "default": {
+            "ENGINE": "django.db.backends.sqlite3",
+            "NAME": BASE_DIR / "db.sqlite3",
         }
     }
 else:
     # Production settings
-    DATABASES = {
-        'default': dj_database_url.config(default=os.getenv('DATABASE_URL'))
-    }
+    DATABASES = {"default": dj_database_url.config(default=os.getenv("DATABASE_URL"))}
 
 ssl._create_default_https_context = ssl._create_unverified_context
 ssl.get_default_verify_paths = certifi.where()
 
 chatbot = ChatBot(
-    'ChatBot',
-    storage_adapter='chatterbot.storage.SQLStorageAdapter',
-    #database_uri='postgres://postgres:Prod123@db:5432/LiveArtCorner'
-    database_uri=config('DATABASE_URL')
+    "ChatBot",
+    storage_adapter="chatterbot.storage.SQLStorageAdapter",
+    # database_uri='postgres://postgres:Prod123@db:5432/LiveArtCorner'
+    database_uri=config("DATABASE_URL"),
 )
 
 
@@ -165,9 +164,15 @@ AUTH_PASSWORD_VALIDATORS = [
     {
         "NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator",
     },
-    {"NAME": "django.contrib.auth.password_validation.MinimumLengthValidator",},
-    {"NAME": "django.contrib.auth.password_validation.CommonPasswordValidator",},
-    {"NAME": "django.contrib.auth.password_validation.NumericPasswordValidator",},
+    {
+        "NAME": "django.contrib.auth.password_validation.MinimumLengthValidator",
+    },
+    {
+        "NAME": "django.contrib.auth.password_validation.CommonPasswordValidator",
+    },
+    {
+        "NAME": "django.contrib.auth.password_validation.NumericPasswordValidator",
+    },
 ]
 
 
@@ -187,19 +192,19 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 
 
-STATIC_URL = '/static/'
+STATIC_URL = "/static/"
 
 # Absolute path to the directory static files should be collected to
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles') 
+STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
 
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'static'),
+    os.path.join(BASE_DIR, "static"),
 ]
 
 
 # Media files (Uploaded files)
-MEDIA_URL = '/media/'
-MEDIA_ROOT = BASE_DIR / 'media'
+MEDIA_URL = "/media/"
+MEDIA_ROOT = BASE_DIR / "media"
 
 # Configure Cloudinary using the CLOUDINARY_URL environment variable
 cloudinary.config(
@@ -208,7 +213,7 @@ cloudinary.config(
     api_secret=config("CLOUDINARY_API_SECRET", "default_value"),
 )
 
-#if "CI" in os.environ or DEBUG:
+# if "CI" in os.environ or DEBUG:
 if DEBUG:
     # Use Django's built-in static file serving during development
     STATICFILES_STORAGE = "django.contrib.staticfiles.storage.StaticFilesStorage"
@@ -218,7 +223,7 @@ if DEBUG:
 else:
     # Use whitenoise for serving static files in production
     STATICFILES_STORAGE = "whitenoise.storage.CompressedStaticFilesStorage"
-    #STATICFILES_STORAGE = "django.contrib.staticfiles.storage.StaticFilesStorage"
+    # STATICFILES_STORAGE = "django.contrib.staticfiles.storage.StaticFilesStorage"
 
     # Use custom Cloudinary storage for user-uploaded files
     DEFAULT_FILE_STORAGE = "liveartcorner.storage.CloudinaryMediaStorage"
@@ -266,14 +271,13 @@ PAYMENT_SUCCESS_URL = config("PAYMENT_SUCCESS_URL")
 PAYMENT_CANCEL_URL = config("PAYMENT_CANCEL_URL")
 
 
-
 CAPTCHA_IMAGE_SIZE = (110, 50)
 CAPTCHA_FONT_SIZE = 30
 CAPTCHA_LETTER_ROTATION = (-30, 30)
-CAPTCHA_BACKGROUND_COLOR = '#ffffff'
+CAPTCHA_BACKGROUND_COLOR = "#ffffff"
 CAPTCHA_NOISE_FUNCTIONS = (
-    'captcha.helpers.noise_arcs',
-    'captcha.helpers.noise_dots',
+    "captcha.helpers.noise_arcs",
+    "captcha.helpers.noise_dots",
 )
 
 

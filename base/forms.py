@@ -45,7 +45,7 @@ class RegisterForm(UserCreationForm):
         required=True,
         validators=[
             MinLengthValidator(2),
-            MaxLengthValidator(50),  
+            MaxLengthValidator(50),
         ],
     )
     postal_code = forms.CharField(
@@ -61,7 +61,7 @@ class RegisterForm(UserCreationForm):
         required=True,
         validators=[
             MinLengthValidator(2),
-            MaxLengthValidator(50),  
+            MaxLengthValidator(50),
         ],
     )
 
@@ -79,7 +79,7 @@ class RegisterForm(UserCreationForm):
             "password2",
         )
 
-    # Additional validations 
+    # Additional validations
     def clean_email(self):
         email = self.cleaned_data.get("email")
         if User.objects.filter(email=email).exists():
@@ -115,8 +115,11 @@ class CustomUserChangeForm(forms.ModelForm):
         model = User
         fields = ["email", "name", "is_artist", "is_vetted_artist", "avatar"]
 
+
 class ItemForm(forms.ModelForm):
-    current_image = forms.CharField(widget=forms.TextInput(attrs={'readonly': 'readonly'}), required=False)
+    current_image = forms.CharField(
+        widget=forms.TextInput(attrs={"readonly": "readonly"}), required=False
+    )
 
     class Meta:
         model = Item
@@ -128,23 +131,25 @@ class ItemForm(forms.ModelForm):
             "price",
             "quantity",
             "current_image",
-            "image"
+            "image",
         ]
         widgets = {
             "image": forms.FileInput(attrs={"enctype": "multipart/form-data"}),
-            "current_image": forms.HiddenInput()
+            "current_image": forms.HiddenInput(),
         }
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         if self.instance and self.instance.pk:
-            self.fields['current_image'].initial = self.instance.image.url if self.instance.image else ""
-            self.fields['image'].required = False
+            self.fields["current_image"].initial = (
+                self.instance.image.url if self.instance.image else ""
+            )
+            self.fields["image"].required = False
 
     def save(self, commit=True):
         instance = super().save(commit=False)
         if self.instance and self.instance.pk:
-            if not self.cleaned_data.get('image') and self.instance.image:
+            if not self.cleaned_data.get("image") and self.instance.image:
                 instance.image = self.instance.image
         if commit:
             instance.save()

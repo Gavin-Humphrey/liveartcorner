@@ -7,7 +7,6 @@ from wishlist.views import my_wishlist
 from django.db.models import Q
 
 
-
 @login_required
 def upload_item(request):
     if request.method == "POST":
@@ -84,17 +83,16 @@ def item_detail(request, item_id):
 
 
 def search_items(request):
-    query = request.GET.get('q')
+    query = request.GET.get("q")
     results = []
     if query:
         query = query.strip()
         if query:
             results = Item.objects.filter(
-                Q(title__icontains=query) | 
-                Q(description__icontains=query)
+                Q(title__icontains=query) | Q(description__icontains=query)
             )
     context = {
-        'query': query,
-        'results': results,
+        "query": query,
+        "results": results,
     }
-    return render(request, 'item/search_results.html', context)
+    return render(request, "item/search_results.html", context)
