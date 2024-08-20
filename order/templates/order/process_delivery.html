@@ -16,7 +16,7 @@
                     <div class="display-items-count text-right text-muted">{{ cart_items_count }} Items</div>
                     <table class="cart-items-table">
                         <thead>
-                            <tr class="table-header-style">
+                            <tr class="table-header-style opacity-item">
                                 <th>Item</th>
                                 <th>Name</th>
                                 <th>Quantity</th>
@@ -32,7 +32,7 @@
                                     </a>
                                 </td>
                                 <td class="table-header-style">
-                                    <a class="product-name" href="{% url 'item-detail' item.item.id %}">{{ item.item.title }}</a>
+                                    <a class="product-name" href="{% url 'item-detail' item.item.id %}"><span class="cart-image-title-opacity-item">{{ item.item.title }}</span></a>
                                 </td>
                                 <td class="table-header-style">
                                     <div class="quantity">                                        
@@ -40,7 +40,7 @@
                                    </div>
                                 </td>
                                 <td class="table-header-style">
-                                    <div class="price">&#36; {{ item.item.price }}</div>
+                                    <div class="price">&#36;{{ item.item.price }}</div>
                                 </td>                    
                             </tr>
                             {% endfor %}
@@ -50,25 +50,25 @@
                         <!-- Display subtotal -->
                         <div class="checkout-cart-summary-display-item sub-total">
                             <h6>Subtotal</h6>
-                            <p>&#36; {{ sub_total }}</p>
+                            <p>&#36;{{ sub_total }}</p>
                         </div>
                         <!-- Display chosen delivery method -->
                         <div class="checkout-cart-summary-display-item delivery-method">
                             <h6>Chosen Delivery Method</h6>
-                            <p>{{ chosen_delivery_method }} - &#36; {{ delivery_cost }}</p>
+                            <p>{{ chosen_delivery_method }} - &#36;{{ delivery_cost }}</p>
                         </div>
                         <div class="checkout-cart-summary-display-item discount">
                             <h6>Discount</h6>
                             {% if discount_value %}
-                                <p>&#36; {{ discount_value }}</p>
+                                <p>&#36;{{ discount_value }}</p>
                             {% else %}
-                                <p>&#36; 0.00</p>
+                                <p>0.00</p>
                             {% endif %}
                         </div>
                         <!-- Display total cost -->
                         <div class="checkout-cart-summary-display-item total-cost">
                             <h6>Total Cost</h6>
-                            <p>&#36; {{ total_cost }}</p>
+                            <p>&#36;{{ total_cost }}</p>
                         </div>
                     </div>             
                     <a class="back-to-shop-link btn-tertiary" href="{% url 'view-cart' %}">&leftarrow;<span class="btn-tertiary">Back to Shopping Cart</span></a>
@@ -87,7 +87,7 @@
                             <input type="hidden" name="delivery_cost" value="{{ delivery_cost }}">
                             <input type="hidden" name="discount_value" value="{{ discount_value }}">
 
-                            <button type="submit" class="btn-checkout">Submit &rarr;</button>
+                            <button type="submit" class="btn-checkout btn-tertiary">Submit &rarr;</button>
                         </form> 
                     </div>
                 </div>

@@ -71,7 +71,7 @@ def update_item_quantity(request, item_id):
         return redirect("view-cart")
 
 
-def update_cart_total_cost(request):  ####
+def update_cart_total_cost(request):
     cart = CartHandler(request)
     delivery_methods = DeliveryMethod.objects.all()
     delivery_form = DeliveryInfoForm(request.POST)
@@ -92,11 +92,7 @@ def update_cart_total_cost(request):  ####
             sub_total = cart.calculate_sub_total()
             chosen_delivery_method = get_object_or_404(
                 DeliveryMethod, id=selected_delivery_method_id
-            )  # Get the DeliveryMethod object###
-
-            # discount_code = get_object_or_404(DiscountCode)
-
-            # Include total_cost in the context dictionary
+            )
             context = {
                 "cart_items": cart_items,
                 "sub_total": sub_total,
@@ -118,8 +114,13 @@ def update_cart_total_cost(request):  ####
 
             # Return the updated cart page with the new total cost
             return render(request, "cart/cart.html", context)
-        except ValueError as e:
-            messages.error(request, str(e))
+        # except ValueError as e:
+        #     messages.error(request, str(e))
+        except (ValueError, TypeError) as e:
+            messages.error(
+                request,
+                "An error occurred while processing your request. Please ensure all fields are correctly filled.",
+            )
 
     return redirect(
         "view-cart"

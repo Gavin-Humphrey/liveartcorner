@@ -6,15 +6,13 @@
 <main class="page">
     <section class="shopping-cart">
         <div class="container">
-            <div class="cart-heading">
+            <div class="cart-heading opacity-item">
                 <h3>Shopping Cart</h3>
             </div>
             <div class="content-container">
                 <div class="row-grid-row cart-row-grid-row">
-                    <div class="cart-display">
-                        <!--  -->
-                        
-                        {% if messages %}
+                    <div class="cart-display">                        
+                        <!-- {% if messages %}
                         <ul class="messages">
                             {% for message in messages %}
                             <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>
@@ -22,14 +20,12 @@
                             </li>
                             {% endfor %}
                         </ul>
-                        {% endif %}
+                        {% endif %} -->
 
-
-                        <!--  -->
                         <div class="display-items-count text-right text-muted">{{ cart_items_count }} Items</div>
                         <table class="cart-items-table">
                             <thead>
-                                <tr class="table-header-style">
+                                <tr class="table-header-style opacity-item">
                                     <th>Item</th>
                                     <th>Name</th>
                                     <th>Quantity</th>
@@ -46,7 +42,7 @@
                                         </a>
                                     </td>
                                     <td class="table-header-style">
-                                        <a class="product-name" href="{% url 'item-detail' item.id %}">{{ item.item.title }}</a>
+                                        <a class="product-name" href="{% url 'item-detail' item.id %}"><span class="cart-image-title-opacity-item">{{ item.item.title }}</span></a>
                                     </td>
                                     <td class="table-header-style">
                                         <div class="cart-item-quantity">
@@ -58,11 +54,11 @@
                                             </form>
                                         </div>
                                     </td>
-                                    <td class="table-header-style">
-                                        <div class="price">&#36; {{ item.item.price }}</div>
+                                    <td class="table-header-style cart-table-item">
+                                        <div class="price">&#36;{{ item.item.price }}</div>
                                     </td>
 
-                                    <td class="table-header-style">
+                                    <td class="table-header-style opacity-item">
                                         <form action="{% url 'remove-from-cart' item.id %}" method="post"> 
                                             {% csrf_token %}
                                             <button type="submit"><div class="cart-table-delete"><img src="{% static 'img/trash-can.svg' %}" alt="trash icon" class="cart-trash-img"></div>
@@ -76,10 +72,10 @@
                         <a class="back-to-shop-link btn-tertiary" href="{% url 'home' %}">&leftarrow;<span class="btn-tertiary">Back to shop</span></a>
                     </div>
                     <div class="checkout-summary-container">
-                        <!-- Checkout summary content here -->
+                       
                         <div class="checkout-summary">
                             <h3>Summary</h3>
-                            <div class="summary-item"><span class="text" style="padding-left:0;">SUBTOTAL</span><span class="price">&#36; {{ sub_total }}</span></div>
+                            <div class="summary-item opacity-item"><span class="text" style="padding-left:0;">SUBTOTAL</span><span class="price">&#36;{{ sub_total }}</span></div>
                             <div class="summary-item">
                                 <form method="post" action="{% url 'update-cart-total-cost' %}">
                                     {% csrf_token %}
@@ -109,24 +105,23 @@
                             
                             <div class="summary-item">
                                 <span class="text">TOTAL:</span>
-                                <span class="price">{% if total_cost %} &#36; {{ total_cost|default_if_none:sub_total }} {% else %} 0.00 {% endif %}</span>
+                                <span class="price">{% if total_cost %} &#36;{{ total_cost|default_if_none:sub_total }} {% else %} 0.00 {% endif %}</span>
                             </div>
                             <form action="{% url 'process-delivery' %}" method="POST">
                                 {% csrf_token %}
-                                <!-- {{ delivery_form.as_p }} -->
                                 <input type="hidden" name="chosen_delivery_method" value="{{ chosen_delivery_method }}">
                                 <input type="hidden" name="delivery_cost" value="{{ delivery_cost }}">
                                 <input type="hidden" name="discount_value" value="{{ discount_value }}">
                                 <input type="hidden" name="total_cost" value="{{ total_cost }}">
                                 <input type="hidden" name="order_id" value="{{ order_id }}">
-                                <button type="submit" class="btn-checkout">Checkout &rarr;</button>
+                                <button type="submit" class="btn-checkout btn-tertiary" {% if not chosen_delivery_method %}disabled title="Please select a delivery method first"{% endif %}>Checkout &rarr;</button>
                             </form>
                         </div>
                     </div>
+
                 </div>
             </div>
         </div>
     </section>
 </main>
-
 {% endblock content %}

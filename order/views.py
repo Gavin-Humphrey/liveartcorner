@@ -92,13 +92,12 @@ def process_checkout(request):
                             price=price,
                         )
 
-                    cart.clear_cart()  # clearing the cart after order creation
+                    # cart.clear_cart()  # clearing the cart after order creation
 
                     context.update(
                         {
                             "cart_items": cart.get_cart_items(),
                             "cart_items_count": cart.get_cart_items_count(),
-                            #'sub_total': float(cart.calculate_sub_total()),
                             "sub_total": sub_total,
                             "chosen_delivery_method": chosen_delivery_method_name,
                             "delivery_cost": delivery_cost,
@@ -109,8 +108,8 @@ def process_checkout(request):
                             "order_id": order.id,
                         }
                     )
+                    cart.clear_cart()  # clearing the cart after order creation
                     return render(request, "order/checkout.html", context)
-
                 else:
                     logger.error("Order creation failed. Check delivery details.")
                     context = {
@@ -137,4 +136,5 @@ def process_checkout(request):
                 "delivery_form": delivery_form,
             }
             return render(request, "order/checkout.html", context)
+
     return redirect("process-delivery")

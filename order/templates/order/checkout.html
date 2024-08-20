@@ -12,14 +12,35 @@
                     <div class="display-items-count text-right text-muted">{{ cart_items_count }} Items</div>
                     <table class="cart-items-table">
                         <thead>
-                            <tr class="table-header-style">
+                            <tr class="table-header-style opacity-item">
                                 <th>Item</th>
                                 <th>Name</th>
                                 <th>Quantity</th>
                                 <th>Price/Item</th>
                             </tr>
                         </thead>
-                        <tbody>
+                         <tbody>
+                            {% for item in cart_items %}
+                            <tr class="border-top border-bottom">
+                                <td class="table-header-style">
+                                    <a class="cart-item-image" href="{% url 'item-detail' item.item.id %}">
+                                        <img class="img-fluid mx-auto d-block image" src="{{ item.item.image.url }}">
+                                    </a>
+                                </td>
+                                <td class="table-header-style">
+                                    <a class="product-name" href="{% url 'item-detail' item.item.id %}"><span class="cart-image-title-opacity-item">{{ item.item.title }}</span></a>
+                                </td>
+                                <td class="table-header-style">
+                                    <div class="quantity">
+                                        <p class="cart-input-number">{{ item.quantity }}</p>
+                                    </div>
+                                </td>
+                                <td class="table-header-style">
+                                    <div class="price">&#36;{{ item.item.price }}</div>
+                                </td>
+                            </tr>
+                            {% endfor %}   
+                            <!-- {% if cart_items %}
                             {% for item in cart_items %}
                             <tr class="border-top border-bottom">
                                 <td class="table-header-style">
@@ -40,23 +61,30 @@
                                 </td>
                             </tr>
                             {% endfor %}
-                        </tbody>
+                            {% else %}
+                            <tr>
+                                <td colspan="4">No items in the cart</td>
+                            </tr>
+                            {% endif %} -->
+
+                        </tbody> 
                     </table>
-                    <div class="checkout-cart-summary-display">
+                    
+                    <div class=" checkout-cart-summary-display"> 
                         <div class="checkout-cart-summary-display-item sub-total">
                             <h6>Subtotal</h6>
-                            <p>&#36; {{ sub_total }}</p>
+                            <p>&#36;{{ sub_total }}</p>
                         </div>
                         <div class="checkout-cart-summary-display-item delivery-method">
                             <h6>Chosen Delivery Method</h6>
-                            <p>{{ chosen_delivery_method }} - &#36; {{ delivery_cost }}</p>
+                            <p>{{ chosen_delivery_method }} - &#36;{{ delivery_cost }}</p>
                         </div>
                         <div class="checkout-cart-summary-display-item discount">
                             <h6>Discount</h6>
                             {% if discount_value %}
                                 <p>&#36; {{ discount_value }}</p>
                             {% else %}
-                                <p>&#36; 0.00</p>
+                                <p>&#36;0.00</p>
                             {% endif %}
                         </div>
                         <div class="checkout-cart-summary-display-item total-cost">
@@ -66,27 +94,30 @@
                     </div>
                     <a class="back-to-shop-link btn-tertiary" href="{% url 'view-cart' %}">&leftarrow;<span class="btn-tertiary">Back to Shopping Cart</span></a>
                 </div>
-                <div class="process-checkout-summary-container">
+                <div class="process-checkout-summary-container process-checkout-summary-container-display">
                     <div class="process-checkout-delivery_details">
                         <h5>Delivery Details</h5>
                         <div class="checkout-delivery-details-container">
                             {% for key, value in delivery_form_data.items %}
-                                <div class="delivery-field">
+                                <div class="delivery-field checkout-delivery-detail-display-field">
                                     <span class="delivery-label">{{ key|capfirst }}:</span>
                                     <span class="delivery-value">{{ value }}</span>
                                 </div>
                             {% endfor %}
-                         </div>
-                         <span>Order: #{{ order_id }}</span>
+                        </div>
+                        <span class="process-checkout-delivery_details-order-id">
+                            <span class="process-checkout-delivery_details-order-id-label">
+                                Order:</span> # 1001432{{ order_id }}
+                            </span>
                     </div>
-                    <form class="auth-form process-delivery-form" method="POST" action="{% url 'create-checkout-session' order_id=order_id %}">
+                    <form class="#" method="POST" action="{% url 'create-checkout-session' order_id=order_id %}">
                         {% csrf_token %}
                         <input type="hidden" name="total_cost" value="{{ total_cost }}">
                         <input type="hidden" name="order_id" value="{{ order_id }}">
                         <input type="hidden" name="chosen_delivery_method" value="{{ chosen_delivery_method }}">
                         <input type="hidden" name="delivery_cost" value="{{ delivery_cost }}">
                         <input type="hidden" name="discount_value" value="{{ discount_value }}">
-                        <button type="submit" class="btn-checkout">Proceed To Payment &rarr;</button>
+                        <button type="submit" class="btn-checkout btn-tertiary">Proceed To Payment &rarr;</button>
                     </form>
                 </div>
             </div>
