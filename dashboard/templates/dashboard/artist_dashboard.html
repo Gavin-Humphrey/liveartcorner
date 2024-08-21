@@ -86,7 +86,7 @@
                         {% endfor %}
                     </table>
                     <div class="items-detail-update-qty">
-                        <button type="submit" ><a href="{% url 'view-artist-bookings' %}" class="more-link">More</a></button>
+                        <button type="submit" ><a href="{% url 'view-artist-bookings' %}">More</a></button> <!--class="more-link"-->
                     </div>
                     {% else %}
                     <p class="no-dashboard-item-found">No bookings found.</p>
@@ -110,7 +110,7 @@
                         {% endfor %}
                     </ul>
                     <div class="items-detail-update-qty">
-                        <button type="submit" ><a href="{% url 'artist-availability-calendar' %}" class="more-link">More</a></button>
+                        <button type="submit" ><a href="{% url 'artist-availability-calendar' %}">More</a></button> <!-- class="more-link"-->
                     </div>
                     {% else %}
                     <p class="no-dashboard-item-found">No availabilities found.</p>

@@ -69,7 +69,7 @@
                                 {% endfor %}
                             </tbody>
                         </table>
-                        <a class="back-to-shop-link btn-tertiary" href="{% url 'home' %}">&leftarrow;<span class="btn-tertiary">Back to shop</span></a>
+                        <a class="back-to-shop-link btn-tertiary" href="{% url 'home' %}">&leftarrow;<span >Back to shop</span></a> <!--class="btn-tertiary"-->
                     </div>
                     <div class="checkout-summary-container">
                        
@@ -90,7 +90,7 @@
                                     </select>
                                     <p class="enter-code">ENTER DISCOUNT CODE:</p>
                                     <input name="discount_code" id="code" placeholder="Enter your code">
-                                    <button class="cart-update-total-button btn-tertiary" type="submit">Update Total Cost</button>
+                                    <button class="cart-update-total-button btn-tertiary" type="submit" title="Please select a delivery method first">Update Total Cost</button>
                                 </form>
                                 
                             </div>
@@ -114,7 +114,7 @@
                                 <input type="hidden" name="discount_value" value="{{ discount_value }}">
                                 <input type="hidden" name="total_cost" value="{{ total_cost }}">
                                 <input type="hidden" name="order_id" value="{{ order_id }}">
-                                <button type="submit" class="btn-checkout btn-tertiary" {% if not chosen_delivery_method %}disabled title="Please select a delivery method first"{% endif %}>Checkout &rarr;</button>
+                                <button type="submit" class="btn-checkout btn-tertiary" {% if not chosen_delivery_method %}disabled {% endif %}>Checkout &rarr;</button>
                             </form>
                         </div>
                     </div>
