@@ -36,7 +36,6 @@
                             No image
                             {% endif %}
                         </td>
-
                         <td class="table-header-style">
                             <form action="{% url 'remove-from-cart' item.id %}" method="post"> 
                                 {% csrf_token %}

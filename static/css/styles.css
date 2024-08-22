@@ -1571,7 +1571,13 @@ body, html {
   width: 100%;
   border-collapse: collapse;
   margin: 0 auto;
+
+
+  /* border-collapse: separate;
+  border-spacing: 0 10px; */
 }
+
+
 .manage-item-list th, .manage-item-list td {
   border: 1px solid var(--primary-color-light-border);
   padding: 0.5rem;
@@ -1594,6 +1600,7 @@ h1 {
 .items-detail-update-qty button {
   padding: 0.3rem;
   border-radius: 0.3125rem;
+  color: var(--footer-dark);
   background-color: var(--main-light);
   border: 1px solid var(--footer-dark);
   transition: background-color 0.3s ease;
