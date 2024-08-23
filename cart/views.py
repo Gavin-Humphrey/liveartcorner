@@ -31,15 +31,15 @@ def add_to_cart(request, item_id):
             cart.add_to_cart(
                 item, quantity=quantity
             )  # Pass the Item instance instead of item_id
-            #return redirect("home") 
-          
+            # return redirect("home")
+
         else:
             messages.error(
                 request, f"Sorry, there are only {item.quantity} items available."
             )
             return redirect("home")
-        messages.success(request, "Item added to your cart.")   
-        return redirect(request.META.get('HTTP_REFERER', 'home'))
+        messages.success(request, "Item added to your cart.")
+        return redirect(request.META.get("HTTP_REFERER", "home"))
     else:
         return redirect("home")
 
