@@ -5,7 +5,7 @@
 <main class="page">
     <section class="shopping-cart">
         <div class="container">
-            <div class="cart-heading">
+            <div class="cart-heading opacity-item">
                 <h3>Your Wishlist</h3>
             </div>
             <div class="content-container">
@@ -24,11 +24,11 @@
                         <div class="display-items-count text-right text-muted">{{ wishlist_items.count }} Items</div>
                         <table class="cart-items-table">
                             <thead>
-                                <tr class="table-header-style">
+                                <tr class="table-header-style opacity-item">
                                     <th>Item</th>
                                     <th>Name</th>
                                     <th>Price</th>
-                                    <th>Add to cart</th>
+                                    <th>To-Cart</th>
                                     <th>Remove</th>
                                 </tr>
                             </thead>
@@ -41,10 +41,10 @@
                                         </a>
                                     </td>
                                     <td class="table-header-style">
-                                        <a class="product-name" href="{% url 'item-detail' wishlist_item.item.id %}">{{ wishlist_item.item.title }}</a>
+                                        <a class="product-name" href="{% url 'item-detail' wishlist_item.item.id %}"><span class="cart-image-title-opacity-item">{{ wishlist_item.item.title }}</span></a>
                                     </td>
                                     <td class="table-header-style">
-                                        <div class="price">&#36; {{ wishlist_item.item.price }}</div>
+                                        <div class="price">&#36;{{ wishlist_item.item.price }}</div>
                                     </td>
 
                                     <td class="table-header-style">
@@ -52,7 +52,11 @@
                                             {% csrf_token %}
                                             <button type="submit">
                                                 <div class="wishlist-add">
-                                                    <img src="{% static 'img/add2.png' %}" alt="wishlist-add icon" class="wishlist-add-img">
+                                                    <!-- <img src="{% static 'img/add2.png' %}" alt="wishlist-add icon" class="wishlist-add-img"> -->
+                                                    <svg xmlns="http://www.w3.org/2000/svg" class="wishlist-add-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                                        <line x1="12" y1="5" x2="12" y2="19"></line>
+                                                        <line x1="5" y1="12" x2="19" y2="12"></line>
+                                                    </svg> 
                                                 </div>
                                             </button>
                                         </form>
@@ -71,7 +75,7 @@
                                 {% endfor %}
                             </tbody>
                         </table>
-                        <a class="back-to-shop-link btn-tertiary" href="{% url 'home' %}">&leftarrow;<span class="btn-tertiary">Back to shop</span></a>
+                        <a class="back-to-shop-link btn-tertiary" href="{% url 'home' %}">&leftarrow;<span>Back to shop</span></a>
                     </div>
                 </div>
             </div>

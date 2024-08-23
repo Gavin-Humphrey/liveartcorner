@@ -369,6 +369,10 @@ body, html {
   transform: translate(5%, -50%); 
 }
 
+.wishlist-add-icon {
+  opacity: var(--opacity);
+  filter: brightness(1.7);
+}
 
 /* =====Nav Icons====== */
 .search-form {
