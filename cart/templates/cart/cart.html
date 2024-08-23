@@ -45,14 +45,26 @@
                                         <a class="product-name" href="{% url 'item-detail' item.id %}"><span class="cart-image-title-opacity-item">{{ item.item.title }}</span></a>
                                     </td>
                                     <td class="table-header-style">
-                                        <div class="cart-item-quantity">
+
+                                        <div class="cart-item-quantity" style="position: relative;">
                                             <form action="{% url 'update-item-quantity' item.id %}" method="post">
                                                 {% csrf_token %}
-                                                <input type="hidden" name="item_id" value="{{ item.item.id }}">
-                                                <input class="cart-input-number" type="number" name="quantity" value="{{ item.quantity }}" min="0">
-                                                <button class="cart-update-button" type="submit">Update</button>
+                                                <input class="wishlist-button" onclick="showLoginPrompt()" type="hidden" name="item_id" value="{{ item.item.id }}">
+                                        
+                                                <input class="cart-input-number wishlist-button" 
+                                                       type="number" 
+                                                       name="quantity" 
+                                                       value="{{ item.quantity }}" 
+                                                       min="0" 
+                                                       onkeydown="if(event.key === 'Enter') this.form.submit();" 
+                                                       onfocus="showTooltip(this)" 
+                                                       onblur="hideTooltip(this)"
+                                                       aria-describedby="tooltip-{{ item.id }}">
+
+                                                <span class="tooltip-text">Press Enter to update quantity</span>
                                             </form>
                                         </div>
+                                        
                                     </td>
                                     <td class="table-header-style cart-table-item">
                                         <div class="price">&#36;{{ item.item.price }}</div>
@@ -69,7 +81,7 @@
                                 {% endfor %}
                             </tbody>
                         </table>
-                        <a class="back-to-shop-link btn-tertiary" href="{% url 'home' %}">&leftarrow;<span >Back to shop</span></a> <!--class="btn-tertiary"-->
+                        <a class="back-to-shop-link btn-tertiary" href="{% url 'home' %}">&leftarrow;<span >Back to shop</span></a> 
                     </div>
                     <div class="checkout-summary-container">
                        
@@ -124,4 +136,5 @@
         </div>
     </section>
 </main>
+
 {% endblock content %}

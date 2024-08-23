@@ -314,6 +314,7 @@ body, html {
   /* background-color: var(--main-dark); */
   background-color: var(--dark-grey-color);
   color: var(--main-light);
+  font-size: small;
   text-align: center;
   border-radius: 5px;
   padding: 5px 0;
@@ -1196,12 +1197,9 @@ body, html {
   outline: none; 
 }
 
-.cart-update-button {
-  padding: 0.3125rem 0.625rem; 
-  color: var(--main-light); 
-  border: none; 
-  border-radius: 0.3125rem; 
-  cursor: pointer; 
+.cart-input-number:focus + .tooltip-text {
+  visibility: visible;
+  opacity: 1;
 }
 
 .cart-update-button {
@@ -1210,7 +1208,7 @@ body, html {
   border: none; 
   border-radius: 0.3125rem; 
   cursor: pointer; 
-  background-color: #4b4848; 
+  background-color: var(--dark-grey-color); 
 }
 
 .cart-table-delete img { 

@@ -11,16 +11,6 @@
             <div class="content-container">
                 <div class="wishlist-grid-row">
                     <div class="cart-display">
-                        {% if messages %}
-                        <ul class="messages">
-                            {% for message in messages %}
-                            <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>
-                                {{ message }}
-                            </li>
-                            {% endfor %}
-                        </ul>
-                        {% endif %}
-
                         <div class="display-items-count text-right text-muted">{{ wishlist_items.count }} Items</div>
                         <table class="cart-items-table">
                             <thead>
@@ -28,7 +18,7 @@
                                     <th>Item</th>
                                     <th>Name</th>
                                     <th>Price</th>
-                                    <th>To-Cart</th>
+                                    <th>Move</th>
                                     <th>Remove</th>
                                 </tr>
                             </thead>
@@ -50,14 +40,14 @@
                                     <td class="table-header-style">
                                         <form action="{% url 'add-to-cart' item_id=wishlist_item.item.id %}" method="post">
                                             {% csrf_token %}
-                                            <button type="submit">
+                                            <button type="submit" class="wishlist-button" onclick="showLoginPrompt()">
                                                 <div class="wishlist-add">
-                                                    <!-- <img src="{% static 'img/add2.png' %}" alt="wishlist-add icon" class="wishlist-add-img"> -->
                                                     <svg xmlns="http://www.w3.org/2000/svg" class="wishlist-add-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                                                         <line x1="12" y1="5" x2="12" y2="19"></line>
                                                         <line x1="5" y1="12" x2="19" y2="12"></line>
                                                     </svg> 
                                                 </div>
+                                                <span class="tooltip-text">Add to Cart</span>
                                             </button>
                                         </form>
                                     </td>
