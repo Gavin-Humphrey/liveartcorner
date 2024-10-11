@@ -1,5 +1,6 @@
 {% extends 'base/main.html' %} 
 {% load static %}
+{% load custom_filters %}
 
 {% block content %}
 
@@ -9,132 +10,181 @@
             <div class="cart-heading opacity-item">
                 <h3>Shopping Cart</h3>
             </div>
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="alert alert-info">{{ message }}</div>
+                {% endfor %}
+            {% endif %}
             <div class="content-container">
                 <div class="row-grid-row cart-row-grid-row">
-                    <div class="cart-display">                        
-                        <!-- {% if messages %}
-                        <ul class="messages">
-                            {% for message in messages %}
-                            <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>
-                                {{ message }}
-                            </li>
-                            {% endfor %}
-                        </ul>
-                        {% endif %} -->
-
+                    <div class="cart-display">
                         <div class="display-items-count text-right text-muted">{{ cart_items_count }} Items</div>
                         <table class="cart-items-table">
                             <thead>
                                 <tr class="table-header-style opacity-item">
                                     <th>Item</th>
                                     <th>Name</th>
-                                    <th>Quantity</th>
                                     <th>Price</th>
                                     <th>Delete</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                {% for item in cart_items %}
+                                {% for cart_item in cart_items %}
                                 <tr class="border-top border-bottom">
                                     <td class="table-header-style">
-                                        <a class="cart-item-image" href="{% url 'item-detail' item.id %}">
-                                            <img class="img-fluid mx-auto d-block image" src="{{ item.item.image.url }}">
+                                        <a class="cart-item-image" href="{% url 'item-detail' cart_item.item.id %}">
+                                            <img class="img-fluid mx-auto d-block image" src="{{ cart_item.item.image.url }}">
                                         </a>
                                     </td>
                                     <td class="table-header-style">
-                                        <a class="product-name" href="{% url 'item-detail' item.id %}"><span class="cart-image-title-opacity-item">{{ item.item.title }}</span></a>
+                                        <a class="product-name" href="{% url 'item-detail' cart_item.item.id %}">
+                                            <span class="cart-image-title-opacity-item">{{ cart_item.item.title }}</span>
+                                        </a>
                                     </td>
-                                    <td class="table-header-style">
-
-                                        <div class="cart-item-quantity" style="position: relative;">
-                                            <form action="{% url 'update-item-quantity' item.id %}" method="post">
-                                                {% csrf_token %}
-                                                <input class="wishlist-button" onclick="showLoginPrompt()" type="hidden" name="item_id" value="{{ item.item.id }}">
-                                        
-                                                <input class="cart-input-number wishlist-button" 
-                                                       type="number" 
-                                                       name="quantity" 
-                                                       value="{{ item.quantity }}" 
-                                                       min="0" 
-                                                       onkeydown="if(event.key === 'Enter') this.form.submit();" 
-                                                       onfocus="showTooltip(this)" 
-                                                       onblur="hideTooltip(this)"
-                                                       aria-describedby="tooltip-{{ item.id }}">
-
-                                                <span class="tooltip-text">Press Enter to update quantity</span>
-                                            </form>
-                                        </div>
-                                        
-                                    </td>
+                                    
                                     <td class="table-header-style cart-table-item">
-                                        <div class="price">&#36;{{ item.item.price }}</div>
+                                        <div class="price">&#36;{{ cart_item.item.price }}</div>
                                     </td>
-
                                     <td class="table-header-style opacity-item">
-                                        <form action="{% url 'remove-from-cart' item.id %}" method="post"> 
+                                        <form action="{% url 'remove-from-cart' cart_item.id %}" method="post">
                                             {% csrf_token %}
-                                            <button type="submit"><div class="cart-table-delete"><img src="{% static 'img/trash-can.svg' %}" alt="trash icon" class="cart-trash-img"></div>
+                                            <button type="submit">
+                                                <div class="cart-table-delete">
+                                                    <img src="{% static 'img/trash-can.svg' %}" alt="trash icon" class="cart-trash-img">
+                                                </div>
                                             </button>
                                         </form>
+                                    </td>
+                                </tr>
+
+                                <tr class="item-details-row">
+                                    <td colspan="5">
+                                        <form method="post" action="{% url 'update-cart' %}" class="cart-update-form">
+                                            {% csrf_token %}
+                                            <input type="hidden" name="cart_item_id" value="{{ cart_item.id }}"> 
+                                            
+                                            <!-- Delivery Method Section -->
+                                            <div class="form-group">
+                                                {% if cart_item.delivery_method %}
+                                                    <div class="delivery-details">
+                                                        <label>Delivery Method:</label>
+                                                        <span class="delivery-method">
+                                                            {{ cart_item.delivery_method.method }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&#36;{{ cart_item.delivery_method.cost }}
+                                                        </span>
+                                                    </div>
+                                                {% else %}
+                                                    <label for="selected_delivery_method_id">Select Delivery Method</label>
+                                                    <select name="selected_delivery_method_id" id="selected_delivery_method_id" class="input-select">
+                                                        <option value="">Select a delivery method</option>
+                                                        {% for delivery_method in delivery_methods %}
+                                                            <option value="{{ delivery_method.id }}">
+                                                                {{ delivery_method.method }} &nbsp;&nbsp;&nbsp;&nbsp;&#8364;{{ delivery_method.cost }}
+                                                            </option>
+                                                        {% endfor %}
+                                                    </select>
+                                                {% endif %}
+                                            </div>
+
+                                            <!-- Discount Code Section -->
+                                            <div class="form-group">
+                                                {% if cart_item.discount_code %}
+                                                    <div class="discount-details">
+                                                        <label>Discount:</label>
+                                                        <span>&#36;{{ cart_item.discount_code.value }}</span>
+                                                    </div>
+                                                {% else %}
+                                                    <label for="discount_code_{{ cart_item.item.id }}">Enter Discount Code:</label>
+                                                    
+                                                <span class="discount-code-input"><input type="text" name="discount_code" id="discount_code_{{ cart_item.item.id }}"
+                                                        class="input-text" placeholder="Enter your code" 
+                                                        value="{{ cart_item.discount_code|default_if_none:'' }}"></span>  
+                                                {% endif %}
+                                            </div>
+
+                                            <!-- Total Cost Section -->
+                                            <div class="form-group summary-item">
+                                                {% if item_total_cost %}
+                                                <!-- <label>Total for this item:</label> -->
+                                                <span class="item-total-cost">Total for this item:</span>
+                                                <div class="price">             
+                                                    {% if item_total_cost|get_item:cart_item.id %}
+                                                        &#36;{{ item_total_cost|get_item:cart_item.id }}
+                                                    {% endif %}
+                                                {% endif %}
+                                                </div>
+                                            </div>
+
+                                            <!-- Update Button -->
+                                            {% if not cart_item.delivery_method or not cart_item.discount_code %}
+                                                <button type="submit" class="cart-item-btn-submit">Update Cart</button>
+                                            {% endif %}
+                                        </form>
+
                                     </td>
                                 </tr>
                                 {% endfor %}
                             </tbody>
                         </table>
-                        <a class="back-to-shop-link btn-tertiary" href="{% url 'home' %}">&leftarrow;<span >Back to shop</span></a> 
+                        <a class="back-to-shop-link btn-tertiary" href="{% url 'home' %}">&leftarrow;<span>Back to shop</span></a>
                     </div>
+                    
                     <div class="checkout-summary-container">
-                       
                         <div class="checkout-summary">
                             <h3>Summary</h3>
-                            <div class="summary-item opacity-item"><span class="text" style="padding-left:0;">SUBTOTAL</span><span class="price">&#36;{{ sub_total }}</span></div>
-                            <div class="summary-item">
-                                <form method="post" action="{% url 'update-cart-total-cost' %}">
-                                    {% csrf_token %}
-                                    <label for="selected_delivery_method_id">SELECT DELIVERY METHOD</label>
-                                    <select name="selected_delivery_method_id" id="selected_delivery_method_id">
-                                        <option value="placeholder">Select a delivery method</option>
-                                        {% for delivery_method in delivery_methods %}
-                                        <option value="{{ delivery_method.id }}">
-                                            {{ delivery_method.method }} - €{{ delivery_method.cost }}
-                                        </option>
-                                        {% endfor %}
-                                    </select>
-                                    <p class="enter-code">ENTER DISCOUNT CODE:</p>
-                                    <input name="discount_code" id="code" placeholder="Enter your code">
-                                    <button class="cart-update-total-button btn-tertiary" type="submit" title="Please select a delivery method first">Update Total Cost</button>
-                                </form>
+                            <div class="summary-item opacity-item">
+                                <span class="text" style="padding-left:0;">SUBTOTAL</span>
+                                <span class="price summary-item-delivery-value"><span>&#36;{{ cart_sub_total }}</span></span>
+                                
                                 
                             </div>
-                            
-                            {% if messages %}
-                            <div>
-                                {% for message in messages %}
-                                <p{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</p>
-                                {% endfor %}
-                            </div>
-                            {% endif %}
-                            
                             <div class="summary-item">
                                 <span class="text">TOTAL:</span>
-                                <span class="price">{% if total_cost %} &#36;{{ total_cost|default_if_none:sub_total }} {% else %} 0.00 {% endif %}</span>
-                            </div>
+                                <span class="price summary-item-delivery-value">
+                                    {% if total_cost %}
+                                       <span>&#36;{{ total_cost }}</span> 
+                                    {% else %}
+                                        &#36;0.00
+                                    {% endif %}
+                                </span>
+                            </div>                            
                             <form action="{% url 'process-delivery' %}" method="POST">
                                 {% csrf_token %}
-                                <input type="hidden" name="chosen_delivery_method" value="{{ chosen_delivery_method }}">
-                                <input type="hidden" name="delivery_cost" value="{{ delivery_cost }}">
-                                <input type="hidden" name="discount_value" value="{{ discount_value }}">
+                                
+                                <!-- Iterate through cart items to capture relevant details -->
+                                {% for cart_item in cart_items %}
+                                    <input type="hidden" name="chosen_delivery_method" value="{{ cart_item.delivery_method.id }}">
+                                    <input type="hidden" name="delivery_cost" value="{{ cart_item.delivery_method.cost }}">
+                                    <input type="hidden" name="discount_value" value="{{ cart_item.discount_code.value|default:0 }}">
+                                    <input type="hidden" name="item_total_cost_{{ cart_item.id }}" value="{{ item_total_cost|get_item:cart_item.id }}">
+                                {% endfor %}
+                                
+                                <input type="hidden" name="cart_sub_total" value="{{ cart_sub_total }}">
                                 <input type="hidden" name="total_cost" value="{{ total_cost }}">
                                 <input type="hidden" name="order_id" value="{{ order_id }}">
-                                <button type="submit" class="btn-checkout btn-tertiary" {% if not chosen_delivery_method %}disabled {% endif %}>Checkout &rarr;</button>
+                               
+                                <button type="submit" class="btn-checkout btn-tertiary" 
+                                    {% if not all_items_have_delivery_method %}disabled{% endif %}>
+                                    Checkout &rarr;
+                                </button>
+
                             </form>
+                            
                         </div>
                     </div>
-
                 </div>
             </div>
         </div>
     </section>
 </main>
+
+<script>
+    function showTooltip(element) {
+        element.nextElementSibling.style.display = 'block';
+    }
+
+    function hideTooltip(element) {
+        element.nextElementSibling.style.display = 'none';
+    }
+</script>
 
 {% endblock content %}

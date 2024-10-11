@@ -3,7 +3,6 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import login, logout
 from django.contrib import messages
-from django.core.mail import send_mail  # Later
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.contrib.sites.shortcuts import get_current_site
 from .tokens import account_activation_token
@@ -34,6 +33,7 @@ def registerUser(request):
         else:
             for error in list(form.errors.values()):
                 messages.error(request, error)
+            print(form.errors)  # Debug statement
 
     else:
         form = RegisterForm()

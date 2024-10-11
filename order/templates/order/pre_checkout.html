@@ -80,12 +80,19 @@
                     </div>
                     <form class="auth-form process-delivery-form" method="POST" action="{% url 'process-checkout' %}">
                         {% csrf_token %}
+                        
+                        {% for cart_item in cart_items %}
+                            <input type="hidden" name="chosen_delivery_method" value="{{ cart_item.delivery_method.id }}">
+                            <input type="hidden" name="delivery_cost" value="{{ cart_item.delivery_method.cost }}">
+                            <input type="hidden" name="discount_value" value="{{ cart_item.discount_code.value|default:0 }}">
+                            <input type="hidden" name="item_total_cost_{{ cart_item.id }}" value="{{ item_total_cost|get_item:cart_item.id }}">
+                        {% endfor %}
+                        
+                        <input type="hidden" name="cart_sub_total" value="{{ cart_sub_total }}">
                         <input type="hidden" name="total_cost" value="{{ total_cost }}">
                         <input type="hidden" name="order_id" value="{{ order_id }}">
-                        <input type="hidden" name="chosen_delivery_method" value="{{ chosen_delivery_method }}">
-                        <input type="hidden" name="delivery_cost" value="{{ delivery_cost }}">
-                        <input type="hidden" name="discount_value" value="{{ discount_value }}">
-                        <button type="submit" class="btn-checkout">Submit &rarr;</button>
+                    
+                        <button type="submit" class="btn-checkout btn-tertiary" {% if not cart_items %}disabled{% endif %}>Checkout &rarr;</button>
                     </form>
                 </div>
             </div>
@@ -93,9 +100,3 @@
     </div>
 </section>
 {% endblock content %}
-
-
-
-
-
-

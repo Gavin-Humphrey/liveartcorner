@@ -42,7 +42,7 @@
                         <li><a href="{% url 'view-artist-bookings'  %}">View Bookings</a></li>
                     </ul>
                 </li>
-                <li><a href="{% url 'ordered-items' %}">Ordered Items</a></li>
+                <li><a  href="{% url 'dashboard-orders' %}">Ordered Items</a></li>
             </ul>
         </div>
         <div class="main-content">
@@ -60,8 +60,7 @@
                     {% endif %}
                 </div> 
             </div>
-            <div class="content dashboard-content">
-                <!-- Your existing content here -->
+            <div class="content dashboard-content">               
                 <div class="dashboard-artist-left">
                     <h2>Bookings</h2>
                     {% if bookings %}
@@ -116,35 +115,35 @@
                     <p class="no-dashboard-item-found">No availabilities found.</p>
                     {% endif %}
                 </div>
-                
-                <div class="dashboard-artist-left">
-                    {% if ordered_items %}
-                    <h2>Ordered Items</h2>
-                    <table>
-                        <tr>
-                            <th>Order#</th>
-                            <th>Item</th>
-                            <th>Quantity</th>
-                            <th>Price</th>
-                            <th>Total</th>
-                        </tr>
-                        {% for order_item in ordered_items|slice:":3" %}
-                        <tr>
-                            <td>{{ order_item.order.id }}</td>
-                            <td>{{ order_item.item.title }}</td>
-                            <td>{{ order_item.quantity }}</td>
-                            <td>{{ order_item.item.price }}</td>
-                            <td>{{ order_item.get_total_cost }}</td>
-                        </tr>
-                        {% endfor %}
-                    </table>
-                    <div class="items-detail-update-qty">
-                        <button type="submit" > <a href="{% url 'ordered-items' %}" class="more-link">More</a></button>
+                    <div class="dashboard-artist-left">
+                        {% if orders %}
+                        <h2>Orders</h2>
+                        <table>
+                            <tr>
+                                <th>Order Nº</th>
+                                <th>Client</th>
+                                <th>Date</th>
+                                <th>Status</th>
+                            </tr>
+                            {% for order in orders|slice:":3" %} <!-- Only show the first 3 orders -->
+                                <tr>
+                                    <td>0123{{ order.id }}</td>
+                                    <td>{{ order.order_type }}</td>
+                                    <td>{{ order.created_at }}</td>
+                                    <td>{{ order.order_status }}</td>
+                                </tr>
+                            {% endfor %}
+
+                        </table>
+                        <div class="items-detail-update-qty">
+                            <button type="submit"> 
+                                <a href="{% url 'dashboard-orders' %}" class="more-link">More</a> 
+                            </button>
+                        </div>
+                        {% else %}
+                        <p class="no-dashboard-item-found">No orders found.</p>
+                        {% endif %}
                     </div>
-                    {% else %}
-                    <p class="no-dashboard-item-found">No ordered items found.</p>
-                    {% endif %}
-                </div>
                 
                 <div class="dashboard-artist-left  side-right-small">
                     <div class="dashboard-items-count">
@@ -189,6 +188,5 @@
     
     
 </body>
-
 
 {% endblock %}

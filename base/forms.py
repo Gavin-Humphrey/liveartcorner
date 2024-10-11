@@ -8,8 +8,10 @@ from django.core.validators import (
 )
 
 from user.models import User, ArtistProfile, ArtistAvailability
-from item.models import CardItems, Item
+from item.models import Item
 from services.models import Service, Booking
+
+import re
 
 
 # class RegisterForm(UserCreationForm):
@@ -24,10 +26,10 @@ class RegisterForm(UserCreationForm):
         required=False, initial=False, label="Register as an artist"
     )
     phone_number = forms.CharField(
-        required=False,
+        required=True,
         validators=[
             RegexValidator(
-                r"^\+\d{1,2}\s?[\d\-()]+\s?[\d\-()]+$",
+                r"^\+?\d{0,15}$",
                 message="Invalid phone number format.",
             )
         ],
@@ -156,13 +158,78 @@ class ItemForm(forms.ModelForm):
         return instance
 
 
+# email validator
+def validate_email(email):
+    regex = r"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"
+    return re.match(regex, email) is not None
+
+
 class DeliveryInfoForm(forms.Form):
-    full_name = forms.CharField(max_length=100, label="Full Name", required=False)
-    address = forms.CharField(
-        label="Address", required=False
-    )  # , widget=forms.Textarea)
-    email = forms.EmailField(label="Email", required=False)
-    phone_number = forms.CharField(label="Phone Number", required=False, max_length=20)
+    full_name = forms.CharField(max_length=100, label="full_name", required=True)
+    email = forms.EmailField(label="email", required=True)
+    address = forms.CharField(max_length=255, label="address", required=True)
+    city = forms.CharField(max_length=100, label="city", required=True)
+    postcode = forms.CharField(max_length=10, label="postcode", required=True)
+    country = forms.CharField(max_length=50, label="country", required=True)
+    phone_number = forms.CharField(label="phone_number", required=True, max_length=20)
+
+    # Custom Validation for full name
+    def clean_full_name(self):
+        full_name = self.cleaned_data.get("full_name")
+        if not full_name:
+            raise forms.ValidationError("full_name is required.")
+        if not re.match(r"^[A-Za-z\s-]+$", full_name):
+            raise forms.ValidationError(
+                "Full name should contain only letters, spaces, and hyphens."
+            )
+        return full_name
+
+    # Custom Validation for email
+    def clean_email(self):
+        email = self.cleaned_data.get("email")
+        if not validate_email(email):
+            raise forms.ValidationError(
+                "Invalid email format. Please enter a valid email address."
+            )
+        return email
+
+    # Custom Validation for city
+    def clean_city(self):
+        city = self.cleaned_data.get("city")
+        if not city:
+            raise forms.ValidationError("City is required.")
+        if not re.match(r"^[A-Za-z\s-]+$", city):
+            raise forms.ValidationError(
+                "City should contain only letters, spaces, and hyphens."
+            )
+        return city
+
+    # Custom Validation for postcode (must be numeric)
+    def clean_postcode(self):
+        postcode = self.cleaned_data.get("postcode")
+        if not postcode.isdigit():
+            raise forms.ValidationError("Postcode must be numeric.")
+        return postcode
+
+    # Custom Validation for country
+    def clean_country(self):
+        country = self.cleaned_data.get("country")
+        if not country:
+            raise forms.ValidationError("Country is required.")
+        # Updated regex to allow multiple words with spaces
+        if not re.match(r"^[A-Za-z]+(?:\s[A-Za-z]+)?(?:\s[A-Za-z]+)?$", country):
+            raise forms.ValidationError(
+                "Country should contain only letters and spaces."
+            )
+        return country
+
+    def clean_phone_number(self):
+        phone_number = self.cleaned_data.get("phone_number")
+        if not re.match(r"^\+\d{1,3}\s?\d{1,15}$", phone_number):
+            raise forms.ValidationError(
+                "Phone number must contain country code and only digits."
+            )
+        return phone_number
 
 
 class PaymentForm(forms.Form):
@@ -182,8 +249,13 @@ class ArtistAvailabilityForm(forms.ModelForm):
         model = ArtistAvailability
         fields = ["date", "start_time", "end_time"]
         widgets = {
-            "start_datetime": forms.SplitDateTimeWidget(),
-            "end_datetime": forms.SplitDateTimeWidget(),
+            "date": forms.DateInput(
+                attrs={"type": "date", "placeholder": "YYYY-MM-DD"}
+            ),
+            "start_time": forms.TimeInput(
+                attrs={"type": "time", "placeholder": "HH:MM"}
+            ),
+            "end_time": forms.TimeInput(attrs={"type": "time", "placeholder": "HH:MM"}),
         }
 
 

@@ -10,7 +10,7 @@ urlpatterns = [
         name="artist-dashboard",
     ),
     path("manage-items/", views.manage_items, name="manage-items"),
-    path("ordered-items/", views.artist_ordered_items, name="ordered-items"),
+    path("dashboard-orders/", views.artist_orders, name="dashboard-orders"),
     path(
         "manage-items-availability/",
         views.manage_items_availability,
@@ -39,5 +39,6 @@ urlpatterns = [
     path(
         "view-artist-bookings/", views.get_artist_bookings, name="view-artist-bookings"
     ),
+    path("order-detail/<int:order_id>/", views.order_detail, name="order-detail"),
     path("upload-files/", views.upload_files, name="upload-files"),
 ]

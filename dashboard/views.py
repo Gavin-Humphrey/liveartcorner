@@ -3,10 +3,12 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from item.models import CardItems, Item
-from order.models import OrderItem
+from order.models import Order, OrderItem
 from services.models import Booking
 from base.forms import ArtistAvailabilityForm
 from user.models import User, ArtistAvailability
+from cart.shopping_cart import CartHandler
+from decimal import Decimal
 
 
 logger = logging.getLogger(__name__)
@@ -15,14 +17,21 @@ logger = logging.getLogger(__name__)
 @login_required
 def artist_dashboard(request, user_id):
     user = get_object_or_404(User, id=user_id)
+    cart = CartHandler(request)  ###
+
     availabilities = ArtistAvailability.objects.filter(artist=user).order_by(
         "date", "start_time"
     )
-    bookings = Booking.objects.filter(availability__artist=user).order_by(
-        "-availability__date"
+    bookings = (
+        Booking.objects.filter(availability__artist=user)
+        .order_by("-availability__date")
+        .order_by("-created_at")
     )
-    ordered_items = OrderItem.objects.filter(item__card__user=user).select_related(
-        "order", "item"
+
+    orders = (
+        Order.objects.filter(orderitem__item__card__user=user)
+        .distinct()
+        .order_by("-created_at")
     )
 
     if not user.is_artist:
@@ -40,9 +49,6 @@ def artist_dashboard(request, user_id):
     except CardItems.DoesNotExist:
         items = []
         items_count = 0
-    # Debugging output to console
-    print("Debug: Items in dashboard view:", items)
-    print("Debug: Items count in dashboard view:", items_count)
 
     context = {
         "user": user,
@@ -50,7 +56,7 @@ def artist_dashboard(request, user_id):
         "items_count": items_count,
         "availabilities": availabilities,
         "bookings": bookings,
-        "ordered_items": ordered_items,
+        "orders": orders,
     }
     return render(request, "dashboard/artist_dashboard.html", context)
 
@@ -208,21 +214,118 @@ def get_artist_bookings(request):
     }
     return render(request, "dashboard/artist_bookings.html", context)
 
-
+from django.db.models import Count
 @login_required
-def artist_ordered_items(request):
+def artist_orders(request):
     user = request.user
 
-    # Get all order items where the item belongs to the current artist
-    ordered_items = OrderItem.objects.filter(item__card__user=user).select_related(
-        "order", "item"
+    # Get all orders where the items belong to the current artist
+    orders = (
+        Order.objects.filter(orderitem__item__card__user=user)
+        .distinct()
+        .select_related("user", "delivery_info")
+        .prefetch_related("orderitem_set__item")
+        .order_by("-created_at")
     )
-    for order_item in ordered_items:
-        print("Order Item Price:", order_item.price)
+
+    # Count the number of orders
+    order_count = orders.count()
+
+    # Count the total number of order items across all orders
+    order_items_count = orders.aggregate(total_items=Count("orderitem"))["total_items"]
+
+    if orders.exists():
+        for order in orders:
+            print(
+                f"Order ID: {order.id}, Total Cost: {order.total_cost}, Status: {order.order_status}"
+            )
+    else:
+        print("No orders found for this user.")
+
     context = {
-        "ordered_items": ordered_items,
+        "orders": orders,  
+        "order_count": order_count,
+        "order_items_count": order_items_count,
     }
-    return render(request, "dashboard/artist_ordered_items.html", context)
+
+    return render(request, "dashboard/artist_orders.html", context)
+
+
+@login_required
+def order_detail(request, order_id):
+    user = request.user
+
+    # Fetch the specific order
+    order = get_object_or_404(Order, id=order_id)
+
+    # Fetch only the order items belonging to this user (seller)
+    order_items = order.orderitem_set.filter(item__card__user=user)
+
+    # Initialize empty variables for delivery, discount, and total cost calculations
+    detailed_order_items = []
+
+    for order_item in order_items:
+        # Calculate item total cost directly from the OrderItem
+        item_total_cost = (
+            order_item.item_total_cost
+        )  # Use the item total cost from OrderItem
+
+        # Check for associated discount code
+        discount_value = Decimal(0)  # Default value if no discount
+        discount_code = (
+            order_item.discount_code if hasattr(order_item, "discount_code") else None
+        )
+
+        if discount_code and discount_code.active:  # Ensure the discount code is active
+            discount_value = discount_code.value
+
+        # Fetch chosen delivery method and its cost directly from OrderItem
+        chosen_delivery_method = (
+            order_item.delivery_method.method
+            if order_item.delivery_method
+            else "No delivery method selected"
+        )
+        delivery_cost = (
+            order_item.delivery_method.cost
+            if order_item.delivery_method
+            else Decimal(0)
+        )
+
+        # Append item details to the list
+        detailed_order_items.append(
+            {
+                "order_item": order_item,
+                "item_total_cost": item_total_cost,
+                "delivery_cost": delivery_cost,
+                "chosen_delivery_method": chosen_delivery_method,
+                "discount_value": discount_value,
+            }
+        )
+
+    # Prepare delivery info if it exists
+    delivery_info = order.delivery_info
+    delivery_form_data = (
+        {
+            "Full Name": delivery_info.full_name,
+            "Email": delivery_info.email,
+            "Address": delivery_info.address,
+            "City": delivery_info.city,
+            "Postcode": delivery_info.postcode,
+            "Country": delivery_info.country,
+            "Phone Number": delivery_info.phone_number,
+        }
+        if delivery_info
+        else {}
+    )
+
+    # Prepare the context for rendering the order detail page
+    context = {
+        "order": order,
+        "detailed_order_items": detailed_order_items,  # List of detailed order items
+        "delivery_form_data": delivery_form_data,
+    }
+
+    return render(request, "dashboard/order_detail.html", context)
 
 
 @login_required

@@ -12,14 +12,10 @@ urlpatterns = [
         views.remove_from_cart,
         name="remove-from-cart",
     ),
+    # path("update-item-quantity/<int:item_id>/",views.update_item_quantity,name="update-item-quantity",),
     path(
-        "update-item-quantity/<int:item_id>/",
-        views.update_item_quantity,
-        name="update-item-quantity",
-    ),
-    path(
-        "update-cart-total-cost/",
-        views.update_cart_total_cost,
-        name="update-cart-total-cost",
+        "update-cart/",
+        views.update_cart,
+        name="update-cart",
     ),
 ]

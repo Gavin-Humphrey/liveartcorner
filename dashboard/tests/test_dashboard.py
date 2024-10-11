@@ -8,9 +8,6 @@ from django.core.files.uploadedfile import SimpleUploadedFile
 from PIL import Image
 import io
 
-# from user.models import ArtistAvailability
-# from services.models import Booking
-# from order.models import OrderItem
 
 User = get_user_model()
 

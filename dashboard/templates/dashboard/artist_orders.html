@@ -1,0 +1,45 @@
+{% extends 'base/main.html' %}
+
+{% block content %}
+
+<body>
+    <div class="secondary-button-container dashboard-manage-btn-container">
+        <a href="{% url 'artist-dashboard' user.id %}" class="btn btn-secondary">Back to Dashboard</a>
+    </div>
+    <h1>Your Orders</h1>
+    <div class="manage-item-list-container">
+        <!--  -->
+        <div class="order-item-header">
+            <span>{{ order_count }} Orders | {{ order_items_count }} Ordered Items</span>
+        </div>
+        <!--  -->
+        {% if orders %}
+        <table class="manage-item-list manage-item-list-order">
+            <thead>
+                <tr>
+                    <th>Order Nº</th>
+                    <th>Client</th>
+                    <th>Date</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for order in orders %}
+                <tr>
+                    <td><a class="artist-ordered-items-title" href="{% url 'order-detail' order_id=order.id %}">
+                        0123{{ order.id }}<span class="tooltip">Click for Item Order Detail</span></a>
+                    </td>
+                    <td>{{ order.delivery_info.full_name }}</td>
+                    <td>{{ order.created_at }}</td>
+                    <td>{{ order.order_status }}</td>                    
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% else %}
+        <p>No orders found.</p>
+        {% endif %}
+    </div>
+</body>
+
+{% endblock %}

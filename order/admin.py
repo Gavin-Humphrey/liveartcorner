@@ -24,7 +24,7 @@ class OrderAdmin(admin.ModelAdmin):
         "order_type",
         "items",
         "total_cost",
-        "delivery_method",  # Assuming no discount_code field
+        # "delivery_method",  # Assuming no discount_code field
         "order_status",
         "id",
         "created_at",
@@ -34,7 +34,7 @@ class OrderAdmin(admin.ModelAdmin):
         "user",
         "order_type",
         "total_cost",
-        "delivery_method",  # Assuming no discount_code field
+        # "delivery_method",  # Assuming no discount_code field
         "order_status",
         "id",
         "created_at",
@@ -45,17 +45,23 @@ class OrderAdmin(admin.ModelAdmin):
 admin.site.register(Order, OrderAdmin)
 
 
-# class OrderItemAdmin(admin.ModelAdmin):
-#     model = OrderItem
-#     extra = 0
-#     fields = ['order', 'item', 'quantity', 'price', 'discount_code']
-#     readonly_fields = ['order', 'item', 'quantity', 'price', 'discount_code']
-# admin.site.register(OrderItem)
 class OrderItemAdmin(admin.ModelAdmin):
     model = OrderItem
     extra = 0
-    readonly_fields = ["order", "item", "quantity", "price", "discount_code"]
-    list_display = ["order", "item", "quantity", "price", "discount_code"]
+    readonly_fields = [
+        "order",
+        "item",
+        "delivery_method",
+        "discount_code",
+        "item_total_cost",
+    ]
+    list_display = [
+        "order",
+        "item",
+        "delivery_method",
+        "discount_code",
+        "item_total_cost",
+    ]
 
 
 admin.site.register(OrderItem, OrderItemAdmin)

@@ -6,7 +6,6 @@ from .process_booking_payment import (
     payment_status_view,
 )
 
-# from.views import BookServiceView, BookingSummaryView
 
 
 urlpatterns = [
@@ -28,8 +27,7 @@ urlpatterns = [
     path(
         "payment-status/<int:booking_id>/", payment_status_view, name="payment-status"
     ),
-    # path('service-booking/<int:service_id>/', BookServiceView.as_view(), name='service-booking'),
-    # path('booking-summary/<int:service_id>/<int:booking_id>/', BookingSummaryView.as_view(), name='booking-summary'),
+    
     path(
         "service-booking/<int:service_id>/",
         views.service_booking,

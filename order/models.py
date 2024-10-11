@@ -1,14 +1,20 @@
 from django.db import models
 from user.models import User
 from item.models import Item
-from cart.models import DeliveryMethod, DiscountCode
+from cart.models import CartItem, DeliveryMethod, DiscountCode
 
 
 class DeliveryInfo(models.Model):
     full_name = models.CharField(max_length=100)
-    address = models.TextField()
     email = models.EmailField()
+    address = models.TextField()
+    city = models.CharField(max_length=100)
+    postcode = models.CharField(max_length=10)
+    country = models.CharField(max_length=100)
     phone_number = models.CharField(max_length=20)
+
+    def __str__(self):
+        return f"{self.full_name}, {self.email}, {self.address}, {self.city}, {self.postcode}, {self.country}, {self.phone_number}"
 
 
 class Order(models.Model):
@@ -18,9 +24,6 @@ class Order(models.Model):
     order_type = models.CharField(max_length=20)
     items = models.ManyToManyField(Item, through="OrderItem")
     total_cost = models.DecimalField(max_digits=10, decimal_places=2)
-    delivery_method = models.ForeignKey(
-        DeliveryMethod, on_delete=models.SET_NULL, null=True
-    )
     order_status = models.CharField(max_length=50, default="Pending")
     delivery_info = models.OneToOneField(
         DeliveryInfo, on_delete=models.CASCADE, null=True, blank=True
@@ -29,7 +32,7 @@ class Order(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return f"Order #{self.pk} - {self.user.email if self.user else 'Guest'}"
+        return f"Order N° {self.pk} - {self.user.email if self.user else 'Guest'}"
 
 
 class GuestUser(models.Model):
@@ -43,14 +46,20 @@ class GuestUser(models.Model):
 class OrderItem(models.Model):
     order = models.ForeignKey(Order, on_delete=models.CASCADE)
     item = models.ForeignKey(Item, on_delete=models.CASCADE)
-    quantity = models.PositiveIntegerField(default=1)
-    price = models.DecimalField(max_digits=10, decimal_places=2)
+    delivery_method = models.ForeignKey(
+        DeliveryMethod, null=True, on_delete=models.SET_NULL
+    )  # Store delivery method
     discount_code = models.ForeignKey(
-        DiscountCode, on_delete=models.SET_NULL, blank=True, null=True
-    )
+        DiscountCode, null=True, blank=True, on_delete=models.SET_NULL
+    )  # Store discount code
+    item_total_cost = models.DecimalField(
+        max_digits=10, decimal_places=2, default=0.00
+    )  # Store total cost of the item in the order
 
     def __str__(self):
-        return f"{self.quantity} x {self.item.title} ({self.order.user.email})"
+        if self.item:
+            return f"{self.item.title} - Total Cost: ${self.item_total_cost:.2f} (Order ID: {self.order.id})"
+        return f"OrderItem #{self.id} (No associated Item)"
 
-    def get_total_cost(self):
-        return self.quantity * self.item.price
+    def get_cart_item(self):
+        return self.cart_item

@@ -16,16 +16,16 @@ class CartAdmin(admin.ModelAdmin):
 admin.site.register(Cart, CartAdmin)
 
 
-class CartItemAdmin(admin.ModelAdmin):
-    model = CartItem
-    extra = 0
-    fields = [
-        "user",
-    ]
-    list_display = ["id", "cart", "item", "quantity"]
+# class CartItemAdmin(admin.ModelAdmin):
+#     model = CartItem
+#     extra = 0
+#     fields = [
+#         "user",
+#     ]
+#     list_display = ["id", "cart", "item", "delivery_method", "discount_code"]
 
 
-admin.site.register(CartItem, CartItemAdmin)
+# admin.site.register(CartItem, CartItemAdmin)
 
 
 class DiscountCodeAdmin(admin.ModelAdmin):

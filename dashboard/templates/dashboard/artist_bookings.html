@@ -4,28 +4,32 @@
 <div class="container">
     <div class="secondary-button-container dashboard-booking-btn-container dashboard-manage-btn-container">
         <a href="{% url 'artist-dashboard' user.id %}" class="btn btn-secondary">Back to Dashboard</a>
-    </div>
+    </div>   
     <div class="dashboard-artist-booking">
-    <h2>Bookings</h2>
+        <h2>Bookings</h2>
         <table>
-            <tr>
-                <th>Customer</th>
-                <th>Service</th>
-                <th>Date</th>
-                <th>Time</th>
-                <th class="booked-status">Booked/Not Booked</th>  
-            </tr>
-            {% for booking in bookings %}
-            <tr>
-                <td>{{ booking.user }}</td>
-                <td>{{ booking.service}}</td>  
-                <td>{{ booking.availability.date }}</td>  
-                <td>{{ booking.availability.start_time }} - {{ booking.availability.end_time }}</td>
-                <td class="booked-status">
-                <input type="checkbox" disabled {% if booking.availability.booked %}checked{% endif %} style="background-color: #265BFA;" />
-                </td>
-            </tr>
-            {% endfor %}
+            <thead>  
+                <tr>
+                    <th>Customer</th>
+                    <th>Service</th>
+                    <th>Date</th>
+                    <th>Time</th>
+                    <th class="booked-status">Booked</th>  
+                </tr>
+            </thead>
+            <tbody>
+                {% for booking in bookings %}
+                <tr>
+                    <td>{{ booking.user }}</td>
+                    <td>{{ booking.service }}</td>  
+                    <td>{{ booking.availability.date }}</td>  
+                    <td>{{ booking.availability.start_time }} - {{ booking.availability.end_time }}</td>
+                    <td class="booked-status">
+                        <input type="checkbox" disabled {% if booking.availability.booked %}checked{% endif %} style="background-color: #265BFA;" />
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
         </table>
     </div>
 </div>

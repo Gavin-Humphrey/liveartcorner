@@ -146,8 +146,10 @@ else:
     # Production settings
     DATABASES = {"default": dj_database_url.config(default=os.getenv("DATABASE_URL"))}
 
+
 ssl._create_default_https_context = ssl._create_unverified_context
 ssl.get_default_verify_paths = certifi.where()
+
 
 chatbot = ChatBot(
     "ChatBot",
@@ -155,7 +157,6 @@ chatbot = ChatBot(
     # database_uri='postgres://postgres:Prod123@db:5432/LiveArtCorner'
     database_uri=config("DATABASE_URL"),
 )
-
 
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators

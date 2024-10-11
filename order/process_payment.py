@@ -9,6 +9,7 @@ from django.views import View
 from django.views.generic import TemplateView
 from .models import Order, OrderItem
 from item.models import CardItems
+from cart.shopping_cart import CartHandler
 
 stripe.api_key = settings.STRIPE_SECRET_KEY
 
@@ -21,9 +22,11 @@ class CheckoutSessionView(View):
     """
 
     def post(self, request, *args, **kwargs):
+        cart = CartHandler(request)
         total_cost = request.POST.get("total_cost")
         order_id = request.POST.get("order_id")
         order = Order.objects.get(pk=order_id)
+
         checkout_session = stripe.checkout.Session.create(
             payment_method_types=["card"],
             line_items=[
@@ -39,7 +42,7 @@ class CheckoutSessionView(View):
                     "quantity": 1,
                 }
             ],
-            metadata={"product_id": order_id},
+            metadata={"order_id": order_id},
             mode="payment",
             success_url=settings.PAYMENT_SUCCESS_URL,
             cancel_url=settings.PAYMENT_CANCEL_URL,
@@ -96,6 +99,7 @@ def handle_checkout_session(session):
             # Update order status
             order.order_status = "completed"
             order.save()
+
             # Deduct items from each user's CardItem
             for order_item in order.orderitem_set.all():
                 item = order_item.item

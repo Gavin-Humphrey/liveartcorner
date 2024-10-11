@@ -3,13 +3,13 @@
 {% block content %}
   <div class="book-service-details">
     <h2>{{ service.name }}</h2>
-    <p><strong>{{ service.description }}</strong></p>
-    <p style="font-weight: bolder;">Price: ${{ service.price }}</p>
+    <p>{{ service.description }}</p>
+    <p>Price: ${{ service.price }}</p>
 
     <!-- Booking form -->
     <form method="POST" action="{% url 'service-booking' service_id=service.id %}">
       {% csrf_token %}
-      <label for="date">Select Date & Time:</label>
+      <label for="date">Select Slot</label>
       <select name="availability_slot" id="availability_slot" required>
         {% for slot in available_slots %}
           <option value="{{ slot.id }}">{{ slot.date }} ({{ slot.start_time }} - {{ slot.end_time }})</option>

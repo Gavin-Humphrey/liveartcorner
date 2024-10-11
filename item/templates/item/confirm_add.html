@@ -1,0 +1,19 @@
+{% extends 'base/main.html' %}
+{% load static %}
+
+{% block content %}
+<body>
+    <h1>Confirm Add to Cart</h1>
+    <p>The item "{{ item.title }}" is already in your cart.</p>
+    <p>Would you like to add it again?</p>
+    <form method="POST" action="{% url 'add-to-cart' item_id=item.id %}">
+        {% csrf_token %}
+        <input type="hidden" name="item_id" value="{{ item.id }}">
+        <button class="btn btn-tertiary" type="submit">Yes, Add It Again</button>
+    </form>
+    <form method="POST" action="{% url 'item-detail' item_id=item.id %}">
+        {% csrf_token %}
+        <button class="btn btn-tertiary" type="submit">No, Go Back to Item</button>
+    </form>
+</body>
+{% endblock content %}

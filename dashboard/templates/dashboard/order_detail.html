@@ -1,0 +1,79 @@
+{% extends 'base/main.html' %}
+
+{% block content %}
+
+<section class="order-item-detail">
+    <div class="container order-detail-container">
+        <div class="secondary-button-container dashboard-manage-btn-container">
+            <a href="{{ request.META.HTTP_REFERER }}" class="btn btn-secondary">Go Back</a>
+        </div>
+        <div class="order-item-header">
+            <h3>Order Item Detail</h3>
+            <span>Order Nº: 0123{{ order.id }} | Ordered on: {{ order.created_at }}</span>
+        </div>
+
+        {% if detailed_order_items %}
+            {% for detailed_item in detailed_order_items %}
+            <span>Order Item Nº: {{ detailed_item.order_item.id }} </span>
+            <div class="order-item-content">
+                <div class="row">
+                    <div class="col-md-8">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Dimension (cm)</th>
+                                    <th>Price</th>
+                                    <th>Delivery</th>
+                                    {% if detailed_item.discount_value %}
+                                        <th>Discount</th>
+                                    {% endif %}
+                                    <th>Total</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <!-- Accessing dimensions and price directly from order_item -->
+                                    <td>{{ detailed_item.order_item.item.length }} x {{ detailed_item.order_item.item.width }}</td>
+                                    <td>&#36;{{ detailed_item.order_item.item.price }}</td>
+                                    <td>&#36;{{ detailed_item.delivery_cost }}</td>
+                                    {% if detailed_item.discount_value %}
+                                        <td>&#36;{{ detailed_item.discount_value }}</td>
+                                    {% endif %}
+                                    <td>&#36;{{ detailed_item.item_total_cost|floatformat:2 }}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+        
+                        <!-- Image and Name Div placed under the table -->
+                        <div class="item-image-name">
+                            <img src="{{ detailed_item.order_item.item.image.url }}" alt="{{ detailed_item.order_item.item.title }}" class="img-fluid full-width-img">
+                            <h5>{{ detailed_item.order_item.item.title }}</h5>
+                        </div>
+                    </div>
+        
+                    <!-- Delivery Information -->
+                    <div class="col-md-4 mx-auto order-detail-delivery-info">
+                        <ul class="list-group">
+                            <li class="list-group-item">
+                                <h5>Delivery Information</h5>
+                            </li>
+                            {% for key, value in delivery_form_data.items %}
+                                <li class="list-group-item">
+                                    <strong>{{ key }}:</strong> {{ value }}
+                                </li>
+                            {% endfor %}
+                            <li class="list-group-item">
+                                <p><strong>Delivery Method:</strong> <span>{{ detailed_item.chosen_delivery_method }}</span></p>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        {% else %}
+            <p>No items found for this order.</p>
+        {% endif %}
+    </div>
+</section>
+
+{% endblock content %}

@@ -29,7 +29,7 @@
         "Rubbish!",
         "I'm sorry if I'm not understanding. How may I assist you?",
         "How do I register?",
-        "You can reister by clicking on the user-icon on the top-right of the page; and then folowing the prompts.",        
+        "You can register by clicking on the user-icon on the top-right of the page; and then folowing the prompts.",        
         "Ok",
         "Is there anything else I can assist you with today?",
         "No",
@@ -40,6 +40,8 @@
         "That's not a word I would use. However, I get your frustration, I'm sorry if I'm unable to help you. How may I help?",
         "You are stupid!",
         "That's not a word I would use. However, I get your frustration though. How may I help you?",
+        "Fuck off!", "I understand your frustration, and I'm sorry. I'm here to help with art inquiries.",
+        "Fuck you.", "I understand your frustration, and I'm sorry. I'm here to help with art inquiries.",
         "How do I register as artist?",
         "First, you have to be a registered user, then login. Afterwhich, you click on the user-icon, then 'Register as Artist'. And then follow the instructions.",
         "What is this website for?",
@@ -53,6 +55,18 @@
         "I want to subscribe",
         "You can subscribe by clicking on the user-icon on the top-right of the page; and then folowing the prompts.", 
         "Can an anonymous customer order for an artwork?",
-        "A user has to be registered to see the services propossed by the artists. However, both registered and anonymous clinets can order artworks."        
+        "A user has to be registered to see the services propossed by the artists. However, both registered and anonymous clinets can order artworks." ,
+        "Goodbye", "Goodbye! Have a great day!",
+        "Bye", "Take care! Goodbye!",
+        "I’m done with you", "Okay, feel free to come back anytime!",
+        "Good night", "Good night! Sleep well!", 
+        "That's cool!", "Glad you think so!",
+        "I mean, it's OK", "Good to know you're okay with that!",
+        "Do you understand?", "I understand, but I am still learning!",
+        "So, what next?", "You can explore our collection or ask me for recommendations!",
+        "You are not helping out", "I'm here to help! Let me know what you're looking for.",
+        "You are not intelligent!", "I'm still learning, but I'll try my best to assist.",
+        "What is the latest artwork here", "The latests are displayed on our home page. You can browse through them and make your choice(s).",
+        "What artworks do you have here", "Our artworks are displayed on our home page. You can browse through them and make your choice(s). You can also register to have a full access to our offers and services."     
     ]
 }

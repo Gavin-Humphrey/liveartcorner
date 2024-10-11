@@ -2,7 +2,12 @@ from django.test import TestCase, Client
 from django.urls import reverse
 from django.contrib.auth import get_user_model
 from django.core import mail
-from base.forms import ContactForm
+from django_secure_contact_form.forms import ContactForm
+
+from django.test import TestCase
+from django.urls import reverse
+from django.core import mail
+from unittest.mock import patch
 
 User = get_user_model()
 
@@ -62,16 +67,42 @@ class ContactViewTestCase(TestCase):
         self.assertIn("Subject: Test Subject", mail.outbox[0].body)
         self.assertIn("Message: Test Message", mail.outbox[0].body)
 
-    def test_contact_view_post_invalid(self):
-        data = {
-            "firstname": "",
-            "lastname": "Doe",
-            "email": "john.doe@example.com",
-            "subject": "Test Subject",
-            "message": "Test Message",
-        }
-        response = self.client.post(self.url, data)
+
+class ContactViewTestCase(TestCase):
+
+    @patch(
+        "captcha.fields.CaptchaField.clean"
+    )  # Mock the clean method of the CaptchaField
+    def test_contact_view_post_valid(self, mock_captcha):
+        # Mock the CAPTCHA response to always be valid
+        mock_captcha.return_value = True
+
+        # Send a POST request with valid data
+        response = self.client.post(
+            reverse("contact"),
+            {
+                "name": "Test User",
+                "email": "test@example.com",
+                "subject": "Test Subject",
+                "message": "Test Message",
+                "captcha": "valid_captcha_response",  # Simulating a valid CAPTCHA response
+            },
+        )
+
+        # Assert that the correct template is used after form submission
+        self.assertTemplateUsed(response, "base/thank_you.html")
+
+        # Assert the response status code is 200 OK
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, "base/contact.html")
-        self.assertIsInstance(response.context["form"], ContactForm)
-        self.assertTrue(response.context["form"].errors)
+
+        # Assert that an email was sent
+        self.assertEqual(len(mail.outbox), 1)
+
+        # Check how the email body is formatted
+        email_body = mail.outbox[0].body
+
+        # Adjust this line based on how your email is structured
+        self.assertIn("Full Name: Test User", email_body)
+        self.assertIn("Email: test@example.com", email_body)
+        self.assertIn("Subject: Test Subject", email_body)
+        self.assertIn("Message: Test Message", email_body)

@@ -45,8 +45,7 @@
                 <form action="{% url 'add-to-cart' item_id=item.id  %}" method="post">
                     {% csrf_token %}
                     <input type="hidden" name="item_id" value="{{ item.id}}">
-                    <label for="quantity">Quantity:</label>
-                    <input class="input-number" type="number" id="quantity" name="quantity" value="1" max="{{ item.quantity }}", min="1">
+                    
                     <button class="btn btn-tertiary" type="submit" id="add-to-cart" value="{{ item.id }}">Add to Cart</button> <a class="btn btn-tertiary" href="{% if cart_items_count > 0 %} {% url 'view-cart' %}{% endif %}">View Cart </a>  
                 </form> 
                 {% if request.user.is_authenticated %}                   
