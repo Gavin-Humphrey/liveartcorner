@@ -4,6 +4,8 @@ from item.models import Item
 from .shopping_cart import CartHandler
 from .models import DeliveryMethod, CartItem
 
+from wishlist.views import remove_from_wishlist
+
 
 def add_to_cart(request, item_id):
     item = get_object_or_404(Item, id=item_id)
@@ -18,6 +20,9 @@ def add_to_cart(request, item_id):
             if request.POST.get("confirm"):
                 # Create a new CartItem for the same item
                 CartItem.objects.create(cart=cart.cart, item=item)
+
+                # Remove the item from the wishlist if it exists
+                remove_from_wishlist(request, item_id)
                 # messages.success(request, "Another copy of the item has been added to your cart.")
                 return redirect("item-detail", item_id=item.id)
 
@@ -26,6 +31,9 @@ def add_to_cart(request, item_id):
 
         # If not already in the cart, add it
         CartItem.objects.create(cart=cart.cart, item=item)
+
+        # Remove the item from the wishlist if it exists
+        remove_from_wishlist(request, item_id)
         # messages.success(request, "Item added to your cart.")
         return redirect(request.META.get("HTTP_REFERER", "home"))
 

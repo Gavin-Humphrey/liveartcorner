@@ -42,10 +42,11 @@
                                             {% csrf_token %}
                                             <button type="submit" class="wishlist-button" onclick="showLoginPrompt()">
                                                 <div class="wishlist-add">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" class="wishlist-add-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                                    <!-- <svg xmlns="http://www.w3.org/2000/svg" class="wishlist-add-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                                                         <line x1="12" y1="5" x2="12" y2="19"></line>
                                                         <line x1="5" y1="12" x2="19" y2="12"></line>
-                                                    </svg> 
+                                                    </svg>  -->
+                                                    <i class="bi bi-cart"></i>
                                                 </div>
                                                 <span class="tooltip-text">Add to Cart</span>
                                             </button>
@@ -96,4 +97,5 @@
 
     })
 </script>
+
 {% endblock %}

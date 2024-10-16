@@ -419,8 +419,9 @@ body, html {
   width: 100%;
   font-size: 0.875rem ; 
   font-weight: bold;
-  background-color: #4b4848;
-  color: var(--danger-light) !important;
+  background-color: var(--footer-dark);
+  opacity: var(--opacity);
+  color: var(--main-light) !important;
   cursor: pointer;
   padding: 1rem;
 } 
