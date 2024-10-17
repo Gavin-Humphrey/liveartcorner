@@ -4,7 +4,6 @@ from item.models import Item
 from .shopping_cart import CartHandler
 from .models import DeliveryMethod, CartItem
 
-# from wishlist.views import remove_from_wishlist
 from wishlist.models import WishList, WishListItem
 
 
