@@ -18,6 +18,6 @@ class ChatbotResponseTestCase(TestCase):
 
     def test_chatbot_response(self):
         response = self.client.get(self.url, {"userMessage": "Hi"})
-        print("Test Response Content: ", response.content.decode())  
+        print("Test Response Content: ", response.content.decode())
         self.assertEqual(response.status_code, 200)
         self.assertIn("How are you doing?", response.content.decode())

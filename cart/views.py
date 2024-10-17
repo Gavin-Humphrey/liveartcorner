@@ -4,7 +4,8 @@ from item.models import Item
 from .shopping_cart import CartHandler
 from .models import DeliveryMethod, CartItem
 
-from wishlist.views import remove_from_wishlist
+# from wishlist.views import remove_from_wishlist
+from wishlist.models import WishList, WishListItem
 
 
 def add_to_cart(request, item_id):
@@ -15,26 +16,47 @@ def add_to_cart(request, item_id):
         # Check if the item already exists in the cart
         existing_cart_item = CartItem.objects.filter(cart=cart.cart, item=item).first()
 
+        # Check for item in wishlist
+        try:
+            wishlist = get_object_or_404(WishList, user=request.user)
+            wishlist_item = WishListItem.objects.get(wishlist=wishlist, item=item)
+        except WishListItem.DoesNotExist:
+            wishlist_item = None  # Item is not in the wishlist
+
+        # Handle if the item is already in the cart
         if existing_cart_item:
-            # Ask for confirmation to add another copy
             if request.POST.get("confirm"):
                 # Create a new CartItem for the same item
                 CartItem.objects.create(cart=cart.cart, item=item)
 
-                # Remove the item from the wishlist if it exists
-                remove_from_wishlist(request, item_id)
-                # messages.success(request, "Another copy of the item has been added to your cart.")
-                return redirect("item-detail", item_id=item.id)
+                # Remove from wishlist if it exists
+                if wishlist_item:
+                    wishlist_item.delete()
 
-            # messages.info(request, "Item already in your cart. Would you like to add another?")
+                messages.success(
+                    request, "Another copy of the item has been added to your cart."
+                )
+                # return redirect("item-detail", item_id=item.id)
+                return redirect("my-wishlist")
+
+            # Ask for confirmation to add another copy
             return render(request, "cart/confirm_add.html", {"item": item})
 
-        # If not already in the cart, add it
+        # If the item is not already in the cart, add it
         CartItem.objects.create(cart=cart.cart, item=item)
 
-        # Remove the item from the wishlist if it exists
-        remove_from_wishlist(request, item_id)
-        # messages.success(request, "Item added to your cart.")
+        # Remove from wishlist if the item was in the wishlist
+        if wishlist_item:
+            wishlist_item.delete()
+
+            # Check if there are any items left in the wishlist
+            if not wishlist.wishlist_items.exists():
+                # If wishlist is empty, redirect to the home page
+                # messages.success(request, "Item added to your cart. Your wishlist is now empty.")
+                return redirect("home")
+
+        # Redirect based on where the request came from
+        messages.success(request, "Item added to your cart.")
         return redirect(request.META.get("HTTP_REFERER", "home"))
 
     return redirect("home")
@@ -161,12 +183,13 @@ def view_cart(request):
 
     if not cart_items_count:
         messages.info(request, "Your cart is empty.")
+        return redirect("home")
 
     if not all_items_have_delivery_method:
         messages.warning(
             request,
             "Please select a delivery method for all items before proceeding to checkout.",
-        )  
+        )
 
     context = {
         "cart_items": cart_items,

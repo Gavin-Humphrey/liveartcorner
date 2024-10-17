@@ -25,7 +25,13 @@
         </div>
     </div>
     <!-- End of offcanvas -->
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert alert-info">{{ message }}</div>
+        {% endfor %}
+    {% endif %}
     <div class="card-container">
+       
         {% for card in card_items %}
         <div class="card">
            

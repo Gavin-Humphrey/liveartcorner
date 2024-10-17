@@ -8,7 +8,7 @@ from ..models import Order
 
 from ..models import (
     GuestUser,
-)  
+)
 
 
 User = get_user_model()
@@ -142,7 +142,7 @@ class OrderProcessTests(TestCase):
         self.assertEqual(order.total_cost, 200.00)
 
     def test_create_order_anonymous(self):
-        # Create a guest user object 
+        # Create a guest user object
         guest_user = GuestUser.objects.create()
 
         order_data = {

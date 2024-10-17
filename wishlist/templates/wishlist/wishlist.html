@@ -2,63 +2,68 @@
 {% load static %}
 
 {% block content %}
+
 <main class="page">
-    <section class="shopping-cart">
+    <section class="shopping-cart wishlist-section">
         <div class="container">
             <div class="cart-heading opacity-item">
                 <h3>Your Wishlist</h3>
             </div>
-            <div class="content-container">
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="alert alert-info">{{ message }}</div>
+                {% endfor %}
+            {% endif %}
+            <div class="content-container wishlist-content-container">
                 <div class="wishlist-grid-row">
-                    <div class="cart-display">
+                    <div class="cart-display wishlist-display">
                         <div class="display-items-count text-right text-muted">{{ wishlist_items.count }} Items</div>
-                        <table class="cart-items-table">
+                        <table class="cart-items-table wishlist-table">
                             <thead>
                                 <tr class="table-header-style opacity-item">
                                     <th>Item</th>
-                                    <th>Name</th>
-                                    <th>Price</th>
-                                    <th>Move</th>
-                                    <th>Remove</th>
+                                    <th class="table-item-center">Name</th>
+                                    <th class="table-item-center">Price</th>
+                                    <th class="table-item-center">Move to cart</th>
+                                    <th class="table-item-center">Remove</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 {% for wishlist_item in wishlist_items %}
-                                <tr class="border-top border-bottom">
-                                    <td class="table-header-style">
-                                        <a class="cart-item-image" href="{% url 'item-detail' wishlist_item.item.id %}">
-                                            <img class="img-fluid mx-auto d-block image" src="{{ wishlist_item.item.image.url }}">
+                                <tr class="border-top border-bottom wishlist-table-border">
+                                    <td class="table-header-style wishlist-table-header-style">
+                                        <a class="cart-item-image wishlist-item-image" href="{% url 'item-detail' wishlist_item.item.id %}">
+                                            <!-- <img class="img-fluid mx-auto d-block image wishlist-img-fluid" src="{{ wishlist_item.item.image.url }}"> -->
+                                            <img class="wishlist-img-fluid" src="{{ wishlist_item.item.image.url }}"> 
                                         </a>
                                     </td>
-                                    <td class="table-header-style">
+                                    <td class="table-header-style table-item-center">
                                         <a class="product-name" href="{% url 'item-detail' wishlist_item.item.id %}"><span class="cart-image-title-opacity-item">{{ wishlist_item.item.title }}</span></a>
                                     </td>
-                                    <td class="table-header-style">
-                                        <div class="price">&#36;{{ wishlist_item.item.price }}</div>
+                                    <td class="table-header-style wishlist-table-header-style table-item-center">
+                                        <div class="price wishlist-price">&#36;{{ wishlist_item.item.price }}</div>
                                     </td>
-
-                                    <td class="table-header-style">
+                        
+                                    <td class="table-header-style wishlist-table-header-style table-item-center">
                                         <form action="{% url 'add-to-cart' item_id=wishlist_item.item.id %}" method="post">
                                             {% csrf_token %}
                                             <button type="submit" class="wishlist-button" onclick="showLoginPrompt()">
                                                 <div class="wishlist-add">
-                                                    <!-- <svg xmlns="http://www.w3.org/2000/svg" class="wishlist-add-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                                        <line x1="12" y1="5" x2="12" y2="19"></line>
-                                                        <line x1="5" y1="12" x2="19" y2="12"></line>
-                                                    </svg>  -->
+                                                    
                                                     <i class="bi bi-cart"></i>
                                                 </div>
                                                 <span class="tooltip-text">Add to Cart</span>
                                             </button>
                                         </form>
                                     </td>
-                                    <td class="table-header-style">
+                                    <td class="table-header-style wishlist-table-header-style table-item-center">
                                         <form action="{% url 'remove-from-wishlist' wishlist_item.item.id %}" method="post">
                                             {% csrf_token %}
-                                            <button type="submit">
-                                                <div class="cart-table-delete">
+                                            <button type="submit" class="wishlist-button">
+                                                <div class="cart-table-delete wishlist-table-delete">
                                                     <img src="{% static 'img/trash-can.svg' %}" alt="trash icon" class="cart-trash-img">
                                                 </div>
+                                                <span class="tooltip-text">Remove from Wishlist</span>
                                             </button>
                                         </form>
                                     </td>

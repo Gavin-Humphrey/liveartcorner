@@ -7,7 +7,6 @@ from .process_booking_payment import (
 )
 
 
-
 urlpatterns = [
     path("add-service/", views.add_service, name="add-service"),
     path("services-list/", views.service_list, name="services-list"),
@@ -27,7 +26,6 @@ urlpatterns = [
     path(
         "payment-status/<int:booking_id>/", payment_status_view, name="payment-status"
     ),
-    
     path(
         "service-booking/<int:service_id>/",
         views.service_booking,

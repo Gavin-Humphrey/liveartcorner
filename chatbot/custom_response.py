@@ -30,7 +30,7 @@ bot = ChatBot(
         }
     ],
     storage_adapter="chatterbot.storage.SQLStorageAdapter",
-    #database_uri=config("DATABASE_URL"), # For Production
+    # database_uri=config("DATABASE_URL"), # For Production
     database_uri="sqlite:///database.sqlite3",  # For Dev.
 )
 

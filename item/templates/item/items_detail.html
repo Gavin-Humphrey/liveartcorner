@@ -6,6 +6,11 @@
     <div class="secondary-button-container item-detail-secondary-button-container">
         <a href="{% url 'home' %}" class="btn btn-secondary">Back to Home</a>
     </div>
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert alert-info">{{ message }}</div>
+        {% endfor %}
+    {% endif %}
     <h1>{{ item.title }}</h1> 
     <div class="item-detail-card">
         <div class="item-detail-card-left">             
@@ -93,4 +98,5 @@
         document.getElementById('custom-alert-nav').style.display = 'none';
     }
 </script>
+
 {% endblock content %}

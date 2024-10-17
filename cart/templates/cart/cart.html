@@ -23,9 +23,9 @@
                             <thead>
                                 <tr class="table-header-style opacity-item">
                                     <th>Item</th>
-                                    <th>Name</th>
-                                    <th>Price</th>
-                                    <th>Delete</th>
+                                    <th class="table-item-center">Name</th>
+                                    <th class="table-item-center">Price</th>
+                                    <th class="table-item-center">Delete</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -36,22 +36,23 @@
                                             <img class="img-fluid mx-auto d-block image" src="{{ cart_item.item.image.url }}">
                                         </a>
                                     </td>
-                                    <td class="table-header-style">
+                                    <td class="table-header-style table-item-center">
                                         <a class="product-name" href="{% url 'item-detail' cart_item.item.id %}">
                                             <span class="cart-image-title-opacity-item">{{ cart_item.item.title }}</span>
                                         </a>
                                     </td>
                                     
-                                    <td class="table-header-style cart-table-item">
+                                    <td class="table-header-style cart-table-item table-item-center">
                                         <div class="price">&#36;{{ cart_item.item.price }}</div>
                                     </td>
-                                    <td class="table-header-style opacity-item">
+                                    <td class="table-header-style opacity-item table-item-center">
                                         <form action="{% url 'remove-from-cart' cart_item.id %}" method="post">
                                             {% csrf_token %}
-                                            <button type="submit">
+                                            <button type="submit" class="cart-button"> 
                                                 <div class="cart-table-delete">
                                                     <img src="{% static 'img/trash-can.svg' %}" alt="trash icon" class="cart-trash-img">
                                                 </div>
+                                                <span class="tooltip-text">Remove from Cart</span>
                                             </button>
                                         </form>
                                     </td>

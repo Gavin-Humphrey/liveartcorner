@@ -214,7 +214,10 @@ def get_artist_bookings(request):
     }
     return render(request, "dashboard/artist_bookings.html", context)
 
+
 from django.db.models import Count
+
+
 @login_required
 def artist_orders(request):
     user = request.user
@@ -243,7 +246,7 @@ def artist_orders(request):
         print("No orders found for this user.")
 
     context = {
-        "orders": orders,  
+        "orders": orders,
         "order_count": order_count,
         "order_items_count": order_items_count,
     }

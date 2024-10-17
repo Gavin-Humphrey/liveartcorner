@@ -36,7 +36,6 @@ urlpatterns = [
     path("chatbot/", include("chatbot.urls")),
     path("contact/", include("django_secure_contact_form.urls")),  # Use plugin's URL
     path("captcha/", include("captcha.urls")),  # Include CAPTCHA URLs
-    
     path("", lambda request: redirect("contact")),
 ]
 if settings.DEBUG:
