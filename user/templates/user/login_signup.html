@@ -1,5 +1,11 @@
 {% extends 'base/main.html' %}
 {% block content %}
+
+{% if messages %}
+  {% for message in messages %}
+    <div class="alert alert-info">{{ message }}</div>
+  {% endfor %}
+{% endif %}
 <main class="form-container">
   {% if page == 'login' %}
     <div class="auth-form">
