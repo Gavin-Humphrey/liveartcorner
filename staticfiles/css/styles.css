@@ -387,6 +387,41 @@ body, html {
   vertical-align: middle; 
 }
 
+/* ++++++++ */
+
+.wishlist-section .container {
+  box-sizing: border-box; 
+  overflow-x: hidden; 
+}
+
+.wishlist-button {
+  z-index: 1000; 
+  -webkit-appearance: none; 
+  -moz-appearance: none;
+  appearance: none; 
+}
+
+.wishlist-add {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale; 
+}
+
+.wishlist-add i {
+  visibility: visible; 
+}
+
+.wishlist-section {
+    overflow: visible;
+}
+
+.wishlist-content-container, 
+.wishlist-grid-row, 
+.wishlist-display {
+  overflow: visible; 
+} 
+
+/* ++++++++ */
+
 
 @media screen and (max-width: 760px) {
 
@@ -438,8 +473,8 @@ body, html {
   .wishlist-content-container, 
   .wishlist-grid-row, 
   .wishlist-display {
-      overflow: visible; 
-  }
+    overflow: visible; 
+  } 
 /* ================ */
   /*  */
 
