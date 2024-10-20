@@ -397,7 +397,6 @@ body, html {
     margin-right: 0;
     width: 100%; 
     box-sizing: border-box; 
-
     overflow-x: hidden; 
   }
 
@@ -427,7 +426,7 @@ body, html {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale; 
   }
-  /* ======TESTING======== */
+  /* ======TESTING ADD TO CART ICON======== */
   .wishlist-add i {
     visibility: visible; 
 }
@@ -439,7 +438,7 @@ body, html {
   .wishlist-content-container, 
   .wishlist-grid-row, 
   .wishlist-display {
-      overflow: visible; /
+      overflow: visible; 
   }
 /* ================ */
   /*  */
@@ -3416,19 +3415,13 @@ h1 {
   margin-left: auto;
   text-align: right;
   /* font-size: 0.75rem;   */
-  font-size: 1rem;
-  font-weight: 400;
+  font-size: 0.78rem;
+  font-weight: bold;
   width: 100%;
-  opacity: 0.7;
+  /* opacity: var(--opacity); */
   font-family: Arial, sans-serif !important;
 }
 
-/* .chatbot-text {
-  font-size: 1rem;  
-  font-weight: 400;
-  text-align: left;
-  color: var(--danger-light);
-} */
 
 #chatbot-input {
   width: 100%;
@@ -3451,36 +3444,46 @@ h1 {
 
 .chatbot-text {
   width: fit-content;
-  border-radius: 15px 15px 15px 0; 
-  font-size: 1rem;  
-  font-weight: 400;
-  text-align: center;
+  border-radius: 5px;
   color: var(--main-light);
   background-color: var(--footer-dark);
+  text-align: center;
   padding: 0.5rem;
-  opacity: 0.7;
+  position: relative; 
+}
+
+/* Pseudo-element creates the speech bubble tail pointing down-left */
+.chatbot-text::after {
+  content: "";
+  position: absolute;
+  bottom: -5px; 
+  left: 5px; 
+  border-width: 15px 15px 0 0; 
+  border-style: solid;
+  border-color: var(--footer-dark) transparent transparent transparent;
 }
 
 .user-text {
   width: fit-content;
-  border-radius: 15px 15px 0 15px; /* Top left, top right, bottom right, bottom left */
-  /* float: right; */
+  border-radius: 5px;
   margin-left: auto;
   color: var(--main-light);
   background-color: var(--danger-light);
   text-align: center;
   padding: 0.5rem;
+  position: relative; 
 }
 
-/* .user-text {
-  width: auto; 
-  border-radius: 20px;
-  float: right;
-  color: var(--main-light);
-  background-color: var(--danger-light);
-  text-align: center; 
-  padding: 0.5rem; 
-} */
+/* Pseudo-element creates the speech bubble tail pointing down-right */
+.user-text::after {
+  content: "";
+  position: absolute;
+  bottom: -5px; 
+  right: 5px; 
+  border-width: 15px 0 0 15px; 
+  border-style: solid;
+  border-color: var(--danger-light) transparent transparent transparent; 
+}
 
 @media screen and (max-width: 768px) {
   #chatbot-icon {
