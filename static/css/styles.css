@@ -389,7 +389,7 @@ body, html {
 
 /* @media screen and (max-width: 760px) { */
 
-@media screen and (max-width: 780px) {
+@media screen and (max-width: 780px) and (orientation: landscape) {
 
   .wishlist-section .container {
     padding-left: 0;
@@ -427,7 +427,7 @@ body, html {
     -moz-osx-font-smoothing: grayscale; 
   }
   /* ======TESTING ADD TO CART ICON======== */
-  /* .wishlist-add i {
+  .wishlist-add i {
     visibility: visible; 
   }
 
@@ -439,7 +439,7 @@ body, html {
   .wishlist-grid-row, 
   .wishlist-display {
     overflow: visible; 
-  }  */
+  } 
 /* ================ */
   /*  */
 
