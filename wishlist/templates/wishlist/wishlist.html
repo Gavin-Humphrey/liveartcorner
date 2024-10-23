@@ -47,7 +47,7 @@
                                     <td class="table-header-style wishlist-table-header-style table-item-center">
                                         <form action="{% url 'add-to-cart' item_id=wishlist_item.item.id %}" method="post">
                                             {% csrf_token %}
-                                            <button type="submit" class="wishlist-button" onclick="showLoginPrompt()">
+                                            <button type="submit" class="wishlist-page-wishlist-button" onclick="showLoginPrompt()">
                                                 <div class="wishlist-add">
                                                     
                                                     <i class="bi bi-cart"></i>

@@ -308,6 +308,16 @@ body, html {
   position: relative;
 }
 
+/* 00000 ADDED FOR DEBUG 23/10 */
+.wishlist-page-wishlist-button, .cart-button { 
+  background: none;
+  border: none;
+  cursor: pointer;
+  position: relative;
+}
+
+/* 000000 */
+
 .tooltip-text {
   visibility: hidden;
   width: 7.5rem;
@@ -343,6 +353,14 @@ body, html {
   opacity: 1;
 }
 
+/* 0000000 ADDED FOR DEBUG 23/10 */
+.wishlist-page-wishlist-button:hover .tooltip-text {
+  visibility: visible;
+  opacity: 1;
+}
+
+/* 000000 */
+
 .cart-button:hover .tooltip-text {
   visibility: visible;
   opacity: 1;
@@ -376,10 +394,11 @@ body, html {
   transform: translate(5%, -50%); 
 }
 
-.wishlist-add-icon {
+/* JUST COMMENTED FOR DEBUG 23/10 */
+/* .wishlist-add-icon {
   opacity: var(--opacity);
   filter: brightness(1.7);
-}
+} */
 
 /* =====Wishlist Page==== */
 .table-item-center {
@@ -501,67 +520,6 @@ body, html {
 
 }
 
-/* ++++++++++++ */
-@media screen and (max-width: 760px) and (orientation: landscape) {
-  
-  .wishlist-section .container {
-    padding-left: 0;
-    padding-right: 0;
-    width: 100%; 
-    box-sizing: border-box;
-    overflow-x: hidden; 
-  }
-
-  .wishlist-grid-row {
-    display: flex;
-    flex-direction: column; 
-    justify-content: center;
-    align-items: center;
-  }
-
-  
-  .wishlist-button {
-    display: inline-block;
-    visibility: visible;
-    opacity: 1;
-    z-index: 1000;
-    position: relative;
-    padding: 0.5rem;
-    font-size: 1.25rem; 
-  }
-
-  .wishlist-add {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-
-  
-  .wishlist-add i {
-    font-size: 1.5rem; 
-    color: var(--footer-dark); 
-  }
-
-  
-  .wishlist-table {
-    width: 100%; 
-    table-layout: auto;
-  }
-
-  .wishlist-table td {
-    overflow: visible; 
-    padding: 0.5rem;
-  }
-
-  
-  .wishlist-add i {
-    display: block;
-    width: 24px;
-    height: 24px;
-  }
-}
-
-/* ++++++++++++ */
 
 /* =====Nav Icons====== */
 .search-form {
