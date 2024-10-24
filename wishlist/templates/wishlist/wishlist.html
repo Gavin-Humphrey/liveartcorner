@@ -102,7 +102,16 @@
 
     })
 
-    
+    window.addEventListener('resize', function() {
+    if (window.innerHeight < window.innerWidth) {
+        // Landscape mode adjustments
+        document.querySelector('.wishlist-page-wishlist-button').style.visibility = 'visible';
+    } else {
+        // Portrait mode adjustments
+        document.querySelector('.wishlist-page-wishlist-button').style.visibility = 'visible';
+    }
+    });
+
 </script>
 
 {% endblock %}
