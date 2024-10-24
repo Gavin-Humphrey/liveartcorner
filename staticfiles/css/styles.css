@@ -222,7 +222,7 @@ body, html {
   transform: translate(5%, -50%); 
   margin-right: 15%;
 }
-/*  */
+
 .nav-link-item {
   position: relative;
   display: inline-block;
@@ -251,8 +251,6 @@ body, html {
   color: var(--danger-light) !important;
   border-bottom: 2px solid var(--danger-light);
 }
-
-/*  */
 
 .dropdown-item:hover {
   color: var(--danger-light) !important;
@@ -309,24 +307,18 @@ body, html {
 }
 
 /* 00000 ADDED FOR DEBUG 23/10 */
+/* ///TODAY 24/10/// */
+.wishlist-page-wishlist-button {
+  position: relative;
+  z-index: 9999; 
+}
+/* /// */
 .wishlist-page-wishlist-button, .cart-button { 
   background: none;
   border: none;
   cursor: pointer;
   position: relative;
 }
-/* Today */
-.container, .wishlist-display {
-  overflow: visible !important; 
-}
-
-.wishlist-page-wishlist-button {
-  visibility: visible !important;
-  opacity: 1 !important;
-  display: block !important;
-}
-
-
 /* 000000 */
 
 .tooltip-text {
@@ -530,15 +522,6 @@ body, html {
   }
 
 }
-/* 0000000 */
-@media screen and (max-width: 780px) and (orientation: landscape) {
-  .wishlist-page-wishlist-button {
-      visibility: visible !important;
-      opacity: 1 !important;
-  }
-}
-
-/* 0000000 */
 /* =====Nav Icons====== */
 .search-form {
   max-width: 600px;
