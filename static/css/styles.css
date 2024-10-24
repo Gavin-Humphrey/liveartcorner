@@ -407,6 +407,13 @@ body, html {
 }
 
 @media screen and (max-width: 760px) {
+  /* 000000 */
+  .wishlist-page-wishlist-button {
+    margin: 0 auto; 
+    padding: 1rem; 
+  }
+  
+  /* 00000000 */
 
   .wishlist-section .container {
     padding-left: 0;
@@ -520,7 +527,13 @@ body, html {
 
 }
 
-
+/* 0000000 */
+@media screen and (orientation: landscape) {
+  .wishlist-page-wishlist-button {
+    margin-bottom: 1rem; 
+  }
+}
+/* 0000000 */
 /* =====Nav Icons====== */
 .search-form {
   max-width: 600px;
